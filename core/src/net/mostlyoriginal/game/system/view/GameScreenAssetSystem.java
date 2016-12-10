@@ -21,7 +21,11 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int LAYER_BEHIND_ACTORS = 5;
     public static final int LAYER_TOILET_DOOR = 10;
     public static final int LAYER_ACTORS = 1000;
+    public static final int LAYER_PLAYER = 2000;
+
     public static final int DEFAULT_MODULE_HEIGHT = UNIT * 5;
+    public static final int PLAYER_WIDTH = 24;
+    public static final int PLAYER_HEIGHT = 36;
 
     public GameScreenAssetSystem() {
         super("tileset.png");
@@ -40,5 +44,16 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("module_part_door_closed", UNIT * 10, 0, UNIT, DEFAULT_MODULE_HEIGHT, 1);
         add("module_part_door_open", UNIT * 11, 0, UNIT, DEFAULT_MODULE_HEIGHT, 1);
         add("visitor", 0, UNIT * 10, VISITOR_WIDTH, VISITOR_HEIGHT, 1);
+
+        add("player_toiletpaper", 32, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
+        add("player_plunger", 176, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
+        add("player_mop", 320, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
+
+        //Player, normal walk:
+        //x 32, y 288 - w 24, h 36 - six frames
+        //Player, plunger walk:
+        //x 176, y 288 - w 24, h 36 - six frames
+        //Player, mop walk:
+        //x 320, y 288 - w 24, h 36 - six frames
     }
 }

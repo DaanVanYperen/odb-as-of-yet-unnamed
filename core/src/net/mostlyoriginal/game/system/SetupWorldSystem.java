@@ -47,30 +47,34 @@ public class SetupWorldSystem extends FluidSystem {
         if (!e.bathroomLevelInitialized()) {
             e.bathroomLevelInitialized(true);
             for (BathroomLevel.Type type : e.bathroomLevelModules()) {
-                initModule(type);
+                e.bathroomLevelModuleEntityIds().add(initModule(type));
             }
         }
     }
 
-    private void initModule(BathroomLevel.Type type) {
+    private int initModule(BathroomLevel.Type type) {
+
+        int moduleId = -1;
 
         switch (type) {
             case ENTRANCE:
-                spawnEntrance(x, 0);
+                moduleId = spawnEntrance(x, 0);
                 x = x + GameScreenAssetSystem.ENTRANCE_WIDTH;
                 break;
             case TOILET:
-                spawnToilet(x, 0);
+                moduleId = spawnToilet(x, 0);
                 x = x + GameScreenAssetSystem.TOILET_WIDTH;
                 break;
             case SUPPLY_CLOSET:
-                spawnCloset(x, 0);
+                moduleId = spawnCloset(x, 0);
                 x = x + GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH;
                 break;
         }
+
+        return moduleId;
     }
 
-    private void spawnCloset(int x, int y) {
+    private int spawnCloset(int x, int y) {
         E closet = E()
                 .pos(x, y)
                 .render()
@@ -90,9 +94,12 @@ public class SetupWorldSystem extends FluidSystem {
                         .pos(x, y)
                         .render()
                         .effect(Effect.Type.UNCLOG);
+
+        return closet.id();
+
     }
 
-    private void spawnToilet(int x, int y) {
+    private int spawnToilet(int x, int y) {
         E()
                 .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND)
@@ -102,24 +109,32 @@ public class SetupWorldSystem extends FluidSystem {
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
                 .anim("module_part_toilet");
 
-        E()
+        return E()
                 .pos(x, y)
                 .bounds(0,0,GameScreenAssetSystem.TOILET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim(MathUtils.randomBoolean() ? "module_part_door_closed" : "module_part_door_open")
                 .interactable("module_part_door_closed", "module_part_door_open")
-                .toilet();
+                .toilet().id();
     }
 
-    private void spawnEntrance(int x, int y) {
+    private int spawnEntrance(int x, int y) {
         E()
+                .pos(x,y+10)
+                .bounds(0,0,GameScreenAssetSystem.PLAYER_WIDTH,GameScreenAssetSystem.PLAYER_HEIGHT)
+                .render(GameScreenAssetSystem.LAYER_PLAYER)
+                .player()
+                .anim("player_plunger");
+
+        return E()
                 .pos(x, y)
                 .render()
                 .bounds(0,0,GameScreenAssetSystem.ENTRANCE_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_entrance")
                 .interactable()
                 .entrance()
-                .exit();
+                .exit()
+                .id();
     }
 
 

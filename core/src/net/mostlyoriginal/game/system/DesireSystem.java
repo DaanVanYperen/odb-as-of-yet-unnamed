@@ -5,10 +5,10 @@ import com.artemis.E;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.Desire;
-import net.mostlyoriginal.game.component.Effect;
 import net.mostlyoriginal.game.component.Using;
 import net.mostlyoriginal.game.component.module.Exit;
 import net.mostlyoriginal.game.component.module.Toilet;
+import net.mostlyoriginal.game.component.state.Dirty;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
 /**
@@ -38,7 +38,10 @@ public class DesireSystem extends FluidSystem {
                 entityId = randomOf(getExits());
                 break;
             case POOP:
-                entityId = randomOf(getToilets());
+                entityId = randomOf(getCleanToilet());
+                if ( entityId == MISSING_ENTITY_ID ) {
+                    entityId = randomOf(getDirtyToilet());
+                }
                 break;
         }
 
@@ -51,7 +54,14 @@ public class DesireSystem extends FluidSystem {
         return !exits.isEmpty() ? exits.get(MathUtils.random(exits.size()-1)) : MISSING_ENTITY_ID;
     }
 
-    private IntBag getToilets() {
+    private IntBag getCleanToilet() {
+        return world
+                .getAspectSubscriptionManager()
+                .get(Aspect.all(Toilet.class).exclude(Dirty.class)).getEntities();
+    }
+
+
+    private IntBag getDirtyToilet() {
         return world
                 .getAspectSubscriptionManager()
                 .get(Aspect.all(Toilet.class)).getEntities();

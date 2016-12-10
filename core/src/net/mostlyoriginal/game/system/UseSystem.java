@@ -48,6 +48,7 @@ public class UseSystem extends FluidSystem {
 
     private void applyEffects(E thing, E actor) {
         if ( thing.isToilet()) {
+            thing.dirty();
             actor.desireType(Desire.Type.LEAVE);
         }
         if (thing.isExit()) {

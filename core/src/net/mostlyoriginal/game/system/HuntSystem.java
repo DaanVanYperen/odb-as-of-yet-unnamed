@@ -13,6 +13,7 @@ import net.mostlyoriginal.game.component.module.Toilet;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
 import static com.artemis.E.E;
+import static com.badlogic.gdx.scenes.scene2d.ui.Table.Debug.actor;
 
 /**
  * @author Daan van Yperen
@@ -31,7 +32,12 @@ public class HuntSystem extends FluidSystem {
 
             if ( walkTowards(e, huntTarget) )
             {
-                startUsing(e, huntTarget);
+                if ( !huntTarget.hasInUse() ) {
+                    startUsing(e, huntTarget);
+                } else {
+                    // hunt no longer valid. hunt something else!
+                    e.removeHunt();
+                }
             }
         }
     }
