@@ -26,7 +26,7 @@ public class SetupWorldSystem extends FluidSystem {
             BathroomLevel.Type.TOILET,
             BathroomLevel.Type.TOILET,
             BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.SUPPLY_CLOSET
+                BathroomLevel.Type.SUPPLY_CLOSET
     };
 
     public SetupWorldSystem() {
@@ -74,6 +74,7 @@ public class SetupWorldSystem extends FluidSystem {
         E closet = E()
                 .pos(x, y)
                 .render()
+                .bounds(0,0,GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_storage")
                 .interactable()
                 .inventory();
@@ -103,6 +104,7 @@ public class SetupWorldSystem extends FluidSystem {
 
         E()
                 .pos(x, y)
+                .bounds(0,0,GameScreenAssetSystem.TOILET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim(MathUtils.randomBoolean() ? "module_part_door_closed" : "module_part_door_open")
                 .interactable()
@@ -113,6 +115,7 @@ public class SetupWorldSystem extends FluidSystem {
         E()
                 .pos(x, y)
                 .render()
+                .bounds(0,0,GameScreenAssetSystem.ENTRANCE_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_entrance")
                 .interactable()
                 .entrance()
