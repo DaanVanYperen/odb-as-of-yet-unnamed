@@ -23,6 +23,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int LAYER_TOILET_DOOR = 10;
     public static final int LAYER_ACTORS = 2000;
     public static final int LAYER_PLAYER = 1000;
+    public static final int LAYER_ACTORS_BUSY = 9;
 
     public static final int DEFAULT_MODULE_HEIGHT = UNIT * 5 + 16;
     public static final int PLAYER_WIDTH = 24;

@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
+import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.Interactable;
 import net.mostlyoriginal.game.component.Player;
@@ -10,15 +11,22 @@ import net.mostlyoriginal.game.component.state.InUse;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
 import static com.artemis.E.E;
+import static net.mostlyoriginal.game.system.view.GameScreenAssetSystem.LAYER_ACTORS;
+import static net.mostlyoriginal.game.system.view.GameScreenAssetSystem.LAYER_ACTORS_BUSY;
+import static net.mostlyoriginal.game.system.view.GameScreenAssetSystem.LAYER_PLAYER;
 
 /**
  * @author Daan van Yperen
  */
 public class UseSystem extends FluidSystem {
 
+    public static final int ACT_OFFSET_Y = 32;
+
     public UseSystem() {
         super(Aspect.all(InUse.class, Interactable.class));
     }
+
+    RenderBatchingSystem renderBatchingSystem;
 
     @Override
     protected void process(E e) {
@@ -27,6 +35,11 @@ public class UseSystem extends FluidSystem {
         E actor = getActor(e);
         if ( actor.hasPlayer()) {
             delta = delta * actor.playerTool().multiplier;
+        }
+
+        if ( e.inUseDuration() == 0 )
+        {
+            startUsing(e, actor);
         }
 
         e.inUseDuration(e.inUseDuration() + delta);
@@ -68,6 +81,9 @@ public class UseSystem extends FluidSystem {
     }
 
     private void finishAsPlayer(E thing, E actor) {
+        actor.renderLayer(LAYER_PLAYER);
+        actor.posY(actor.posY()-ACT_OFFSET_Y);
+        renderBatchingSystem.sortedDirty=true;
         if (thing.isDirty() && actor.playerTool() == Player.Tool.MOP) {
             thing.removeDirty();
         }
@@ -80,6 +96,9 @@ public class UseSystem extends FluidSystem {
     }
 
     private void finishAsVisitor(E thing, E actor) {
+        actor.renderLayer(LAYER_ACTORS);
+        actor.posY(actor.posY()-ACT_OFFSET_Y);
+        renderBatchingSystem.sortedDirty=true;
         if (thing.hasToilet()) {
             worsenToiletState(thing);
             actor.desireType(Desire.Type.LEAVE);
@@ -115,8 +134,9 @@ public class UseSystem extends FluidSystem {
 
     public void startUsing(E actor, E item) {
         if ( item.hasInteractable() && !item.hasInUse() ) {
-
-            actor.removeHunt();
+            actor.removeHunt().renderLayer(LAYER_ACTORS_BUSY);
+            actor.posY(actor.posY()+ACT_OFFSET_Y);
+            renderBatchingSystem.sortedDirty=true;
             actor.using(item.id());
             item.inUse(actor.id());
         }
