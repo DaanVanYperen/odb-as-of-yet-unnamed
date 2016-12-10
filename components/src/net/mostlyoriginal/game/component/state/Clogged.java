@@ -5,5 +5,5 @@ import com.artemis.Component;
 /**
  * @author Daan van Yperen
  */
-public class Flooded extends Component {
+public class Clogged extends Component {
 }

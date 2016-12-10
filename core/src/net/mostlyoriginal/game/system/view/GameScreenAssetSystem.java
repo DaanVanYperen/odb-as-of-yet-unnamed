@@ -40,7 +40,12 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("module_part_background", UNIT * 5, 0, TOILET_WIDTH, DEFAULT_MODULE_HEIGHT, 1);
         add("module_part_backgroundE", UNIT * 6, 0, TOILET_WIDTH, DEFAULT_MODULE_HEIGHT, 1);
         add("module_storage", UNIT * 7, 0, SUPPLY_CLOSET_WIDTH, DEFAULT_MODULE_HEIGHT, 1);
-        add("module_part_toilet", UNIT * 9, 0, UNIT, DEFAULT_MODULE_HEIGHT, 1);
+
+        add("module_part_toilet", 288, 56, 32, 72, 1);
+        add("module_part_toilet_dirty_clogged", 288, 152, 32, 72, 1);
+        add("module_part_toilet_dirty", 320, 152, 32, 72, 1);
+        add("module_part_toilet_clogged", 352, 152, 32, 72, 2);
+
         add("module_part_door_closed", UNIT * 10, 0, UNIT, DEFAULT_MODULE_HEIGHT, 1);
         add("module_part_door_open", UNIT * 11, 0, UNIT, DEFAULT_MODULE_HEIGHT, 1);
         add("visitor", 0, UNIT * 10, VISITOR_WIDTH, VISITOR_HEIGHT, 1);

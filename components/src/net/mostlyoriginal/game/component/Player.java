@@ -6,6 +6,25 @@ import com.artemis.Component;
  * @author Daan van Yperen
  */
 public class Player extends Component {
+
+    public enum Tool {
+        PLUNGER(2),
+        MOP(2);
+
+        public final float multiplier;
+
+        Tool(float multiplier ) {
+
+            this.multiplier = multiplier;
+        }
+    }
+
+    public Tool tool = Tool.PLUNGER;
+
     public int moduleIndex = 0;
     public int activeModuleId = -1;
+
+    public void nextTool() {
+        tool = Tool.values()[(tool.ordinal()+1) % Tool.values().length];
+    }
 }

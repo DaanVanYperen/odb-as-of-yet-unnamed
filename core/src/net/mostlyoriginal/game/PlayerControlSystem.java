@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import net.mostlyoriginal.game.component.BathroomLevel;
 import net.mostlyoriginal.game.component.Player;
+import net.mostlyoriginal.game.system.UseSystem;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
 import static com.artemis.E.*;
@@ -18,22 +19,37 @@ public class PlayerControlSystem extends FluidSystem {
         super(Aspect.all(Player.class));
     }
 
+    protected UseSystem useSystem;
+
     @Override
     protected void process(E player) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            shiftPosition(player, -1);
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            shiftPosition(player, 1);
+        if (!player.hasUsing()) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                shiftPosition(player, -1);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                shiftPosition(player, 1);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                startUsingModule(player);
+            }
         }
         moveToModule(player);
     }
 
+    private void startUsingModule(E player) {
+        useSystem.startUsing(player, getModule(player));
+    }
+
     private void moveToModule(E player) {
         if (player.playerActiveModuleId() != -1) {
-            E module = E(player.playerActiveModuleId());
+            E module = getModule(player);
             player.posX(module.posX());
         }
+    }
+
+    private E getModule(E player) {
+        return E(player.playerActiveModuleId());
     }
 
     private void shiftPosition(E player, int offset) {

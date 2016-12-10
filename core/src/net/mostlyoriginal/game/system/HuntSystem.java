@@ -24,6 +24,9 @@ public class HuntSystem extends FluidSystem {
         super(Aspect.all(Hunt.class, Pos.class, Bounds.class));
     }
 
+    protected UseSystem useSystem;
+
+
     @Override
     protected void process(E e) {
 
@@ -33,19 +36,13 @@ public class HuntSystem extends FluidSystem {
             if ( walkTowards(e, huntTarget) )
             {
                 if ( !huntTarget.hasInUse() ) {
-                    startUsing(e, huntTarget);
+                    useSystem.startUsing(e, huntTarget);
                 } else {
                     // hunt no longer valid. hunt something else!
                     e.removeHunt();
                 }
             }
         }
-    }
-
-    private void startUsing(E actor, E huntTarget) {
-        actor.removeHunt();
-        actor.using(huntTarget.id());
-        huntTarget.inUse(actor.id());
     }
 
     private boolean walkTowards(E actor, E huntTarget) {

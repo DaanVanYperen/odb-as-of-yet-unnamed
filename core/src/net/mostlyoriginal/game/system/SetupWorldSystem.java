@@ -80,7 +80,7 @@ public class SetupWorldSystem extends FluidSystem {
                 .render()
                 .bounds(0,0,GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_storage")
-                .interactable()
+                .interactableDuration(0.01f)
                 .inventory();
 
         E mopandbucket =
@@ -104,8 +104,9 @@ public class SetupWorldSystem extends FluidSystem {
                 .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND)
                 .anim("module_part_background");
-        E()
-                .pos(x, y)
+
+        E toiletBowl = E()
+                .pos(x, y+32)
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
                 .anim("module_part_toilet");
 
@@ -115,7 +116,7 @@ public class SetupWorldSystem extends FluidSystem {
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim(MathUtils.randomBoolean() ? "module_part_door_closed" : "module_part_door_open")
                 .interactable("module_part_door_closed", "module_part_door_open")
-                .toilet().id();
+                .toiletBowlId(toiletBowl.id()).id();
     }
 
     private int spawnEntrance(int x, int y) {
