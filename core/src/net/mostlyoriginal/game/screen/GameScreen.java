@@ -36,7 +36,7 @@ public class GameScreen extends WorldScreen {
                         new SuperMapper(),
 
                         // Replace with your own systems!
-                        new CameraSystem(1),
+                        new CameraSystem(2),
                         new ClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
                         new GameScreenAssetSystem(),
                         new SetupWorldSystem(),

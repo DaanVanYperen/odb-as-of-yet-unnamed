@@ -15,6 +15,8 @@ import static com.artemis.E.E;
  */
 public class SetupWorldSystem extends FluidSystem {
 
+    public static final int Y_OFFSET = 25;
+
     private BathroomLevel.Type[] level1 = {
             BathroomLevel.Type.ENTRANCE,
             BathroomLevel.Type.TOILET,
@@ -58,15 +60,15 @@ public class SetupWorldSystem extends FluidSystem {
 
         switch (type) {
             case ENTRANCE:
-                moduleId = spawnEntrance(x, 0);
+                moduleId = spawnEntrance(x, Y_OFFSET);
                 x = x + GameScreenAssetSystem.ENTRANCE_WIDTH;
                 break;
             case TOILET:
-                moduleId = spawnToilet(x, 0);
+                moduleId = spawnToilet(x, Y_OFFSET);
                 x = x + GameScreenAssetSystem.TOILET_WIDTH;
                 break;
             case SUPPLY_CLOSET:
-                moduleId = spawnCloset(x, 0);
+                moduleId = spawnCloset(x, Y_OFFSET);
                 x = x + GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH;
                 break;
         }
@@ -78,7 +80,7 @@ public class SetupWorldSystem extends FluidSystem {
         E closet = E()
                 .pos(x, y)
                 .render()
-                .bounds(0,0,GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .bounds(0, 0,GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_storage")
                 .interactableDuration(0.01f)
                 .inventory();
@@ -112,7 +114,7 @@ public class SetupWorldSystem extends FluidSystem {
 
         return E()
                 .pos(x, y)
-                .bounds(0,0,GameScreenAssetSystem.TOILET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .bounds(0, 0,GameScreenAssetSystem.TOILET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim(MathUtils.randomBoolean() ? "module_part_door_closed" : "module_part_door_open")
                 .interactable("module_part_door_closed", "module_part_door_open")
@@ -122,7 +124,7 @@ public class SetupWorldSystem extends FluidSystem {
     private int spawnEntrance(int x, int y) {
         E()
                 .pos(x,y+10)
-                .bounds(0,0,GameScreenAssetSystem.PLAYER_WIDTH,GameScreenAssetSystem.PLAYER_HEIGHT)
+                .bounds(0, 0,GameScreenAssetSystem.PLAYER_WIDTH,GameScreenAssetSystem.PLAYER_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_PLAYER)
                 .player()
                 .anim("player_plunger");
@@ -130,7 +132,7 @@ public class SetupWorldSystem extends FluidSystem {
         return E()
                 .pos(x, y)
                 .render()
-                .bounds(0,0,GameScreenAssetSystem.ENTRANCE_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .bounds(0, 0,GameScreenAssetSystem.ENTRANCE_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_entrance")
                 .interactable()
                 .entrance()
