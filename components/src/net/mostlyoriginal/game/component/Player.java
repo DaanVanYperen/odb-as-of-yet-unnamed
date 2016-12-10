@@ -21,7 +21,7 @@ public class Player extends Component {
 
     public Tool tool = Tool.PLUNGER;
 
-    public int moduleIndex = 0;
+    public int moduleIndex = 1;
     public int activeModuleId = -1;
 
     public void nextTool() {

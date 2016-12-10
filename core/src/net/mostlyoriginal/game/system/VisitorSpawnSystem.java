@@ -27,13 +27,14 @@ public class VisitorSpawnSystem extends FluidSystem {
         if ( e.entranceCooldown() <= 0 )
         {
             e.entranceCooldown(e.entranceTimeBetweenSpawns());
-            spawnVisitor(e.getPos());
+            e.anim(e.interactableStartAnimId());
+            spawnVisitor((int)(e.posX() + e.boundsMinx()), (int)(e.posY() - e.boundsMiny()));
         }
     }
 
-    private void spawnVisitor(Pos pos) {
+    private void spawnVisitor(int x, int y) {
         E()
-                .pos(pos.xy)
+                .pos(x, y)
                 .bounds(0,0,GameScreenAssetSystem.VISITOR_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_ACTORS)
                 .desire(Desire.Type.POOP)

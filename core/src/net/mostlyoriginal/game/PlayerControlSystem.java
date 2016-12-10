@@ -44,7 +44,7 @@ public class PlayerControlSystem extends FluidSystem {
     private void moveToModule(E player) {
         if (player.playerActiveModuleId() != -1) {
             E module = getModule(player);
-            player.posX(module.posX());
+            player.posX(module.posX() + module.boundsMinx());
         }
     }
 
@@ -58,7 +58,7 @@ public class PlayerControlSystem extends FluidSystem {
         int moduleIndex = player.playerModuleIndex() + offset;
         int moduleCount = bathroomLevel.bathroomLevelModuleEntityIds().size();
 
-        if (moduleIndex >= 0 && moduleIndex < moduleCount) {
+        if (moduleIndex >= 1 && moduleIndex < moduleCount) {
             player.playerModuleIndex(moduleIndex);
             player.playerActiveModuleId(bathroomLevel.bathroomLevelModuleEntityIds().get(moduleIndex));
         }

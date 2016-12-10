@@ -47,10 +47,10 @@ public class HuntSystem extends FluidSystem {
 
     private boolean walkTowards(E actor, E huntTarget) {
         float movementSpeed = world.delta * 150;
-        if (actor.posX() + movementSpeed < huntTarget.posX()) {
+        if (actor.posX() + movementSpeed < huntTarget.posX() + huntTarget.boundsMinx()) {
             actor.posX(actor.posX() + movementSpeed);
             return false;
-        } else if (actor.posX() - movementSpeed > huntTarget.posX()) {
+        } else if (actor.posX() - movementSpeed > huntTarget.posX() + huntTarget.boundsMinx()) {
             actor.posX(actor.posX() - movementSpeed);
             return false;
         }

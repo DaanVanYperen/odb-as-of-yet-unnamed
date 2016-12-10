@@ -8,5 +8,5 @@ import com.artemis.Component;
 public class Entrance extends Component {
 
     public float cooldown = 0;
-    public float timeBetweenSpawns = 10;
+    public float timeBetweenSpawns = 4;
 }

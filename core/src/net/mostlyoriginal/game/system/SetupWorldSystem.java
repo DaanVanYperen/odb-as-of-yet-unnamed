@@ -19,6 +19,7 @@ public class SetupWorldSystem extends FluidSystem {
 
     private BathroomLevel.Type[] level1 = {
             BathroomLevel.Type.ENTRANCE,
+            BathroomLevel.Type.TIPS,
             BathroomLevel.Type.TOILET,
             BathroomLevel.Type.TOILET,
             BathroomLevel.Type.TOILET,
@@ -62,6 +63,10 @@ public class SetupWorldSystem extends FluidSystem {
             case ENTRANCE:
                 moduleId = spawnEntrance(x, Y_OFFSET);
                 x = x + GameScreenAssetSystem.ENTRANCE_WIDTH;
+                break;
+            case TIPS:
+                moduleId = spawnTips(x, Y_OFFSET);
+                x = x + GameScreenAssetSystem.TIPS_WIDTH;
                 break;
             case TOILET:
                 moduleId = spawnToilet(x, Y_OFFSET);
@@ -123,6 +128,29 @@ public class SetupWorldSystem extends FluidSystem {
 
     private int spawnEntrance(int x, int y) {
         E()
+                .pos(x, y)
+                .render()
+                .bounds(32, 0,GameScreenAssetSystem.ENTRANCE_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .anim("module_entrance")
+                .id();
+
+
+        return E()
+                .pos(x + 32 +4, y + 19)
+                .bounds(16, 28,GameScreenAssetSystem.MAIN_DOOR_WIDTH,72)
+                .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
+                .anim("module_part_main_door_closed")
+                .interactableDuration(0.25f)
+                .entrance()
+                .exit()
+                .interactable("module_part_main_door_open", "module_part_main_door_closed")
+                .id();
+
+    }
+
+
+    private int spawnTips(int x, int y) {
+        E()
                 .pos(x,y+10)
                 .bounds(0, 0,GameScreenAssetSystem.PLAYER_WIDTH,GameScreenAssetSystem.PLAYER_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_PLAYER)
@@ -132,11 +160,9 @@ public class SetupWorldSystem extends FluidSystem {
         return E()
                 .pos(x, y)
                 .render()
-                .bounds(0, 0,GameScreenAssetSystem.ENTRANCE_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
-                .anim("module_entrance")
+                .bounds(0, 0,GameScreenAssetSystem.TIPS_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .anim("module_tips")
                 .interactable()
-                .entrance()
-                .exit()
                 .id();
     }
 
