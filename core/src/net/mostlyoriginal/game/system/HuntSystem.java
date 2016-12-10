@@ -31,24 +31,15 @@ public class HuntSystem extends FluidSystem {
 
             if ( walkTowards(e, huntTarget) )
             {
-                interact(e, huntTarget);
+                startUsing(e, huntTarget);
             }
         }
     }
 
-    private void interact(E actor, E huntTarget) {
+    private void startUsing(E actor, E huntTarget) {
         actor.removeHunt();
-        if ( huntTarget.hasToilet() ) {
-            if ( actor.desireType() == Desire.Type.POOP ) {
-                actor.removeDesire();
-                actor.desireType(Desire.Type.LEAVE);
-            }
-        }
-        if ( huntTarget.hasExit() ) {
-            if ( actor.desireType() == Desire.Type.LEAVE ) {
-                actor.deleteFromWorld();
-            }
-        }
+        actor.using(huntTarget.id());
+        huntTarget.inUse(actor.id());
     }
 
     private boolean walkTowards(E actor, E huntTarget) {

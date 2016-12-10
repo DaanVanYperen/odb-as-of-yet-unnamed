@@ -6,6 +6,7 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.Effect;
+import net.mostlyoriginal.game.component.Using;
 import net.mostlyoriginal.game.component.module.Exit;
 import net.mostlyoriginal.game.component.module.Toilet;
 import net.mostlyoriginal.game.system.common.FluidSystem;
@@ -18,7 +19,7 @@ public class DesireSystem extends FluidSystem {
     public static final int MISSING_ENTITY_ID = -1;
 
     public DesireSystem() {
-        super(Aspect.all(Desire.class));
+        super(Aspect.all(Desire.class).exclude(Using.class));
     }
 
     @Override

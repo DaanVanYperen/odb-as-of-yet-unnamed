@@ -6,5 +6,12 @@ import com.artemis.Component;
  * @author Daan van Yperen
  */
 public class Interactable extends Component {
-    public Desire.Type[] interactions;
+    public String startAnimId;
+    public String endAnimId;
+    public float duration = 3;
+
+    public void set(String startAnimId, String endAnimId) {
+        this.startAnimId = startAnimId;
+        this.endAnimId = endAnimId;
+    }
 }

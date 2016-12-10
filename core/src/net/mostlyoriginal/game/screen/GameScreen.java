@@ -10,10 +10,7 @@ import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
-import net.mostlyoriginal.game.system.DesireSystem;
-import net.mostlyoriginal.game.system.HuntSystem;
-import net.mostlyoriginal.game.system.SetupWorldSystem;
-import net.mostlyoriginal.game.system.VisitorSpawnSystem;
+import net.mostlyoriginal.game.system.*;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
 import net.mostlyoriginal.plugin.ProfilerPlugin;
@@ -43,6 +40,7 @@ public class GameScreen extends WorldScreen {
                         new VisitorSpawnSystem(),
                         new DesireSystem(),
                         new HuntSystem(),
+                        new UseSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new AnimRenderSystem(renderBatchingSystem)
                 ).build());
