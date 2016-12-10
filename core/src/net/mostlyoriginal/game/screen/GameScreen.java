@@ -13,6 +13,7 @@ import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.DirtySystem;
 import net.mostlyoriginal.game.PlayerControlSystem;
 import net.mostlyoriginal.game.PlayerSystem;
+import net.mostlyoriginal.game.VisitorSystem;
 import net.mostlyoriginal.game.system.*;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
@@ -45,6 +46,7 @@ public class GameScreen extends WorldScreen {
                         new HuntSystem(),
                         new UseSystem(),
                         new DirtySystem(),
+                        new VisitorSystem(),
                         new PlayerControlSystem(),
                         new PlayerSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),

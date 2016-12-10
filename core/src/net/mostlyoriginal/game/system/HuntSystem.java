@@ -49,9 +49,11 @@ public class HuntSystem extends FluidSystem {
         float movementSpeed = world.delta * 150;
         if (actor.posX() + movementSpeed < huntTarget.posX() + huntTarget.boundsMinx()) {
             actor.posX(actor.posX() + movementSpeed);
+            actor.animFlippedX(false);
             return false;
         } else if (actor.posX() - movementSpeed > huntTarget.posX() + huntTarget.boundsMinx()) {
             actor.posX(actor.posX() - movementSpeed);
+            actor.animFlippedX(true);
             return false;
         }
         return true;

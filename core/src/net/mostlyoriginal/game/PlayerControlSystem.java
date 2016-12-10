@@ -26,9 +26,11 @@ public class PlayerControlSystem extends FluidSystem {
         if (!player.hasUsing()) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
                 shiftPosition(player, -1);
+                player.animFlippedX(true);
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
                 shiftPosition(player, 1);
+                player.animFlippedX(false);
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 startUsingModule(player);

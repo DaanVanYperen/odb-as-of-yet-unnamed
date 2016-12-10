@@ -15,8 +15,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int TOILET_WIDTH = UNIT;
     public static final int TIPS_WIDTH = UNIT;
     public static final int SUPPLY_CLOSET_WIDTH = UNIT * 2;
-    public static final int VISITOR_WIDTH = UNIT;
-    public static final int VISITOR_HEIGHT = UNIT*2;
+    public static final int VISITOR_WIDTH = 24;
+    public static final int VISITOR_HEIGHT = 38;
 
     public static final int LAYER_BACKGROUND = 1;
     public static final int LAYER_BEHIND_ACTORS = 5;
@@ -57,8 +57,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("module_part_handicap_door_closed", 388, 96, 23, 43, 1);
         add("module_part_handicap_door_open", 420, 96, 12, 43, 1);
 
-        add("visitor", 0, UNIT * 10, VISITOR_WIDTH, VISITOR_HEIGHT, 1);
-
+        
         add("player_toiletpaper", 32, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
         add("player_plunger", 176, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
         add("player_mop", 320, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
@@ -70,23 +69,26 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         //Player, mop walk:
         //x 320, y 288 - w 24, h 36 - six frames
 
+        add("visitor", 32, 362, 24, 38, 6);
+        add("visitor_busy", 176, 362, 24, 38, 2);
+
 
 //        Guest happy walk animation:
-//        x 32, y 324 - w 24, h 38 - 6 frames
+//        32, 324 24, 38 
 //        Guest neutral walk animation:
-//        x 32, y 362 - w 24, h 38 - 6 frames
+//        32, 362 24, 38
 //        Guest sad walk animation:
-//        x 32, y 400 - w 24, h 38 - 6 frames
+//        32, 400 24, 38 
 //        Guest RAGE walk animation:
-//        x 32, y 438 - w 24, h 38 - 6 frames
+//        32, 438 24, 38 
 //
-//        Guest happy peeing animation:
-//        x 176, y 324 - w 24, h 38 - 2 frames
+//        Guest happpeeing animation:
+//        176, 324 24, 38 
 //        Guest neutral peeing animation:
-//        x 176, y 362 - w 24, h 38 - 2 frames
+//        176, 362 24, 38
 //        Guest sad peeing animation:
-//        x 176, y 400 - w 24, h 38 - 2 frames
+//        176, 400 24, 38 
 //        Guest RAGE peeing animation:
-//        x 176, y 438 - w 24, h 38 - 2 frames
+//        176, 438 24, 38 
     }
 }

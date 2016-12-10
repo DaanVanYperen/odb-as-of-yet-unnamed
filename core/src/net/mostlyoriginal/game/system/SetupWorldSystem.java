@@ -138,7 +138,7 @@ public class SetupWorldSystem extends FluidSystem {
 
         return E()
                 .pos(x + 32 +4, y+34)
-                .bounds(16, 28,GameScreenAssetSystem.MAIN_DOOR_WIDTH,72)
+                .bounds(16, 16,GameScreenAssetSystem.MAIN_DOOR_WIDTH,72)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim("module_part_main_door_closed")
                 .interactableDuration(0.25f)
