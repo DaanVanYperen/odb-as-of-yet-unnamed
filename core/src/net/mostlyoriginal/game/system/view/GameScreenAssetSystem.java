@@ -24,7 +24,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int LAYER_ACTORS = 2000;
     public static final int LAYER_PLAYER = 1000;
 
-    public static final int DEFAULT_MODULE_HEIGHT = UNIT * 5;
+    public static final int DEFAULT_MODULE_HEIGHT = UNIT * 5 + 16;
     public static final int PLAYER_WIDTH = 24;
     public static final int PLAYER_HEIGHT = 36;
     public static final int MAIN_DOOR_WIDTH = 24;
@@ -52,8 +52,11 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("module_part_main_door_closed", 36, 217, MAIN_DOOR_WIDTH, 54, 1);
         add("module_part_main_door_open",68, 217,18,54, 1);
 
-        add("module_part_door_closed", UNIT * 10, 0, UNIT, DEFAULT_MODULE_HEIGHT, 1);
-        add("module_part_door_open", UNIT * 11, 0, UNIT, DEFAULT_MODULE_HEIGHT, 1);
+        add("module_part_door_closed", 324, 96, 23, 43, 1);
+        add("module_part_door_open", 356, 96, 12, 43, 1);
+        add("module_part_handicap_door_closed", 388, 96, 23, 43, 1);
+        add("module_part_handicap_door_open", 420, 96, 12, 43, 1);
+
         add("visitor", 0, UNIT * 10, VISITOR_WIDTH, VISITOR_HEIGHT, 1);
 
         add("player_toiletpaper", 32, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);

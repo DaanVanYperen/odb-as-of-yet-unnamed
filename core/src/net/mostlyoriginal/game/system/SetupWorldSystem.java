@@ -16,6 +16,7 @@ import static com.artemis.E.E;
 public class SetupWorldSystem extends FluidSystem {
 
     public static final int Y_OFFSET = 25;
+    public static final int TOILET_Y = 48;
 
     private BathroomLevel.Type[] level1 = {
             BathroomLevel.Type.ENTRANCE,
@@ -113,12 +114,12 @@ public class SetupWorldSystem extends FluidSystem {
                 .anim("module_part_background");
 
         E toiletBowl = E()
-                .pos(x, y+32)
+                .pos(x, y+TOILET_Y)
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
                 .anim("module_part_toilet");
 
         return E()
-                .pos(x, y)
+                .pos(x+4, y+TOILET_Y-11)
                 .bounds(0, 0,GameScreenAssetSystem.TOILET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim(MathUtils.randomBoolean() ? "module_part_door_closed" : "module_part_door_open")
@@ -136,7 +137,7 @@ public class SetupWorldSystem extends FluidSystem {
 
 
         return E()
-                .pos(x + 32 +4, y + 19)
+                .pos(x + 32 +4, y+34)
                 .bounds(16, 28,GameScreenAssetSystem.MAIN_DOOR_WIDTH,72)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim("module_part_main_door_closed")
@@ -151,7 +152,7 @@ public class SetupWorldSystem extends FluidSystem {
 
     private int spawnTips(int x, int y) {
         E()
-                .pos(x,y+10)
+                .pos(x,y+TOILET_Y-20)
                 .bounds(0, 0,GameScreenAssetSystem.PLAYER_WIDTH,GameScreenAssetSystem.PLAYER_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_PLAYER)
                 .player()
