@@ -4,6 +4,7 @@ import com.artemis.SuperMapper;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.link.EntityLinkManager;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.manager.FontManager;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
@@ -13,7 +14,9 @@ import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.api.system.render.LabelRenderSystem;
+import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.system.*;
+import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
 import net.mostlyoriginal.plugin.ProfilerPlugin;
@@ -61,7 +64,8 @@ public class GameScreen extends WorldScreen {
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new AnimRenderSystem(renderBatchingSystem),
                         new MyLabelRenderSystem(renderBatchingSystem),
-                        new StatusRenderSystem()
+                        new StatusRenderSystem(),
+                        new TransitionSystem(GdxArtemisGame.getInstance())
                 ).build());
     }
 

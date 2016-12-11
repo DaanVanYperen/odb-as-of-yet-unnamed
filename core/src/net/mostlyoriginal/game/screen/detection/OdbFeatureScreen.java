@@ -5,6 +5,7 @@ import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
+import net.mostlyoriginal.api.manager.FontManager;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
@@ -36,7 +37,8 @@ public class OdbFeatureScreen extends WorldScreen {
 						new TagManager(),
 						new CameraSystem(1),
 						new FeatureScreenAssetSystem(),
-						new OdbFeatureDetectionSystem()
+						new OdbFeatureDetectionSystem(),
+						new FontManager()
 				).with(WorldConfigurationBuilder.Priority.LOW,
 						// processing
 						new TransitionSystem(GdxArtemisGame.getInstance()),

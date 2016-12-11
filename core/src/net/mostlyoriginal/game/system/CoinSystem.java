@@ -3,8 +3,11 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import net.mostlyoriginal.api.component.graphics.Tint;
+import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.module.TipBowl;
+import net.mostlyoriginal.game.screen.LogoScreen;
 import net.mostlyoriginal.game.system.common.FluidSystem;
+import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static com.artemis.E.E;
@@ -21,6 +24,7 @@ public class CoinSystem extends FluidSystem {
     int xOffset=0;
     int coinsPending = 0;
     int angerPending = 0;
+    boolean finishing = false;
 
     @Override
     protected void process(E e) {
@@ -39,7 +43,16 @@ public class CoinSystem extends FluidSystem {
         }
         if (angerPending >0) {
             e.tipBowlAnger(e.tipBowlAnger() + angerPending);
+            GameRules.lastScore = e.tipBowlCoins();
             angerPending = 0;
+            considerLossCondition(e);
+        }
+    }
+
+    private void considerLossCondition(E e) {
+        if ( !finishing && e.tipBowlAnger() >= e.tipBowlMaxAnger()) {
+            finishing = true;
+            world.getSystem(TransitionSystem.class).transition(LogoScreen.class, 3);
         }
     }
 

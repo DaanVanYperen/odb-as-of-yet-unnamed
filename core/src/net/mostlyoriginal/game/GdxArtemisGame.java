@@ -1,8 +1,7 @@
 package net.mostlyoriginal.game;
 
 import com.badlogic.gdx.Game;
-import net.mostlyoriginal.game.screen.GameScreen;
-import net.mostlyoriginal.game.screen.detection.OdbFeatureScreen;
+import net.mostlyoriginal.game.screen.LogoScreen;
 
 public class GdxArtemisGame extends Game {
 
@@ -15,7 +14,7 @@ public class GdxArtemisGame extends Game {
 	}
 
 	public void restart() {
-		setScreen(new GameScreen());
+		setScreen(new LogoScreen());
 	}
 
 	public static GdxArtemisGame getInstance()

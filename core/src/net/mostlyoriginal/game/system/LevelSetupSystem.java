@@ -17,14 +17,21 @@ public class LevelSetupSystem extends FluidSystem {
 
     public static final int Y_OFFSET = 25;
     public static final int TOILET_Y = 48;
+    private Level activeLevel;
 
     private static class Level {
-        String name;
-        BathroomLevel.Type[] level;
+        public String name;
+        public BathroomLevel.Type[] level;
+        public int lossCount = 5;
 
         public Level(String name, BathroomLevel.Type[] level) {
             this.name = name;
             this.level = level;
+        }
+
+        public Level lossCount(int count ) {
+            this.lossCount = count;
+            return this;
         }
     }
 
@@ -61,6 +68,16 @@ public class LevelSetupSystem extends FluidSystem {
                     BathroomLevel.Type.SUPPLY_CLOSET
             });
 
+    private Level level4 = new Level(
+            "Stage X: Zero Tolerance",
+            new BathroomLevel.Type[]{
+                    BathroomLevel.Type.ENTRANCE,
+                    BathroomLevel.Type.TIPS,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SUPPLY_CLOSET
+            }).lossCount(1);
+
     private Level level3 = new Level(
             "Stage X: Chili Con Carne Convention",
             new BathroomLevel.Type[]{
@@ -86,10 +103,11 @@ public class LevelSetupSystem extends FluidSystem {
         super.initialize();
 
 //        E().bathroomLevelModules(level1);
-        loadLevel(level3);
+        loadLevel(level4);
     }
 
     private void loadLevel(Level level) {
+        this.activeLevel = level;
         E()
                 .bathroomLevelModules(level.level)
                 .bathroomLevelName(level.name);
@@ -109,8 +127,10 @@ public class LevelSetupSystem extends FluidSystem {
     protected void process(E e) {
         if (!e.bathroomLevelInitialized()) {
             e.bathroomLevelInitialized(true);
-            for (BathroomLevel.Type type : e.bathroomLevelModules()) {
-                e.bathroomLevelModuleEntityIds().add(initModule(type));
+            if ( e.bathroomLevelModules() != null) {
+                for (BathroomLevel.Type type : e.bathroomLevelModules()) {
+                    e.bathroomLevelModuleEntityIds().add(initModule(type));
+                }
             }
         }
     }
@@ -291,6 +311,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .bounds(0, 0, GameScreenAssetSystem.TIPS_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_tips")
                 .tipBowlBowlId(tipbowl.id())
+                .tipBowlMaxAnger(activeLevel.lossCount)
                 .interactableDuration(0.0f)
                 .id();
     }
