@@ -170,6 +170,14 @@ public class LevelSetupSystem extends FluidSystem {
                 .anim("module_entrance")
                 .id();
 
+        if (MathUtils.random(1,4) <= 3 ) {
+            E()
+                    .pos(x + 64 + 3, y + 59)
+                    .render()
+                    .bounds(0, 0, GameScreenAssetSystem.ENTRANCE_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                    .anim("poster_" + MathUtils.random(1,3))
+                    .id();
+        }
 
         return E()
                 .pos(x + 32 +4, y+34)
