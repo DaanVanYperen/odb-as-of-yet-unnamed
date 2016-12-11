@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.Using;
 import net.mostlyoriginal.game.component.module.Exit;
+import net.mostlyoriginal.game.component.module.TipBowl;
 import net.mostlyoriginal.game.component.module.Toilet;
 import net.mostlyoriginal.game.component.state.Dirty;
 import net.mostlyoriginal.game.system.common.FluidSystem;
@@ -36,6 +37,9 @@ public class DesireSystem extends FluidSystem {
         switch (e.desireType()) {
             case LEAVE:
                 entityId = randomOf(getExits());
+                break;
+            case TIP:
+                entityId = randomOf(getTipBowls());
                 break;
             case POOP:
                 entityId = randomOf(getCleanToilet());
@@ -72,5 +76,11 @@ public class DesireSystem extends FluidSystem {
         return world
                 .getAspectSubscriptionManager()
                 .get(Aspect.all(Exit.class)).getEntities();
+    }
+
+    private IntBag getTipBowls() {
+        return world
+                .getAspectSubscriptionManager()
+                .get(Aspect.all(TipBowl.class)).getEntities();
     }
 }

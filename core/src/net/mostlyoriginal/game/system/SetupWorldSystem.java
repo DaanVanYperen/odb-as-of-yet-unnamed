@@ -169,12 +169,18 @@ public class SetupWorldSystem extends FluidSystem {
                 .player()
                 .anim("player_plunger");
 
+        E tipbowl = E()
+                .pos(x+2, y+TOILET_Y+2)
+                .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
+                .anim("coin_0");
+
         return E()
                 .pos(x, y)
                 .render()
                 .bounds(0, 0,GameScreenAssetSystem.TIPS_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_tips")
-                .interactable()
+                .tipBowlBowlId(tipbowl.id())
+                .interactableDuration(0.1f)
                 .id();
     }
 

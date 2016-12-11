@@ -4,8 +4,10 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
+import net.mostlyoriginal.game.CoinSystem;
 import net.mostlyoriginal.game.EmotionService;
 import net.mostlyoriginal.game.component.Desire;
+import net.mostlyoriginal.game.component.Emotion;
 import net.mostlyoriginal.game.component.Interactable;
 import net.mostlyoriginal.game.component.Player;
 import net.mostlyoriginal.game.component.state.InUse;
@@ -22,6 +24,7 @@ import static net.mostlyoriginal.game.system.view.GameScreenAssetSystem.LAYER_PL
 public class UseSystem extends FluidSystem {
 
     public static final int ACT_OFFSET_Y = 32;
+    private CoinSystem coinSystem;
 
     public UseSystem() {
         super(Aspect.all(InUse.class, Interactable.class));
@@ -102,7 +105,16 @@ public class UseSystem extends FluidSystem {
         renderBatchingSystem.sortedDirty = true;
         if (thing.hasToilet()) {
             worsenToiletState(thing);
+            if ( actor.emotionState() == Emotion.State.NEUTRAL
+                    ||  actor.emotionState() == Emotion.State.HAPPY ) {
+                actor.desireType(Desire.Type.TIP);
+            } else {
+                actor.desireType(Desire.Type.LEAVE);
+            }
+        }
+        if ( thing.hasTipBowl()) {
             actor.desireType(Desire.Type.LEAVE);
+            coinSystem.payCoin( actor );
         }
         if (thing.isExit()) {
             actor.deleteFromWorld();

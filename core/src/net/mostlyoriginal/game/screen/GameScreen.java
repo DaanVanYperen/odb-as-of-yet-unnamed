@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
+import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.*;
@@ -49,6 +50,8 @@ public class GameScreen extends WorldScreen {
                         new VisitorSystem(),
                         new PlayerControlSystem(),
                         new PlayerSystem(),
+                        new CoinSystem(),
+                        new PhysicsSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new AnimRenderSystem(renderBatchingSystem)
                 ).build());

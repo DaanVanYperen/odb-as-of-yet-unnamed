@@ -8,6 +8,7 @@ import com.artemis.Component;
 public class Desire extends Component {
     public enum Type {
         LEAVE,
+        TIP,
         POOP,
     }
     public Type type;

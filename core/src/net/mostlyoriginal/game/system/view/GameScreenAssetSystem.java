@@ -23,6 +23,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int LAYER_TOILET_DOOR = 10;
     public static final int LAYER_ACTORS = 2000;
     public static final int LAYER_PLAYER = 1000;
+    public static final int LAYER_ICONS = 2100;
     public static final int LAYER_ACTORS_BUSY = 9;
 
     public static final int DEFAULT_MODULE_HEIGHT = UNIT * 5 + 16;
@@ -85,13 +86,30 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("visitor_poop_angry", 224, 400, 24, 38, 1);
         add("visitor_poop_enraged", 224, 438, 24, 38, 1);
 
-//        Dynasty poster
-//        x 96, y 224 - w 26, h 42
-//        Steve Can't Zen poster
-//        x 123, y 224 - w 26, h 42
-//        NS2D poster
-//        x 150, y 224 - w 26, h 42
+        add("coin_0", 96-16, 224-32, 16, 16, 1); // empty
+        add("coin_1", 96, 224-32, 16, 16, 1);
+        add("coin_2", 96+16, 224-32, 16, 16, 1);
+        add("coin_3", 96+32, 224-32, 16, 16, 1);
+        add("coin_4", 96+48, 224-32, 16, 16, 1);
+        add("coin_5", 96+64, 224-32, 16, 16, 1);
 
+        add("poster_1", 96, 224, 26, 42, 1);
+        add("poster_2", 123, 224, 26, 42, 1);
+        add("poster_3", 150, 224, 26, 42, 1);
+
+        add("icon_mop", 150+26, 224-32, 16, 32, 1);
+        add("icon_plunge", 150+26+16, 224-32, 16, 32, 1);
+        add("icon_forbidden", 150+26+32, 224-32, 16, 16, 1);
+        add("icon_sad", 150+26+32, 224-16, 16, 16, 1);
+        add("icon_coin", 150+26+48, 224-32, 16, 16, 1);
+        add("icon_pointer", 150+26+64, 224-32, 16, 16, 1);
+        add("icon_plunge", 150+26+16, 224-32, 16, 32, 1);
+
+        add("clock_face", 150+26+16, 224, 16, 16, 1);
+        add("clock_large_hand", 150+26+16+32, 224, 16, 16, 1);
+        add("clock_small_hand", 150+26+16+48, 224, 16, 16, 1);
+
+        add("icon_press", 150+26+80, 224, 16, 32, 3);
 
 //        Guest happy walk animation:
 //        32, 324 24, 38
