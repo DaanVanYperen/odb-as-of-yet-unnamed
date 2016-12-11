@@ -54,7 +54,7 @@ public class GameScreen extends WorldScreen {
                         new PhysicsSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new AnimRenderSystem(renderBatchingSystem),
-                        new AngerRenderSystem()
+                        new StatusRenderSystem()
                 ).build());
     }
 

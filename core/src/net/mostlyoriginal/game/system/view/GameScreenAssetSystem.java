@@ -105,13 +105,13 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("poster_3", 150, 224, 26, 42, 1);
 
         add("icon_mop", 150+26, 224-32, 16, 32, 1);
-        add("icon_plunge", 150+26+16, 224-32, 16, 32, 1);
+        add("icon_plunger", 150+26+16, 224-32, 16, 32, 1);
         add("icon_forbidden", 150+26+32, 224-32, 16, 16, 1);
         add("icon_sad", 150+26+32, 224-16, 16, 16, 1);
         add("icon_sad2", 150+26+32+16, 224-16, 16, 16, 1);
         add("icon_coin", 150+26+48, 224-32, 16, 16, 1);
         add("icon_pointer", 150+26+64, 224-32, 16, 16, 1);
-        add("icon_plunge", 150+26+16, 224-32, 16, 32, 1);
+        //add("icon_plunge", 150+26+16, 224-32, 16, 32, 1);
 
         add("clock_face", 150+26+16, 224, 16, 16, 1);
         add("clock_large_hand", 150+26+16+32, 224, 16, 16, 1);
