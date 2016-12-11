@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        appName = 'I Clean Toilets'
+        appName = 'I Clean Toilet'
         appVersion = '1.6'
         gdxVersion = '1.9.4'
         artemisVersion = '2.1.0'

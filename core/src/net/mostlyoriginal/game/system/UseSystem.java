@@ -9,6 +9,7 @@ import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.Emotion;
 import net.mostlyoriginal.game.component.Interactable;
 import net.mostlyoriginal.game.component.Player;
+import net.mostlyoriginal.game.component.module.Sink;
 import net.mostlyoriginal.game.component.state.InUse;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -121,12 +122,16 @@ public class UseSystem extends FluidSystem {
     }
 
     private void washHandsTipOrLeave(E thing, E actor) {
-        if (thing.hasDirty()) {
+        if (thing.hasDirty()&&hasSink()) {
             // angry, so dirty, go wash hands. Chance to become even MORE angry!
             washHands(actor);
         } else {
             tipOrLeave(actor);
         }
+    }
+
+    private boolean hasSink() {
+        return world.getAspectSubscriptionManager().get(Aspect.all(Sink.class)).getEntities().size() > 0;
     }
 
     private void washHands(E actor) {
