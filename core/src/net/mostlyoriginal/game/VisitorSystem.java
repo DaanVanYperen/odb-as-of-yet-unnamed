@@ -20,7 +20,9 @@ public class VisitorSystem extends FluidSystem {
     protected void process(E e) {
         if (e.hasUsing()) {
             E device = E(e.usingUsingId());
-            applyAnim(e, (device.hasToilet() ? getAnimPoop(e) : getAnimPee(e)) + e.desireIndex());
+            applyAnim(e,
+                    (device.hasSink() ? getAnimWash(e) :
+                    (device.hasToilet() ? getAnimPoop(e) : getAnimPee(e))) + e.desireIndex());
         } else {
             applyAnim(e, getAnimNormal(e)+ e.desireIndex());
         }
@@ -49,6 +51,20 @@ public class VisitorSystem extends FluidSystem {
                 return "visitor_poop_enraged";
             default:
                 return "visitor_poop_neutral";
+        }
+    }
+
+
+    private String getAnimWash(E e ) {
+        switch (e.emotionState()) {
+            case HAPPY:
+                return "visitor_wash_happy";
+            case ANGRY:
+                return "visitor_wash_angry";
+            case ENRAGED:
+                return "visitor_wash_enraged";
+            default:
+                return "visitor_wash_neutral";
         }
     }
 

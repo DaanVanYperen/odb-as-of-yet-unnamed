@@ -37,6 +37,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final float WALK_FRAME_DURATION = 0.03f * (150f/GameRules.WALKING_SPEED_VISITORS);
     public static final float PLAYER_IDLE_FRAME_DURATION = 0.2f;
     public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
+    private static final float WASH_FRAME_DURATION = 0.6f;
 
     public GameScreenAssetSystem() {
         super("tileset.png");
@@ -150,9 +151,21 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("icon_mop", 150 + 26, 224 - 32, 16, 32, 1);
         add("icon_plunger", 150 + 26 + 16, 224 - 32, 16, 32, 1);
         add("icon_plunger_and_mop", 256, 192, 16, 32, 1);
-        //
-//        Mop + Plunger icon
-//
+
+        add("visitor_wash_happy1", 248,324,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral1", 248,362,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry1", 248,400,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged1", 248,438,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+
+        add("visitor_wash_happy2", 248,476,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral2", 248,514,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry2", 248,552,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged2", 248,590,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+
+        add("visitor_wash_happy3", 248,628,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral3", 248,666,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry3", 248,704,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged3", 248,704,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
 
         add("icon_forbidden", 150 + 26 + 32, 224 - 32, 16, 16, 1);
         add("icon_sad", 150 + 26 + 32, 224 - 16, 16, 16, 1);
