@@ -1,6 +1,8 @@
 package net.mostlyoriginal.game.system.view;
 
 import com.artemis.annotations.Wire;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.MathUtils;
@@ -42,6 +44,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
     private static final float WASH_FRAME_DURATION = 0.6f;
     public static final float LOW_VOLUME = 0.01f;
+    private Music music;
 
     public GameScreenAssetSystem() {
         super("tileset.png");
@@ -60,6 +63,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         add("module_part_toilet", 288, 56, 32, 72, 1);
         add("module_part_toilet_dirty_clogged", 288, 152, 32, 72, 1);
+        add("module_part_toilet_dirty_clogged_1", 416,152,32,72, 1);
+        add("module_part_toilet_dirty_clogged_2", 448,152,32,72, 1);
+
         add("module_part_toilet_dirty", 320, 152, 32, 72, 1);
         add("module_part_toilet_clogged", 352, 152, 32, 72, 2);
 
@@ -260,7 +266,23 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                 "footstep_left_02",
                 "footstep_right_01",
                 "footstep_right_02",
+
+                "progress_bar_25",
+                "progress_bar_50",
+                "progress_bar_75",
+                "progress_bar_100",
+
         });
+
+        if (GameRules.music == null) {
+            GameRules.music = Gdx.audio.newMusic(Gdx.files.internal(
+                    "sfx/i_clean_toilet_background_music_0"+MathUtils.random(1,3)+".mp3"));
+        }
+        GameRules.music.stop();
+        GameRules.music.setLooping(true);
+        GameRules.music.play();
+        GameRules.music.setPan(0, 0.1f);
+
 
 //        Toilet large poop:
 //        416,152,32,72

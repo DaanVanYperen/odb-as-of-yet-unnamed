@@ -7,5 +7,5 @@ import com.artemis.annotations.Fluid;
  * @author Daan van Yperen
  */
 public class Dirty extends Component {
-    public int level;
+    public int level=0;
 }

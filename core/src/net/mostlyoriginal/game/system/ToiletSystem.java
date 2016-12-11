@@ -16,11 +16,17 @@ public class ToiletSystem extends FluidSystem {
     @Override
     protected void process(E e) {
         E bowl = E.E(e.toiletBowlId());
-        if ( e.hasDirty() && e.isClogged() ) {
-            bowl.anim("module_part_toilet_dirty_clogged");
-        } else if ( e.hasDirty() ) {
+        if (e.hasDirty() && e.isClogged()) {
+            if (e.dirtyLevel() == 2) {
+                bowl.anim("module_part_toilet_dirty_clogged_2");
+            } else if (e.dirtyLevel() == 1) {
+                bowl.anim("module_part_toilet_dirty_clogged_1");
+            } else {
+                bowl.anim("module_part_toilet_dirty_clogged");
+            }
+        } else if (e.hasDirty()) {
             bowl.anim("module_part_toilet_dirty");
-        } else if ( e.isClogged() ) {
+        } else if (e.isClogged()) {
             bowl.anim("module_part_toilet_clogged");
         } else {
             bowl.anim("module_part_toilet");

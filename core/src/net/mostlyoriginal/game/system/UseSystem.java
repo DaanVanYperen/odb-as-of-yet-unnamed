@@ -149,6 +149,8 @@ public class UseSystem extends FluidSystem {
     private void worsenToiletState(E thing) {
         if (MathUtils.random(1, 100) <= GameRules.PERCENTAGE_CHANCE_OF_TOILET_DIRTY_ESCALATION) {
             if (thing.hasDirty()) {
+                if (thing.dirtyLevel() == 1 ) thing.dirtyLevel(2);
+                if (thing.dirtyLevel() == 0 ) thing.dirtyLevel(1);
                 // if dirty, become clogged as well.
                 thing.clogged();
             } else if (thing.isClogged()) {

@@ -1,5 +1,7 @@
 package net.mostlyoriginal.game;
 
+import com.badlogic.gdx.audio.Music;
+
 /**
  * @author Daan van Yperen
  */
@@ -16,4 +18,5 @@ public abstract class GameRules {
 
     public static int lastScore = -1;
     public static int level = -1;
+    public static Music music;
 }
