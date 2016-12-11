@@ -3,7 +3,6 @@ package net.mostlyoriginal.game;
 import com.artemis.Aspect;
 import com.artemis.E;
 import net.mostlyoriginal.api.component.graphics.Tint;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.game.component.module.TipBowl;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -19,7 +18,9 @@ public class CoinSystem extends FluidSystem {
         super(Aspect.all(TipBowl.class));
     }
 
+    int xOffset=0;
     int coinsPending = 0;
+    int angerPending = 0;
 
     @Override
     protected void process(E e) {
@@ -36,13 +37,30 @@ public class CoinSystem extends FluidSystem {
             e.tipBowlCoins(e.tipBowlCoins() + coinsPending);
             coinsPending = 0;
         }
+        if (angerPending >0) {
+            e.tipBowlAnger(e.tipBowlAnger() + angerPending);
+            angerPending = 0;
+        }
     }
 
     public void payCoin(E e) {
         coinsPending++;
+        feedbackIcon("icon_coin", e.posX()+2, e.posY() + 32);
+    }
+
+    public void leaveAngrily(E e) {
+        angerPending++;
+        feedbackIcon("icon_sad", e.posX()+2, e.posY() + 48);
+    }
+
+    private void feedbackIcon(String icon_coin, float x, float y) {
+//        E()
+//                .pos(24 + (xOffset+=10),12)
+//                .anim(icon_coin)
+//                .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
         E()
-                .pos(e.posX(), e.posY()+32)
-                .anim("icon_coin")
+                .pos(x, y)
+                .anim(icon_coin)
                 .renderLayer(GameScreenAssetSystem.LAYER_ICONS)
                 .physicsVy(20)
                 .physicsFriction(0)

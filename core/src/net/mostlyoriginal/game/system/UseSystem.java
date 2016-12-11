@@ -76,7 +76,6 @@ public class UseSystem extends FluidSystem {
     }
 
     private void applyEffects(E thing, E actor) {
-
         if (actor.hasPlayer()) {
             finishAsPlayer(thing, actor);
         } else {
@@ -105,20 +104,27 @@ public class UseSystem extends FluidSystem {
         renderBatchingSystem.sortedDirty = true;
         if (thing.hasToilet()) {
             worsenToiletState(thing);
-            if ( actor.emotionState() == Emotion.State.NEUTRAL
-                    ||  actor.emotionState() == Emotion.State.HAPPY ) {
+            if (isHappyEnoughToTip(actor)) {
                 actor.desireType(Desire.Type.TIP);
             } else {
                 actor.desireType(Desire.Type.LEAVE);
             }
         }
-        if ( thing.hasTipBowl()) {
+        if (thing.hasTipBowl()) {
             actor.desireType(Desire.Type.LEAVE);
-            coinSystem.payCoin( actor );
+            coinSystem.payCoin(actor);
         }
         if (thing.isExit()) {
+            if (!isHappyEnoughToTip(actor)) {
+                coinSystem.leaveAngrily(actor);
+            }
             actor.deleteFromWorld();
         }
+    }
+
+    private boolean isHappyEnoughToTip(E actor) {
+        return actor.emotionState() == Emotion.State.NEUTRAL
+                || actor.emotionState() == Emotion.State.HAPPY;
     }
 
     private void worsenToiletState(E thing) {

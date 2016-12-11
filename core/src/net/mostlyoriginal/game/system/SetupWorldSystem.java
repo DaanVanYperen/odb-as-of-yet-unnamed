@@ -180,7 +180,7 @@ public class SetupWorldSystem extends FluidSystem {
                 .bounds(0, 0,GameScreenAssetSystem.TIPS_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_tips")
                 .tipBowlBowlId(tipbowl.id())
-                .interactableDuration(0.1f)
+                .interactableDuration(0.0f)
                 .id();
     }
 

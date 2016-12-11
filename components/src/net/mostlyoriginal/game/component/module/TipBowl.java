@@ -10,4 +10,5 @@ public class TipBowl extends Component {
     @EntityId
     public int bowlId;
     public int coins=0;
+    public int anger=0;
 }
