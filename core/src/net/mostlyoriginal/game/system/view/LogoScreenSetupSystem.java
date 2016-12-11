@@ -40,12 +40,15 @@ public class LogoScreenSetupSystem extends BaseSystem {
     private E message2;
     private E message3;
 
+    private float cooldown =1.5f;
+
     private boolean finished=false;
 
 
     @Override
     protected void processSystem() {
-        if (!finished && Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
+        cooldown -= world.delta;
+        if (cooldown<= 0 && !finished && Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
             finished=true;
             fadeLogoAndMessage();
             world.getSystem(TransitionSystem.class).transition(GameScreen.class, 3);

@@ -90,7 +90,7 @@ public class ClockSystem extends FluidSystem {
             assetSystem.playVictorySfx();
             coinSystem.won = true;
             GameRules.level++;
-            world.getSystem(TransitionSystem.class).transition(GameScreen.class, 2f);
+            world.getSystem(TransitionSystem.class).transition(GameScreen.class, 6f);
         }
     }
 

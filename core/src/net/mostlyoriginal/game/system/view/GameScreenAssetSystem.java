@@ -403,9 +403,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
     public void playPeeSfx() {
         playSfx("pee_drips_01",
-                "pee_long_01",
-                "pee_long_02",
-                "pee_long_03",
+//                "pee_long_01",
+//                "pee_long_02",
+//                "pee_long_03",
                 "pee_short_01",
                 "pee_short_02",
                 "pee_short_03"
