@@ -1,7 +1,9 @@
 package net.mostlyoriginal.game.system.view;
 
 import com.artemis.annotations.Wire;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.game.GameRules;
 
@@ -34,7 +36,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int PLAYER_WIDTH = 24;
     public static final int PLAYER_HEIGHT = 36;
     public static final int MAIN_DOOR_WIDTH = 24;
-    public static final float WALK_FRAME_DURATION = 0.03f * (150f/GameRules.WALKING_SPEED_VISITORS);
+    public static final float WALK_FRAME_DURATION = 0.03f * (150f / GameRules.WALKING_SPEED_VISITORS);
     public static final float PLAYER_IDLE_FRAME_DURATION = 0.2f;
     public static final float PLAYER_USE_FRAME_DURATION = 0.2f;
     public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
@@ -60,12 +62,12 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("module_part_toilet_dirty", 320, 152, 32, 72, 1);
         add("module_part_toilet_clogged", 352, 152, 32, 72, 2);
 
-        add("module_part_urinal", 416,64,32,32, 1);
-        add("module_part_urinal_dirty", 416,32,32,32, 1);
+        add("module_part_urinal", 416, 64, 32, 32, 1);
+        add("module_part_urinal_dirty", 416, 32, 32, 32, 1);
 
-        add("module_part_sink", 448,32,32,64, 1);
-        add("module_part_sink_dirty", 512,32,32,64, 1);
-        add("module_part_sink_gross", 544,32,32,64, 1);
+        add("module_part_sink", 448, 32, 32, 64, 1);
+        add("module_part_sink_dirty", 512, 32, 32, 64, 1);
+        add("module_part_sink_gross", 544, 32, 32, 64, 1);
 
         add("module_part_main_door_closed", 36, 217, MAIN_DOOR_WIDTH, 54, 1);
         add("module_part_main_door_open", 68, 217, 18, 54, 1);
@@ -85,8 +87,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("player_mop", 704, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
 
 //        add("player_use_toiletpaper", 464, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
-        add("player_using_plunger", 824,288,24,36,2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
-        add("player_using_mop", 872,288,24,36,2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
+        add("player_using_plunger", 824, 288, 24, 36, 2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
+        add("player_using_mop", 872, 288, 24, 36, 2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
 
         // VISITOR 1
 
@@ -126,20 +128,20 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         // VISITOR 3
 
-        add("visitor_happy3", 32,628,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
-        add("visitor_neutral3", 32,666,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
-        add("visitor_angry3", 32,704,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
-        add("visitor_enraged3", 32,742,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_happy3", 32, 628, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_neutral3", 32, 666, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_angry3", 32, 704, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_enraged3", 32, 742, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
 
-        add("visitor_pee_happy3", 176,628,24,38,2);
-        add("visitor_pee_neutral3", 176,666,24,38,2);
-        add("visitor_pee_angry3", 176,704,24,38,2);
-        add("visitor_pee_enraged3",  176,742,24,38,2);
+        add("visitor_pee_happy3", 176, 628, 24, 38, 2);
+        add("visitor_pee_neutral3", 176, 666, 24, 38, 2);
+        add("visitor_pee_angry3", 176, 704, 24, 38, 2);
+        add("visitor_pee_enraged3", 176, 742, 24, 38, 2);
 
-        add("visitor_poop_happy3",  224,628,24,38, 1);
-        add("visitor_poop_neutral3", 224,666,24,38, 1);
-        add("visitor_poop_angry3", 224,704,24,38, 1);
-        add("visitor_poop_enraged3",224,742,24,38, 1);
+        add("visitor_poop_happy3", 224, 628, 24, 38, 1);
+        add("visitor_poop_neutral3", 224, 666, 24, 38, 1);
+        add("visitor_poop_angry3", 224, 704, 24, 38, 1);
+        add("visitor_poop_enraged3", 224, 742, 24, 38, 1);
 
         add("coin_0", 96 - 16, 224 - 32, 16, 16, 1); // empty
         add("coin_1", 96, 224 - 32, 16, 16, 1);
@@ -156,20 +158,20 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("icon_plunger", 150 + 26 + 16, 224 - 32, 16, 32, 1);
         add("icon_plunger_and_mop", 256, 192, 16, 32, 1);
 
-        add("visitor_wash_happy1", 248,324,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_neutral1", 248,362,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_angry1", 248,400,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_enraged1", 248,438,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_happy1", 248, 324, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral1", 248, 362, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry1", 248, 400, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged1", 248, 438, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
 
-        add("visitor_wash_happy2", 248,476,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_neutral2", 248,514,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_angry2", 248,552,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_enraged2", 248,590,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_happy2", 248, 476, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral2", 248, 514, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry2", 248, 552, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged2", 248, 590, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
 
-        add("visitor_wash_happy3", 248,628,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_neutral3", 248,666,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_angry3", 248,704,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_enraged3", 248,704,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_happy3", 248, 628, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral3", 248, 666, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry3", 248, 704, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged3", 248, 704, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
 
         add("icon_forbidden", 150 + 26 + 32, 224 - 32, 16, 16, 1);
         add("icon_sad", 150 + 26 + 32, 224 - 16, 16, 16, 1);
@@ -191,6 +193,76 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         add("icon_press", 150 + 26 + 80, 224, 16, 32, 3);
 
+        sfxVolume = 0.3f;
+
+
+        loadSounds(new String[]{
+                "coin_drop_01",
+                "coin_drop_02",
+                "coin_drop_03",
+                "coin_drop_04",
+                "coin_drop_05",
+                "coin_drop_06",
+                "coin_drop_07",
+                "coin_drop_08",
+                "coin_drop_09",
+                "coin_drop_10",
+                "coin_drop_11",
+                "coin_drop_12",
+                "door_close_01",
+                "door_close_02",
+                "door_close_03",
+                "door_open_01",
+                "door_open_02",
+                "door_open_03",
+                "mop_01",
+                "mop_02",
+                "mop_03",
+                "mop_04",
+                "mop_05",
+                "plunger_01",
+                "plunger_02",
+                "plunger_03",
+                "plunger_04",
+                "plunger_05",
+
+                "footstep_left_01",
+                "footstep_left_02",
+                "footstep_right_01",
+                "footstep_right_02",
+                "guest_angry_01",
+                "guest_angry_02",
+                "guest_angry_03",
+                "guest_angry_04",
+                "guest_angry_05",
+                "guest_angry_06",
+                "guest_angry_07",
+                "guest_angry_08",
+                "guest_angry_09",
+                "handwash_01",
+                "handwash_02",
+                "handwash_03",
+                "pee_drips_01",
+                "pee_long_01",
+                "pee_long_02",
+                "pee_long_03",
+                "pee_short_01",
+                "pee_short_02",
+
+                "pee_short_03",
+
+                "poop_01",
+                "poop_02",
+                "poop_03",
+                "poop_04",
+                "poop_05",
+                "poop_06",
+                "supplies_01",
+                "supplies_02",
+                "supplies_03",
+                "toilet_flush_01"
+        });
+
 //        Toilet large poop:
 //        416,152,32,72
 //        Toilet HUGE poop:
@@ -210,4 +282,58 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 //        Sink GROSS:
 //        544,32,32,64
     }
+
+    public void playSfx(String... names) {
+        playSfx(names[MathUtils.random(0, names.length - 1)]);
+    }
+
+    public void playDoorCloseSfx() {
+        playSfx(
+                "door_close_01",
+                "door_close_02",
+                "door_close_03");
+    }
+
+
+    public void playDoorOpenSfx() {
+        playSfx(
+                "door_open_01",
+                "door_open_02",
+                "door_open_03");
+    }
+
+    public void playCoinSfx() {
+        playSfx(
+                "coin_drop_01",
+                "coin_drop_02",
+                "coin_drop_03",
+                "coin_drop_04",
+                "coin_drop_05",
+                "coin_drop_06",
+                "coin_drop_07",
+                "coin_drop_08",
+                "coin_drop_09",
+                "coin_drop_10",
+                "coin_drop_11",
+                "coin_drop_12"
+        );
+    }
+
+    public void playMopSfx() {
+        playSfx(
+                "mop_01",
+                "mop_02",
+                "mop_03",
+                "mop_04",
+                "mop_05");
+    }
+
+    public void playPlungerSfx() {
+        playSfx( "plunger_01",
+                "plunger_02",
+                "plunger_03",
+                "plunger_04",
+                "plunger_05");
+    }
+
 }

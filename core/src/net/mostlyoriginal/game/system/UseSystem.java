@@ -11,6 +11,7 @@ import net.mostlyoriginal.game.component.Interactable;
 import net.mostlyoriginal.game.component.Player;
 import net.mostlyoriginal.game.component.state.InUse;
 import net.mostlyoriginal.game.system.common.FluidSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static com.artemis.E.E;
 import static net.mostlyoriginal.game.system.view.GameScreenAssetSystem.LAYER_ACTORS;
@@ -30,6 +31,7 @@ public class UseSystem extends FluidSystem {
         super(Aspect.all(InUse.class, Interactable.class));
     }
 
+    GameScreenAssetSystem assetSystem;
     RenderBatchingSystem renderBatchingSystem;
     EmotionService emotionService;
 
@@ -102,7 +104,7 @@ public class UseSystem extends FluidSystem {
             worsenUrinalState(thing);
             washHandsTipOrLeave(thing, actor);
         }
-        if (thing.isSink() ) {
+        if (thing.isSink()) {
             worsenSinkState(thing);
             tipOrLeave(actor);
         }
@@ -145,7 +147,7 @@ public class UseSystem extends FluidSystem {
     }
 
     private void worsenToiletState(E thing) {
-        if ( MathUtils.random(1,100) <= GameRules.PERCENTAGE_CHANCE_OF_TOILET_DIRTY_ESCALATION) {
+        if (MathUtils.random(1, 100) <= GameRules.PERCENTAGE_CHANCE_OF_TOILET_DIRTY_ESCALATION) {
             if (thing.hasDirty()) {
                 // if dirty, become clogged as well.
                 thing.clogged();
@@ -164,14 +166,14 @@ public class UseSystem extends FluidSystem {
     }
 
     private void worsenUrinalState(E thing) {
-        if ( MathUtils.random(1,100) <= GameRules.PERCENTAGE_CHANCE_OF_URINAL_DIRTY_ESCALATION) {
+        if (MathUtils.random(1, 100) <= GameRules.PERCENTAGE_CHANCE_OF_URINAL_DIRTY_ESCALATION) {
             thing.dirty();
         }
     }
 
 
     private void worsenSinkState(E thing) {
-        if ( MathUtils.random(1,100) <= GameRules.PERCENTAGE_CHANCE_OF_SINK_DIRTY_ESCALATION) {
+        if (MathUtils.random(1, 100) <= GameRules.PERCENTAGE_CHANCE_OF_SINK_DIRTY_ESCALATION) {
             if (thing.hasDirty()) {
                 thing.dirtyLevel(1);
             } else {
@@ -185,6 +187,14 @@ public class UseSystem extends FluidSystem {
         actor.renderLayer(actor.hasPlayer() ? LAYER_PLAYER : LAYER_ACTORS);
         actor.posY(actor.posY() - e.interactableUseOffsetY());
         renderBatchingSystem.sortedDirty = true;
+
+        if (e.hasExit() || e.hasEntrance()) {
+            assetSystem.playDoorCloseSfx();
+        }
+        if (e.hasToilet()) {
+            assetSystem.playDoorCloseSfx();
+        }
+
         if (e.interactableEndAnimId() != null) {
             e.anim(e.interactableEndAnimId());
         }
@@ -196,7 +206,19 @@ public class UseSystem extends FluidSystem {
 
     public void startUsing(E actor, E item) {
         if (item.hasTipBowl() && actor.hasPlayer()) return;
-        if (item.hasInteractable() && item.interactableCooldownBefore() <= 0)
+        if (item.hasInteractable() && item.interactableCooldownBefore() <= 0) {
+
+            if (actor.hasPlayer()) {
+                switch (actor.playerTool()) {
+                    case PLUNGER:
+                        assetSystem.playPlungerSfx();
+                        break;
+                    case MOP:
+                        assetSystem.playMopSfx();
+                        break;
+                }
+            }
+
             if (item.hasInUse()) {
                 if (item.inUseUserId() == actor.id()) {
                     playerContinueUsing(actor, item);
@@ -205,6 +227,7 @@ public class UseSystem extends FluidSystem {
 
                 startUsingFromScratch(actor, item);
             }
+        }
     }
 
     private void playerContinueUsing(E actor, E item) {
@@ -216,6 +239,13 @@ public class UseSystem extends FluidSystem {
             startUsingAsVisitor(actor, item);
         } else {
             startUsingAsPlayer(actor, item);
+        }
+
+        if (item.hasExit() || item.hasEntrance()) {
+            assetSystem.playDoorOpenSfx();
+        }
+        if (item.hasToilet()) {
+            assetSystem.playDoorCloseSfx();
         }
 
         actor.removeHunt().renderLayer(LAYER_ACTORS_BUSY);

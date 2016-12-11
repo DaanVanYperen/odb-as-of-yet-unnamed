@@ -56,8 +56,11 @@ public class CoinSystem extends FluidSystem {
         }
     }
 
+    GameScreenAssetSystem assetSystem;
+
     public void payCoin(E e) {
         coinsPending++;
+        assetSystem.playCoinSfx();
         feedbackIcon("icon_coin", e.posX()+2, e.posY() + 32);
     }
 
