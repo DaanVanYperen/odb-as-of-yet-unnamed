@@ -10,6 +10,7 @@ public class Entrance extends Component {
     public float cooldown = 0;
     public float timeBetweenSpawns = 4;
 
+    
     public float timeBetweenSpawnsEasiest = 12;
     public float timeBetweenSpawnsHardest = 2;
     public float age = 0;

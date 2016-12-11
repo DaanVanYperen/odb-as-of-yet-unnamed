@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector;
+import com.badlogic.gdx.math.Vector3;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.module.Entrance;
 import net.mostlyoriginal.game.system.common.FluidSystem;
@@ -28,7 +30,8 @@ public class DiscoSystem extends FluidSystem {
     private CameraSystem cameraSystem;
 
     private Color BASELINE_COLOR = Color.valueOf(BACKGROUND_COLOR_HEX).mul(0.8f);
-    private Color MAX_COLOR = Color.valueOf(BACKGROUND_COLOR_HEX).mul(1.2f);
+    private final Color MAX_COLOR_ORIGINAL = Color.valueOf(BACKGROUND_COLOR_HEX);
+    private Color MAX_COLOR = new Color(MAX_COLOR_ORIGINAL).mul(1.2f);
 
     private float age;
     private float cooldown;
@@ -48,9 +51,7 @@ public class DiscoSystem extends FluidSystem {
     protected void process(E e) {
         age += world.delta * 10f;
         float timeBetweenSpawns = e.entranceTimeBetweenSpawns();
-
-
-        timeBetweenSpawns =14;
+        float timeBetweenSpawnsA = MathUtils.clamp((14f - timeBetweenSpawns) / 14f,0f,1f);
 
         cooldown -= world.delta;
         if (cooldown <= 0) {
@@ -58,8 +59,10 @@ public class DiscoSystem extends FluidSystem {
             drift.r = MathUtils.random(-1f, 1f);
             drift.g = MathUtils.random(-1f, 1f);
             drift.b = MathUtils.random(-1f, 1f);
-            cameraShakeStrength=Interpolation.fade.apply(1f,5f, (14f-timeBetweenSpawns)/14f);
+            cameraShakeStrength=Interpolation.fade.apply(1f,5f, timeBetweenSpawnsA);
         }
+
+        MAX_COLOR.set(MAX_COLOR_ORIGINAL).mul(1 + 0.4f * timeBetweenSpawnsA);
 
         cameraShakeStrength -= world.delta * 10f;
         if ( cameraShakeStrength < 0 ) cameraShakeStrength =0;

@@ -29,6 +29,9 @@ public class ClockSystem extends FluidSystem {
     private CoinSystem coinSystem;
     private E face;
     private GameScreenAssetSystem assetSystem;
+    private float hour;
+    private float minute;
+    public int minutesPassed;
 
     public ClockSystem() {
         super(Aspect.all(Clock.class));
@@ -62,10 +65,9 @@ public class ClockSystem extends FluidSystem {
         age += world.delta * 4f;
         e.clockAge(e.clockAge()+world.delta);
 
-        int minutesPassed = (int)(e.clockAge()*e.clockSpeed());
-
-        float hour = 8+(minutesPassed/60);
-        float minute = minutesPassed%60;
+        minutesPassed = (int)(e.clockAge()*e.clockSpeed());
+        hour = 8+(minutesPassed /60);
+        minute = minutesPassed %60;
 
         smallHand.angleRotation(hour * -(360f/12f));
         largeHand.angleRotation(minute * -(360f/60f));
@@ -80,7 +82,7 @@ public class ClockSystem extends FluidSystem {
             face.scale(scale).pos(CLOCK_X- offsetX, CLOCK_Y- offsetX);
         }
 
-        considerVictoryCondition((int)hour);
+        considerVictoryCondition((int) hour);
     }
 
 

@@ -17,9 +17,13 @@ import static com.artemis.E.E;
  */
 public class EntranceSystem extends FluidSystem {
 
+    public static final float MINUTES_TILL_VICTORY_MINUS_ONE_HOUR = 540f;
+
     public EntranceSystem() {
         super(Aspect.all(Entrance.class, Pos.class));
     }
+
+    ClockSystem clockSystem;
 
     @Override
     protected void process(E e) {
@@ -38,11 +42,10 @@ public class EntranceSystem extends FluidSystem {
     }
 
     private void scaleDifficultyWithTime(E e) {
-        e.entranceAge(e.entranceAge()+world.getDelta());
         float timeBetweenSpawns = Interpolation.linear.apply(
                 e.entranceTimeBetweenSpawnsEasiest(),
                 e.entranceTimeBetweenSpawnsHardest(),
-                MathUtils.clamp(e.entranceAge() / e.entranceMaxAge(),0,1f));
+                MathUtils.clamp(clockSystem.minutesPassed / MINUTES_TILL_VICTORY_MINUS_ONE_HOUR,0,1f));
         e.entranceTimeBetweenSpawns(
                 timeBetweenSpawns);
     }

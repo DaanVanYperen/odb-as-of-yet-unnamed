@@ -24,6 +24,8 @@ public class LevelSetupSystem extends FluidSystem {
         public String name;
         public BathroomLevel.Type[] level;
         public int lossCount = 5;
+        public float timeBetweenSpawnsEasiest=12;
+        public float timeBetweenSpawnsHardest=2;
 
         public Level(String name, BathroomLevel.Type[] level) {
             this.name = name;
@@ -32,6 +34,13 @@ public class LevelSetupSystem extends FluidSystem {
 
         public Level lossCount(int count ) {
             this.lossCount = count;
+            return this;
+        }
+
+        public Level spawnDelay(float easy, float hard)
+        {
+            this.timeBetweenSpawnsEasiest =easy;
+            this.timeBetweenSpawnsHardest = hard;
             return this;
         }
     }
@@ -108,8 +117,20 @@ public class LevelSetupSystem extends FluidSystem {
             });
 
 
+    private Level panicLevel = new Level(
+            "Stage X: AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!",
+            new BathroomLevel.Type[]{
+                    BathroomLevel.Type.ENTRANCE,
+                    BathroomLevel.Type.TIPS,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SUPPLY_CLOSET
+            }).spawnDelay(14,14);
+
+
     private Level[] levels = new Level[] {
-            level4, urinalLevel, level1, level2, level3, level4
+            panicLevel
     };
 
     public LevelSetupSystem() {
@@ -303,6 +324,8 @@ public class LevelSetupSystem extends FluidSystem {
                 .anim("module_part_main_door_closed")
                 .interactableDuration(0.25f)
                 .entrance()
+                .entranceTimeBetweenSpawnsEasiest(activeLevel.timeBetweenSpawnsEasiest)
+                .entranceTimeBetweenSpawnsHardest(activeLevel.timeBetweenSpawnsHardest)
                 .exit()
                 .interactable("module_part_main_door_open", "module_part_main_door_closed")
                 .id();

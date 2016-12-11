@@ -279,10 +279,12 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         });
 
-        if (GameRules.music == null) {
-            GameRules.music = Gdx.audio.newMusic(Gdx.files.internal(
-                    "sfx/i_clean_toilet_background_music_0"+MathUtils.random(1,3)+".mp3"));
+        if (GameRules.music != null) {
+            GameRules.music.stop();
+            GameRules.music.dispose();
         }
+        GameRules.music = Gdx.audio.newMusic(Gdx.files.internal(
+                "sfx/i_clean_toilet_background_music_0"+MathUtils.random(1,5)+".mp3"));
         GameRules.music.stop();
         GameRules.music.setLooping(true);
         GameRules.music.play();
