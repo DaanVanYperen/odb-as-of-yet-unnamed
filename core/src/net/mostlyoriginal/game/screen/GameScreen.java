@@ -18,6 +18,7 @@ import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.system.*;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
+import net.mostlyoriginal.game.system.view.MyClearScreenSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
 import net.mostlyoriginal.plugin.ProfilerPlugin;
 
@@ -44,7 +45,7 @@ public class GameScreen extends WorldScreen {
 
                         // Replace with your own systems!
                         new CameraSystem(2),
-                        new ClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
+                        new MyClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
                         new GameScreenAssetSystem(),
                         new LevelSetupSystem(),
                         new EntranceSystem(),
@@ -65,7 +66,8 @@ public class GameScreen extends WorldScreen {
                         new AnimRenderSystem(renderBatchingSystem),
                         new MyLabelRenderSystem(renderBatchingSystem),
                         new StatusRenderSystem(),
-                        new TransitionSystem(GdxArtemisGame.getInstance())
+                        new TransitionSystem(GdxArtemisGame.getInstance()),
+                        new DiscoSystem()
                 ).build());
     }
 
