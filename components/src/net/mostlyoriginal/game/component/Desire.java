@@ -1,6 +1,7 @@
 package net.mostlyoriginal.game.component;
 
 import com.artemis.Component;
+import com.badlogic.gdx.math.MathUtils;
 
 /**
  * @author Daan van Yperen
@@ -12,5 +13,6 @@ public class Desire extends Component {
         POOP,
     }
     public Type type;
+    public int index= MathUtils.random(1,2);
     public void set(Type type) { this.type = type; }
 }

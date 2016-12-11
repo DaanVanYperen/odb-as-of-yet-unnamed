@@ -55,7 +55,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("module_part_toilet_clogged", 352, 152, 32, 72, 2);
 
         add("module_part_main_door_closed", 36, 217, MAIN_DOOR_WIDTH, 54, 1);
-        add("module_part_main_door_open",68, 217,18,54, 1);
+        add("module_part_main_door_open", 68, 217, 18, 54, 1);
 
         add("module_part_door_closed", 324, 96, 23, 43, 1);
         add("module_part_door_open", 356, 96, 12, 43, 1);
@@ -68,7 +68,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("player_walking_mop", 320, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6).setFrameDuration(PLAYER_WALK_FRAME_DURATION);
 
         add("player_toiletpaper", 464, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
-        add("player_plunger",584, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
+        add("player_plunger", 584, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
         add("player_mop", 704, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
 
         //Player, normal walk:
@@ -78,95 +78,77 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         //Player, mop walk:
         //x 320, y 288 - w 24, h 36 - six frames
 
-        add("visitor_happy", 32, 324, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
-        add("visitor_neutral", 32, 362, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
-        add("visitor_angry", 32, 400, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
-        add("visitor_enraged", 32, 438, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        // VISITOR 1
 
-        add("visitor_pee_happy", 176, 362, 24, 38, 2);
-        add("visitor_pee_neutral", 176, 362, 24, 38, 2);
-        add("visitor_pee_angry", 176, 400, 24, 38, 2);
-        add("visitor_pee_enraged", 176, 438, 24, 38, 2);
+        add("visitor_happy1", 32, 324, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_neutral1", 32, 362, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_angry1", 32, 400, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_enraged1", 32, 438, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
 
-        add("visitor_poop_happy", 224, 324, 24, 38, 1);
-        add("visitor_poop_neutral", 224, 362, 24, 38, 1);
-        add("visitor_poop_angry", 224, 400, 24, 38, 1);
-        add("visitor_poop_enraged", 224, 438, 24, 38, 1);
+        add("visitor_pee_happy1", 176, 362, 24, 38, 2);
+        add("visitor_pee_neutral1", 176, 362, 24, 38, 2);
+        add("visitor_pee_angry1", 176, 400, 24, 38, 2);
+        add("visitor_pee_enraged1", 176, 438, 24, 38, 2);
 
-        add("coin_0", 96-16, 224-32, 16, 16, 1); // empty
-        add("coin_1", 96, 224-32, 16, 16, 1);
-        add("coin_2", 96+16, 224-32, 16, 16, 1);
-        add("coin_3", 96+32, 224-32, 16, 16, 1);
-        add("coin_4", 96+48, 224-32, 16, 16, 1);
-        add("coin_5", 96+64, 224-32, 16, 16, 1);
+        add("visitor_poop_happy1", 224, 324, 24, 38, 1);
+        add("visitor_poop_neutral1", 224, 362, 24, 38, 1);
+        add("visitor_poop_angry1", 224, 400, 24, 38, 1);
+        add("visitor_poop_enraged1", 224, 438, 24, 38, 1);
+
+
+        // VISITOR 2
+
+        add("visitor_happy2", 32, 476, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_neutral2", 32, 514, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_angry2", 32, 552, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_enraged2", 32, 590, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+
+        add("visitor_pee_happy2", 176, 476, 24, 38, 2);
+        add("visitor_pee_neutral2", 176, 514, 24, 38, 2);
+        add("visitor_pee_angry2", 176, 552, 24, 38, 2);
+        add("visitor_pee_enraged2", 176, 590, 24, 38, 2);
+
+        add("visitor_poop_happy2", 224, 476, 24, 38, 1);
+        add("visitor_poop_neutral2", 224, 514, 24, 38, 1);
+        add("visitor_poop_angry2", 224, 552, 24, 38, 1);
+        add("visitor_poop_enraged2", 224, 590, 24, 38, 1);
+
+        add("coin_0", 96 - 16, 224 - 32, 16, 16, 1); // empty
+        add("coin_1", 96, 224 - 32, 16, 16, 1);
+        add("coin_2", 96 + 16, 224 - 32, 16, 16, 1);
+        add("coin_3", 96 + 32, 224 - 32, 16, 16, 1);
+        add("coin_4", 96 + 48, 224 - 32, 16, 16, 1);
+        add("coin_5", 96 + 64, 224 - 32, 16, 16, 1);
 
         add("poster_1", 96, 224, 26, 42, 1);
         add("poster_2", 123, 224, 26, 42, 1);
         add("poster_3", 150, 224, 26, 42, 1);
 
-        add("icon_mop", 150+26, 224-32, 16, 32, 1);
-        add("icon_plunger", 150+26+16, 224-32, 16, 32, 1);
-        add("icon_plunger_and_mop", 256,192,16,32, 1);
+        add("icon_mop", 150 + 26, 224 - 32, 16, 32, 1);
+        add("icon_plunger", 150 + 26 + 16, 224 - 32, 16, 32, 1);
+        add("icon_plunger_and_mop", 256, 192, 16, 32, 1);
         //
 //        Mop + Plunger icon
 //
 
-        add("icon_forbidden", 150+26+32, 224-32, 16, 16, 1);
-        add("icon_sad", 150+26+32, 224-16, 16, 16, 1);
-        add("icon_sad2", 150+26+32+16, 224-16, 16, 16, 1);
-        add("icon_coin", 150+26+48, 224-32, 16, 16, 1);
-        add("icon_pointer", 150+26+64, 224-32, 16, 16, 1);
+        add("icon_forbidden", 150 + 26 + 32, 224 - 32, 16, 16, 1);
+        add("icon_sad", 150 + 26 + 32, 224 - 16, 16, 16, 1);
+        add("icon_sad2", 150 + 26 + 32 + 16, 224 - 16, 16, 16, 1);
+        add("icon_coin", 150 + 26 + 48, 224 - 32, 16, 16, 1);
+        add("icon_pointer", 150 + 26 + 64, 224 - 32, 16, 16, 1);
 
-        add("icon_button",256,224, 16, 32, 3).setFrameDuration(1f/15f);
+        add("icon_button", 256, 224, 16, 32, 3).setFrameDuration(1f / 15f);
 
-        add("progress_0",192,242,21,4,1);
-        add("progress_25",192,247,21,4,1);
-        add("progress_50",192,252,21,4,1);
-        add("progress_75",192,257,21,4,1);
-        add("progress_100",192,262,21,4,1);
+        add("progress_0", 192, 242, 21, 4, 1);
+        add("progress_25", 192, 247, 21, 4, 1);
+        add("progress_50", 192, 252, 21, 4, 1);
+        add("progress_75", 192, 257, 21, 4, 1);
+        add("progress_100", 192, 262, 21, 4, 1);
 
-        add("clock_face", 150+26+16, 224, 16, 16, 1);
-        add("clock_large_hand", 150+26+16+32, 224, 16, 16, 1);
-        add("clock_small_hand", 150+26+16+48, 224, 16, 16, 1);
+        add("clock_face", 150 + 26 + 16, 224, 16, 16, 1);
+        add("clock_large_hand", 150 + 26 + 16 + 32, 224, 16, 16, 1);
+        add("clock_small_hand", 150 + 26 + 16 + 48, 224, 16, 16, 1);
 
-        add("icon_press", 150+26+80, 224, 16, 32, 3);
-
-//
-//        Guest 2 happy walk animation:
-//        32,476,24,38,6
-//        Guest 2 neutral walk animation:
-//        32,514,24,38,6
-//        Guest 2 sad walk animation:
-//        32,552,24,38,6
-//        Guest 2 RAGE walk animation:
-//        32,590,24,38,6
-//
-//        Guest 2 happy peeing animation:
-//        176,476,24,38,2
-//        Guest 2 neutral peeing animation:
-//        176,514,24,38,2
-//        Guest 2 sad peeing animation:
-//        176,552,24,38,2
-//        Guest 2 RAGE peeing animation:
-//        176,590,24,38,2
-//
-//        Guest 2 happy poopface:
-//        224,476,24,38
-//        Guest 2 neutral poopface:
-//        224,514,24,38
-//        Guest 2 sad poopface:
-//        224,552,24,38
-//        Guest 2 RAGE poopface:
-//        224,590,24,38
-
-//        Guest happy walk animation:
-//        32, 324 24, 38
-//        Guest neutral walk animation:
-//        32, 362 24, 38
-//        Guest sad walk animation:
-//        32, 400 24, 38
-//        Guest RAGE walk animation:
-//        32, 438 24, 38
-//
+        add("icon_press", 150 + 26 + 80, 224, 16, 32, 3);
     }
 }

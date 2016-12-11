@@ -20,9 +20,9 @@ public class VisitorSystem extends FluidSystem {
     protected void process(E e) {
         if (e.hasUsing()) {
             E device = E(e.usingUsingId());
-            applyAnim(e, device.hasToilet() ? getAnimPoop(e) : getAnimPee(e));
+            applyAnim(e, (device.hasToilet() ? getAnimPoop(e) : getAnimPee(e)) + e.desireIndex());
         } else {
-            applyAnim(e, getAnimNormal(e));
+            applyAnim(e, getAnimNormal(e)+ e.desireIndex());
         }
     }
 
