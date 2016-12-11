@@ -30,7 +30,16 @@ public class SetupWorldSystem extends FluidSystem {
             BathroomLevel.Type.TOILET,
             BathroomLevel.Type.TOILET,
             BathroomLevel.Type.TOILET,
-                BathroomLevel.Type.SUPPLY_CLOSET
+            BathroomLevel.Type.SUPPLY_CLOSET
+    };
+
+    private BathroomLevel.Type[] level2 = {
+            BathroomLevel.Type.ENTRANCE,
+            BathroomLevel.Type.TIPS,
+            BathroomLevel.Type.TOILET,
+            BathroomLevel.Type.TOILET,
+            BathroomLevel.Type.TOILET,
+            BathroomLevel.Type.SUPPLY_CLOSET
     };
 
     public SetupWorldSystem() {
@@ -41,7 +50,8 @@ public class SetupWorldSystem extends FluidSystem {
     protected void initialize() {
         super.initialize();
 
-        E().bathroomLevelModules(level1);
+//        E().bathroomLevelModules(level1);
+        E().bathroomLevelModules(level2);
     }
 
     private int x = 0;

@@ -70,20 +70,21 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         //Player, mop walk:
         //x 320, y 288 - w 24, h 36 - six frames
 
-        add("visitor", 32, 362, 24, 38, 6);
-        add("visitor_busy", 176, 362, 24, 38, 2);
-        add("visitor_poop", 224, 362, 24, 38, 1);
+        add("visitor_happy", 32, 324, 24, 38, 6);
+        add("visitor_neutral", 32, 362, 24, 38, 6);
+        add("visitor_angry", 32, 400, 24, 38, 6);
+        add("visitor_enraged", 32, 438, 24, 38, 6);
 
+        add("visitor_pee_happy", 176, 362, 24, 38, 2);
+        add("visitor_pee_neutral", 176, 362, 24, 38, 2);
+        add("visitor_pee_angry", 176, 400, 24, 38, 2);
+        add("visitor_pee_enraged", 176, 438, 24, 38, 2);
 
-//        Guest happy poopface:
-//        x 224, y 324 - w 24, h 38
-//        Guest neutral poopface:
-//        x 224, y 362 - w 24, h 38
-//        Guest sad poopface:
-//        x 224, y 400 - w 24, h 38
-//        Guest RAGE poopface:
-//        x 224, y 438 - w 24, h 38
-//
+        add("visitor_poop_happy", 224, 324, 24, 38, 1);
+        add("visitor_poop_neutral", 224, 362, 24, 38, 1);
+        add("visitor_poop_angry", 224, 400, 24, 38, 1);
+        add("visitor_poop_enraged", 224, 438, 24, 38, 1);
+
 //        Dynasty poster
 //        x 96, y 224 - w 26, h 42
 //        Steve Can't Zen poster
@@ -93,21 +94,13 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
 
 //        Guest happy walk animation:
-//        32, 324 24, 38 
+//        32, 324 24, 38
 //        Guest neutral walk animation:
 //        32, 362 24, 38
 //        Guest sad walk animation:
-//        32, 400 24, 38 
+//        32, 400 24, 38
 //        Guest RAGE walk animation:
-//        32, 438 24, 38 
+//        32, 438 24, 38
 //
-//        Guest happpeeing animation:
-//        176, 324 24, 38 
-//        Guest neutral peeing animation:
-//        176, 362 24, 38
-//        Guest sad peeing animation:
-//        176, 400 24, 38 
-//        Guest RAGE peeing animation:
-//        176, 438 24, 38 
     }
 }
