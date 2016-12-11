@@ -52,6 +52,7 @@ public class GameScreen extends WorldScreen {
                         new PlayerSystem(),
                         new CoinSystem(),
                         new PhysicsSystem(),
+                        new InteractableCooldownSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new AnimRenderSystem(renderBatchingSystem),
                         new StatusRenderSystem()

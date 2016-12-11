@@ -25,6 +25,7 @@ import static net.mostlyoriginal.game.system.view.GameScreenAssetSystem.LAYER_PL
 public class UseSystem extends FluidSystem {
 
     public static final int ACT_OFFSET_Y = 32;
+    public static final float COOLDOWN_AFTER_USAGE = 0.8f;
     private CoinSystem coinSystem;
 
     public UseSystem() {
@@ -64,6 +65,7 @@ public class UseSystem extends FluidSystem {
     private void finishUsing(E e) {
         if (e.inUseUserId() != -1) {
             E actor = getActor(e);
+            e.interactableCooldownBefore(COOLDOWN_AFTER_USAGE);
             applyEffects(e, actor);
             stopBeingUsed(e, actor);
         }
@@ -150,7 +152,7 @@ public class UseSystem extends FluidSystem {
     }
 
     public void startUsing(E actor, E item) {
-        if (item.hasInteractable())
+        if (item.hasInteractable() && item.interactableCooldownBefore() <= 0 )
             if (item.hasInUse()) {
                 if(item.inUseUserId() == actor.id() )
                 {
