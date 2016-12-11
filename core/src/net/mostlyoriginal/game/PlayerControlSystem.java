@@ -15,15 +15,30 @@ import static com.artemis.E.*;
  * @author Daan van Yperen
  */
 public class PlayerControlSystem extends FluidSystem {
+
+    public static final float IDLE_TIME_BEFORE_STOP_USING_MODULES = 0.7f;
+
     public PlayerControlSystem() {
         super(Aspect.all(Player.class));
     }
 
     protected UseSystem useSystem;
 
+    public float lastUse = 0;
+
     @Override
     protected void process(E player) {
-        if (!player.hasUsing()) {
+        lastUse += world.delta;
+        if (!player.isMoving() && (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE))) {
+            startUsingModule(player);
+            lastUse=0;
+        }
+
+        if (player.hasUsing()) {
+            if ( lastUse >= IDLE_TIME_BEFORE_STOP_USING_MODULES) {
+                stopUsingModule(player);
+            }
+        } else {
             if (!player.isMoving()) {
                 if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                     shiftPosition(player, -1);
@@ -31,13 +46,13 @@ public class PlayerControlSystem extends FluidSystem {
                 if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                     shiftPosition(player, 1);
                 }
-                if ((Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE))) {
-                    startUsingModule(player);
-                }
             }
-
             moveToModule(player);
         }
+    }
+
+    private void stopUsingModule(E player) {
+        useSystem.stopBeingUsed(getModule(player),player);
     }
 
     private void startUsingModule(E player) {

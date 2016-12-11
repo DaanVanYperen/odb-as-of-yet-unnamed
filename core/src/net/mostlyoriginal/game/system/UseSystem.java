@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.game.CoinSystem;
 import net.mostlyoriginal.game.EmotionService;
@@ -38,15 +39,14 @@ public class UseSystem extends FluidSystem {
 
         float delta = world.getDelta();
         E actor = getActor(e);
-        if (actor.hasPlayer()) {
-            delta = delta * actor.playerTool().multiplier;
-        }
 
         if (e.inUseDuration() == 0) {
             startUsing(e, actor);
         }
 
-        e.inUseDuration(e.inUseDuration() + delta);
+        if ( !actor.hasPlayer() || e.interactableDuration()==0 ) {
+            e.inUseDuration(e.inUseDuration() + delta);
+        }
 
         if (e.inUseDuration() >= e.interactableDuration()) {
             finishUsing(e);
@@ -62,13 +62,11 @@ public class UseSystem extends FluidSystem {
     }
 
     private void finishUsing(E e) {
-        if (e.interactableEndAnimId() != null) {
-            e.anim(e.interactableEndAnimId());
-        }
         if (e.inUseUserId() != -1) {
-            applyEffects(e, getActor(e));
+            E actor = getActor(e);
+            applyEffects(e, actor);
+            stopBeingUsed(e, actor);
         }
-        stopBeingUsed(e);
     }
 
     private E getActor(E e) {
@@ -84,9 +82,6 @@ public class UseSystem extends FluidSystem {
     }
 
     private void finishAsPlayer(E thing, E actor) {
-        actor.renderLayer(LAYER_PLAYER);
-        actor.posY(actor.posY() - thing.interactableUseOffsetY());
-        renderBatchingSystem.sortedDirty = true;
         if (thing.isDirty() && actor.playerTool() == Player.Tool.MOP) {
             thing.removeDirty();
         }
@@ -99,9 +94,6 @@ public class UseSystem extends FluidSystem {
     }
 
     private void finishAsVisitor(E thing, E actor) {
-        actor.renderLayer(LAYER_ACTORS);
-        actor.posY(actor.posY() - thing.interactableUseOffsetY());
-        renderBatchingSystem.sortedDirty = true;
         if (thing.hasToilet()) {
             worsenToiletState(thing);
             if (isHappyEnoughToTip(actor)) {
@@ -144,7 +136,13 @@ public class UseSystem extends FluidSystem {
         }
     }
 
-    private void stopBeingUsed(E e) {
+    public void stopBeingUsed(E e,E actor) {
+        actor.renderLayer(actor.hasPlayer() ? LAYER_PLAYER : LAYER_ACTORS);
+        actor.posY(actor.posY() - e.interactableUseOffsetY());
+        renderBatchingSystem.sortedDirty = true;
+        if (e.interactableEndAnimId() != null) {
+            e.anim(e.interactableEndAnimId());
+        }
         if (e.inUseUserId() != -1) {
             getActor(e).removeUsing();
         }
@@ -152,20 +150,34 @@ public class UseSystem extends FluidSystem {
     }
 
     public void startUsing(E actor, E item) {
-        if (item.hasInteractable() && !item.hasInUse()) {
-
-            if (!actor.hasPlayer()) {
-                startUsingAsVisitor(actor, item);
+        if (item.hasInteractable())
+            if (item.hasInUse()) {
+                if(item.inUseUserId() == actor.id() )
+                {
+                    playerContinueUsing(actor, item);
+                }
             } else {
-                startUsingAsPlayer(actor, item);
-            }
 
-            actor.removeHunt().renderLayer(LAYER_ACTORS_BUSY);
-            actor.posY(actor.posY() + item.interactableUseOffsetY());
-            renderBatchingSystem.sortedDirty = true;
-            actor.using(item.id());
-            item.inUse(actor.id());
+                startUsingFromScratch(actor, item);
+            }
+    }
+
+    private void playerContinueUsing(E actor, E item) {
+        item.inUseDuration(item.inUseDuration() + actor.playerTool().multiplier);
+    }
+
+    private void startUsingFromScratch(E actor, E item) {
+        if (!actor.hasPlayer()) {
+            startUsingAsVisitor(actor, item);
+        } else {
+            startUsingAsPlayer(actor, item);
         }
+
+        actor.removeHunt().renderLayer(LAYER_ACTORS_BUSY);
+        actor.posY(actor.posY() + item.interactableUseOffsetY());
+        renderBatchingSystem.sortedDirty = true;
+        actor.using(item.id());
+        item.inUse(actor.id());
     }
 
     private void startUsingAsVisitor(E actor, E item) {

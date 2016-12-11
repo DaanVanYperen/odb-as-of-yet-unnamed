@@ -8,8 +8,8 @@ import com.artemis.Component;
 public class Player extends Component {
 
     public enum Tool {
-        PLUNGER(2),
-        MOP(2);
+        PLUNGER(0.75f),
+        MOP(0.75f);
 
         public final float multiplier;
 

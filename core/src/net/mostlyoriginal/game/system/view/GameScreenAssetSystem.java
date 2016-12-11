@@ -111,7 +111,14 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("icon_sad2", 150+26+32+16, 224-16, 16, 16, 1);
         add("icon_coin", 150+26+48, 224-32, 16, 16, 1);
         add("icon_pointer", 150+26+64, 224-32, 16, 16, 1);
-        //add("icon_plunge", 150+26+16, 224-32, 16, 32, 1);
+
+        add("icon_button",256,224, 16, 32, 3).setFrameDuration(1f/15f);
+
+        add("progress_0",192,242,21,4,1);
+        add("progress_25",192,247,21,4,1);
+        add("progress_50",192,252,21,4,1);
+        add("progress_75",192,257,21,4,1);
+        add("progress_100",192,262,21,4,1);
 
         add("clock_face", 150+26+16, 224, 16, 16, 1);
         add("clock_large_hand", 150+26+16+32, 224, 16, 16, 1);

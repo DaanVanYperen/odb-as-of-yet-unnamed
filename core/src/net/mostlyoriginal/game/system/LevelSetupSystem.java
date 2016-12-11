@@ -98,7 +98,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .render()
                 .bounds(0, 0,GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_storage")
-                .interactableDuration(0.01f)
+                .interactableDuration(0)
                 .inventory();
 
         E mopandbucket =
