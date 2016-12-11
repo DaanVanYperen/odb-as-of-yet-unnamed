@@ -36,6 +36,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int MAIN_DOOR_WIDTH = 24;
     public static final float WALK_FRAME_DURATION = 0.03f * (150f/GameRules.WALKING_SPEED_VISITORS);
     public static final float PLAYER_IDLE_FRAME_DURATION = 0.2f;
+    public static final float PLAYER_USE_FRAME_DURATION = 0.2f;
     public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
     private static final float WASH_FRAME_DURATION = 0.6f;
 
@@ -83,6 +84,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("player_plunger", 584, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
         add("player_mop", 704, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
 
+//        add("player_use_toiletpaper", 464, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
+        add("player_using_plunger", 824,288,24,36,2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
+        add("player_using_mop", 872,288,24,36,2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
 
         // VISITOR 1
 

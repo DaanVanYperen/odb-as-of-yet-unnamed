@@ -11,6 +11,7 @@ public class BathroomLevel extends Component {
 
     public BathroomLevel() {}
 
+    public String name;
     public Type[] modules;
     public IntBag moduleEntityIds = new IntBag();
     public boolean initialized;

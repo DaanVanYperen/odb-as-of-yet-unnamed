@@ -18,32 +18,48 @@ public class LevelSetupSystem extends FluidSystem {
     public static final int Y_OFFSET = 25;
     public static final int TOILET_Y = 48;
 
-    private BathroomLevel.Type[] level1 = {
-            BathroomLevel.Type.ENTRANCE,
-            BathroomLevel.Type.TIPS,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.SUPPLY_CLOSET
-    };
+    private static class Level {
+        String name;
+        BathroomLevel.Type[] level;
 
-    private BathroomLevel.Type[] level2 = {
-            BathroomLevel.Type.ENTRANCE,
-            BathroomLevel.Type.TIPS,
-            BathroomLevel.Type.SINK,
-            BathroomLevel.Type.URINAL,
-            BathroomLevel.Type.URINAL,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.SUPPLY_CLOSET
-    };
+        public Level(String name, BathroomLevel.Type[] level) {
+            this.name = name;
+            this.level = level;
+        }
+    }
+
+    ;
+
+    private Level level1 = new Level(
+            "Stage 2: Toilets are us",
+            new BathroomLevel.Type[]{
+                    BathroomLevel.Type.ENTRANCE,
+                    BathroomLevel.Type.TIPS,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SUPPLY_CLOSET
+            });
+
+    private Level level2 = new Level(
+            "Stage 2: Toilets are us",
+            new BathroomLevel.Type[]{
+                    BathroomLevel.Type.ENTRANCE,
+                    BathroomLevel.Type.TIPS,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.URINAL,
+                    BathroomLevel.Type.URINAL,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SUPPLY_CLOSET
+            });
 
     public LevelSetupSystem() {
         super(Aspect.all(BathroomLevel.class));
@@ -54,7 +70,9 @@ public class LevelSetupSystem extends FluidSystem {
         super.initialize();
 
 //        E().bathroomLevelModules(level1);
-        E().bathroomLevelModules(level2);
+        E()
+                .bathroomLevelModules(level2.level)
+                .bathroomLevelName(level2.name);
     }
 
     private int x = 0;
@@ -107,7 +125,7 @@ public class LevelSetupSystem extends FluidSystem {
         E closet = E()
                 .pos(x, y)
                 .render()
-                .bounds(0, 0,GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .bounds(0, 0, GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_storage")
                 .interactableDuration(0)
                 .inventory();
@@ -135,22 +153,21 @@ public class LevelSetupSystem extends FluidSystem {
                 .anim("module_part_background");
 
         E toiletBowl = E()
-                .pos(x, y+TOILET_Y)
+                .pos(x, y + TOILET_Y)
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
                 .anim("module_part_toilet");
 
         String doorClosed = "module_part_door_closed";
         String doorOpen = "module_part_door_open";
 
-        if ( MathUtils.random(1,100) < 20 )
-        {
+        if (MathUtils.random(1, 100) < 20) {
             doorOpen = "module_part_handicap_door_open";
             doorClosed = "module_part_handicap_door_closed";
         }
 
         return E()
-                .pos(x+4, y+TOILET_Y-11)
-                .bounds(2, 0,GameScreenAssetSystem.TOILET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .pos(x + 4, y + TOILET_Y - 11)
+                .bounds(2, 0, GameScreenAssetSystem.TOILET_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim(MathUtils.randomBoolean() ? doorClosed : doorOpen)
                 .interactable(doorClosed, doorOpen)
@@ -166,8 +183,8 @@ public class LevelSetupSystem extends FluidSystem {
 
 
         return E()
-                .pos(x, y+TOILET_Y+30)
-                .bounds(2, 0,GameScreenAssetSystem.URINAL_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .pos(x, y + TOILET_Y + 30)
+                .bounds(2, 0, GameScreenAssetSystem.URINAL_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
                 .anim()
                 .interactable()
@@ -185,8 +202,8 @@ public class LevelSetupSystem extends FluidSystem {
 
 
         return E()
-                .pos(x, y+TOILET_Y+32)
-                .bounds(2, 0,GameScreenAssetSystem.URINAL_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .pos(x, y + TOILET_Y + 32)
+                .bounds(2, 0, GameScreenAssetSystem.URINAL_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
                 .anim()
                 .interactable()
@@ -200,22 +217,22 @@ public class LevelSetupSystem extends FluidSystem {
         E()
                 .pos(x, y)
                 .render()
-                .bounds(32, 0,GameScreenAssetSystem.ENTRANCE_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .bounds(32, 0, GameScreenAssetSystem.ENTRANCE_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_entrance")
                 .id();
 
-        if (MathUtils.random(1,4) <= 3 ) {
+        if (MathUtils.random(1, 4) <= 3) {
             E()
                     .pos(x + 64 + 3, y + 59)
                     .render()
                     .bounds(0, 0, GameScreenAssetSystem.ENTRANCE_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
-                    .anim("poster_" + MathUtils.random(1,3))
+                    .anim("poster_" + MathUtils.random(1, 3))
                     .id();
         }
 
         return E()
-                .pos(x + 32 +4, y+34)
-                .bounds(16, 16,GameScreenAssetSystem.MAIN_DOOR_WIDTH,72)
+                .pos(x + 32 + 4, y + 34)
+                .bounds(16, 16, GameScreenAssetSystem.MAIN_DOOR_WIDTH, 72)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim("module_part_main_door_closed")
                 .interactableDuration(0.25f)
@@ -229,21 +246,21 @@ public class LevelSetupSystem extends FluidSystem {
 
     private int spawnTips(int x, int y) {
         E()
-                .pos(x,y+TOILET_Y-20)
-                .bounds(0, 0,GameScreenAssetSystem.PLAYER_WIDTH,GameScreenAssetSystem.PLAYER_HEIGHT)
+                .pos(x, y + TOILET_Y - 20)
+                .bounds(0, 0, GameScreenAssetSystem.PLAYER_WIDTH, GameScreenAssetSystem.PLAYER_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_PLAYER)
                 .player()
                 .anim("player_plunger");
 
         E tipbowl = E()
-                .pos(x+2, y+TOILET_Y+2)
+                .pos(x + 2, y + TOILET_Y + 2)
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
                 .anim("coin_0");
 
         return E()
                 .pos(x, y)
                 .render()
-                .bounds(0, 0,GameScreenAssetSystem.TIPS_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .bounds(0, 0, GameScreenAssetSystem.TIPS_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .anim("module_tips")
                 .tipBowlBowlId(tipbowl.id())
                 .interactableDuration(0.0f)
