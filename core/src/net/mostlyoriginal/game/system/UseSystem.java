@@ -82,7 +82,7 @@ public class UseSystem extends FluidSystem {
 
     private void finishAsPlayer(E thing, E actor) {
         actor.renderLayer(LAYER_PLAYER);
-        actor.posY(actor.posY()-ACT_OFFSET_Y);
+        actor.posY(actor.posY()-thing.interactableUseOffsetY());
         renderBatchingSystem.sortedDirty=true;
         if (thing.isDirty() && actor.playerTool() == Player.Tool.MOP) {
             thing.removeDirty();
@@ -97,7 +97,7 @@ public class UseSystem extends FluidSystem {
 
     private void finishAsVisitor(E thing, E actor) {
         actor.renderLayer(LAYER_ACTORS);
-        actor.posY(actor.posY()-ACT_OFFSET_Y);
+        actor.posY(actor.posY()-thing.interactableUseOffsetY());
         renderBatchingSystem.sortedDirty=true;
         if (thing.hasToilet()) {
             worsenToiletState(thing);
@@ -135,7 +135,7 @@ public class UseSystem extends FluidSystem {
     public void startUsing(E actor, E item) {
         if ( item.hasInteractable() && !item.hasInUse() ) {
             actor.removeHunt().renderLayer(LAYER_ACTORS_BUSY);
-            actor.posY(actor.posY()+ACT_OFFSET_Y);
+            actor.posY(actor.posY()+item.interactableUseOffsetY());
             renderBatchingSystem.sortedDirty=true;
             actor.using(item.id());
             item.inUse(actor.id());

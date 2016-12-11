@@ -124,6 +124,7 @@ public class SetupWorldSystem extends FluidSystem {
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim(MathUtils.randomBoolean() ? "module_part_door_closed" : "module_part_door_open")
                 .interactable("module_part_door_closed", "module_part_door_open")
+                .interactableUseOffsetY(38)
                 .toiletBowlId(toiletBowl.id()).id();
     }
 

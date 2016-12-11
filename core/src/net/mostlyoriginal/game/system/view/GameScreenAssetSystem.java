@@ -72,6 +72,24 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         add("visitor", 32, 362, 24, 38, 6);
         add("visitor_busy", 176, 362, 24, 38, 2);
+        add("visitor_poop", 224, 362, 24, 38, 1);
+
+
+//        Guest happy poopface:
+//        x 224, y 324 - w 24, h 38
+//        Guest neutral poopface:
+//        x 224, y 362 - w 24, h 38
+//        Guest sad poopface:
+//        x 224, y 400 - w 24, h 38
+//        Guest RAGE poopface:
+//        x 224, y 438 - w 24, h 38
+//
+//        Dynasty poster
+//        x 96, y 224 - w 26, h 42
+//        Steve Can't Zen poster
+//        x 123, y 224 - w 26, h 42
+//        NS2D poster
+//        x 150, y 224 - w 26, h 42
 
 
 //        Guest happy walk animation:

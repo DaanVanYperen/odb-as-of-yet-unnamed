@@ -6,6 +6,8 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
+import static com.artemis.E.*;
+
 /**
  * @author Daan van Yperen
  */
@@ -18,15 +20,17 @@ public class VisitorSystem extends FluidSystem {
     protected void process(E e) {
         if ( e.hasUsing() )
         {
-            if ( !e.animId().equals("visitor_busy") ) {
-                e.animAge(0);
-                e.anim("visitor_busy");
-            }
+            E device = E(e.usingUsingId());
+            applyAnim(e, device.hasToilet() ? "visitor_poop" : "visitor_busy");
         } else {
-            if ( !e.animId().equals("visitor") ) {
-                e.animAge(0);
-                e.anim("visitor");
-            }
+            applyAnim(e, "visitor");
+        }
+    }
+
+    private void applyAnim(E e, String animId) {
+        if (!e.animId().equals(animId)) {
+            e.animAge(0);
+            e.anim(animId);
         }
     }
 }

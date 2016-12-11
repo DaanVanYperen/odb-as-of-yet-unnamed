@@ -8,9 +8,9 @@ import com.artemis.annotations.EntityId;
  */
 public class Using extends Component {
     @EntityId
-    public int usingId;
+    public int usingId=-1;
 
-    public void set(int userId)
+    public void set(int usingId)
     {
         this.usingId = usingId;
     }
