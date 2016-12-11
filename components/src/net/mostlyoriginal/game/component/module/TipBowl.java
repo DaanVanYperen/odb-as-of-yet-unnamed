@@ -11,4 +11,5 @@ public class TipBowl extends Component {
     public int bowlId;
     public int coins=0;
     public int anger=0;
+    public int maxAnger=10;
 }

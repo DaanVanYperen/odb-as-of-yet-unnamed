@@ -13,7 +13,7 @@ import static com.artemis.E.E;
 /**
  * @author Daan van Yperen
  */
-public class SetupWorldSystem extends FluidSystem {
+public class LevelSetupSystem extends FluidSystem {
 
     public static final int Y_OFFSET = 25;
     public static final int TOILET_Y = 48;
@@ -42,7 +42,7 @@ public class SetupWorldSystem extends FluidSystem {
             BathroomLevel.Type.SUPPLY_CLOSET
     };
 
-    public SetupWorldSystem() {
+    public LevelSetupSystem() {
         super(Aspect.all(BathroomLevel.class));
     }
 
@@ -51,7 +51,7 @@ public class SetupWorldSystem extends FluidSystem {
         super.initialize();
 
 //        E().bathroomLevelModules(level1);
-        E().bathroomLevelModules(level2);
+        E().bathroomLevelModules(level1);
     }
 
     private int x = 0;

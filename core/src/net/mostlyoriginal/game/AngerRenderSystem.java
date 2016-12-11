@@ -55,7 +55,7 @@ public class AngerRenderSystem extends FluidSystem {
             batch.draw(coinTexture, 64+i * 8, 24);
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < e.tipBowlMaxAnger(); i++) {
             batch.draw(e.tipBowlAnger() > i ? sadTexture : sadDisabledTexture, 28 + i * 8, 148);
         }
 

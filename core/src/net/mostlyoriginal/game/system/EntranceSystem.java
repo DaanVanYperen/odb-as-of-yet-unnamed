@@ -2,6 +2,8 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.module.Entrance;
@@ -13,23 +15,37 @@ import static com.artemis.E.E;
 /**
  * @author Daan van Yperen
  */
-public class VisitorSpawnSystem extends FluidSystem {
+public class EntranceSystem extends FluidSystem {
 
-    public VisitorSpawnSystem() {
+    public EntranceSystem() {
         super(Aspect.all(Entrance.class, Pos.class));
     }
 
     @Override
     protected void process(E e) {
+        scaleDifficultyWithTime(e);
+        considerSpawningVisitor(e);
+    }
 
+    private void considerSpawningVisitor(E e) {
         e.entranceCooldown(e.entranceCooldown()-world.getDelta());
-
         if ( e.entranceCooldown() <= 0 )
         {
             e.entranceCooldown(e.entranceTimeBetweenSpawns());
             e.anim(e.interactableStartAnimId());
             spawnVisitor((int)(e.posX() + e.boundsMinx()), (int)(e.posY() - e.boundsMiny()));
         }
+    }
+
+    private void scaleDifficultyWithTime(E e) {
+        e.entranceAge(e.entranceAge()+world.getDelta());
+        float timeBetweenSpawns = Interpolation.linear.apply(
+                e.entranceTimeBetweenSpawnsEasiest(),
+                e.entranceTimeBetweenSpawnsHardest(),
+                MathUtils.clamp(e.entranceAge() / e.entranceMaxAge(),0,1f));
+        e.entranceTimeBetweenSpawns(
+                timeBetweenSpawns);
+        System.out.println(timeBetweenSpawns);
     }
 
     private void spawnVisitor(int x, int y) {
