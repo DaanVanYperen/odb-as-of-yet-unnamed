@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.Hunt;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
@@ -40,7 +41,7 @@ public class HuntSystem extends FluidSystem {
     }
 
     private boolean walkTowards(E actor, E huntTarget) {
-        float movementSpeed = world.delta * 150;
+        float movementSpeed = world.delta * GameRules.WALKING_SPEED_VISITORS;
         if (actor.posX() + movementSpeed < huntTarget.posX() + huntTarget.boundsMinx()) {
             actor.posX(actor.posX() + movementSpeed);
             actor.animFlippedX(false);

@@ -3,10 +3,10 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.game.CoinSystem;
 import net.mostlyoriginal.game.EmotionService;
+import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.Emotion;
 import net.mostlyoriginal.game.component.Interactable;
@@ -104,7 +104,7 @@ public class UseSystem extends FluidSystem {
             worsenUrinalState(thing);
             washHandsTipOrLeave(thing, actor);
         }
-        if (thing.isSink()) {
+        if (thing.isSink() ) {
             worsenSinkState(thing);
             tipOrLeave(actor);
         }
@@ -169,10 +169,12 @@ public class UseSystem extends FluidSystem {
 
 
     private void worsenSinkState(E thing) {
-        if ( thing.hasDirty() ) {
-            thing.dirtyLevel(1);
-        } else {
-            thing.dirty();
+        if ( MathUtils.random(1,100) <= GameRules.PERCENTAGE_CHANCE_OF_SINK_DIRTY_ESCALATION) {
+            if (thing.hasDirty()) {
+                thing.dirtyLevel(1);
+            } else {
+                thing.dirty();
+            }
         }
     }
 

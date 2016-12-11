@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.view;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
+import net.mostlyoriginal.game.GameRules;
 
 /**
  * @author Daan van Yperen
@@ -33,7 +34,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int PLAYER_WIDTH = 24;
     public static final int PLAYER_HEIGHT = 36;
     public static final int MAIN_DOOR_WIDTH = 24;
-    public static final float WALK_FRAME_DURATION = 0.06f;
+    public static final float WALK_FRAME_DURATION = 0.03f * (150f/GameRules.WALKING_SPEED_VISITORS);
     public static final float PLAYER_IDLE_FRAME_DURATION = 0.2f;
     public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
 
