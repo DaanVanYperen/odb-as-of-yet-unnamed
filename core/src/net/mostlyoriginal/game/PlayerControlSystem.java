@@ -25,12 +25,20 @@ public class PlayerControlSystem extends FluidSystem {
     protected UseSystem useSystem;
 
     public float lastUse = 0;
+    public float autoClickCooldown = 0;
 
     @Override
     protected void process(E player) {
+        if (autoClickCooldown > 0 ) autoClickCooldown -= world.delta;
         lastUse += world.delta;
-        if (!player.isMoving() && (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE))) {
-            startUsingModule(player);
+        boolean justPressedAction = (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE));
+        boolean pressedAction = (Gdx.input.isKeyPressed(Input.Keys.E) || Gdx.input.isKeyPressed(Input.Keys.SPACE));
+        if (!player.isMoving()
+                && (justPressedAction || pressedAction) ) {
+            if (justPressedAction || autoClickCooldown <= 0) {
+                autoClickCooldown = 0.25f;
+                startUsingModule(player);
+            }
             lastUse=0;
         }
 
