@@ -30,6 +30,7 @@ public class StatusRenderSystem extends FluidSystem {
     private float age;
     private TextureRegion[] iconProgress = new TextureRegion[5];
     private Animation animIconButton;
+    private TextureRegion iconPlungerAndMop;
 
     public StatusRenderSystem() {
         super(Aspect.one(TipBowl.class, Dirty.class, Clogged.class));
@@ -51,8 +52,12 @@ public class StatusRenderSystem extends FluidSystem {
         iconCoin = assetSystem.get("icon_coin").getKeyFrame(0);
         iconTexture = assetSystem.get("icon_sad").getKeyFrame(0);
         iconSad = assetSystem.get("icon_sad2").getKeyFrame(0);
+
+
         iconPlunger = assetSystem.get("icon_plunger").getKeyFrame(0);
         iconMop = assetSystem.get("icon_mop").getKeyFrame(0);
+        iconPlungerAndMop = assetSystem.get("icon_plunger_and_mop").getKeyFrame(0);
+
 
         iconProgress[0] = assetSystem.get("progress_0").getKeyFrame(0);
         iconProgress[1] = assetSystem.get("progress_25").getKeyFrame(0);
@@ -99,10 +104,11 @@ public class StatusRenderSystem extends FluidSystem {
         int yBounce = (int) Interpolation.fade.apply(0, 8, Math.abs(1 - (((age + e.posX() * 0.1f) * 2f) % 2f)));
         int yOff = 64 + yBounce;
         int xOff = 4;
-        if (e.isClogged()) {
+        if (e.isClogged()&&e.isDirty()) {
+            batch.draw(iconPlungerAndMop, e.posX() + xOff, e.posY() + yOff);
+        } else if (e.isClogged()) {
             batch.draw(iconPlunger, e.posX() + xOff, e.posY() + yOff);
-        }
-        if (e.isDirty()) {
+        } else if (e.isDirty()) {
             batch.draw(iconMop, e.posX() + xOff, e.posY() + yOff);
         }
     }

@@ -37,8 +37,6 @@ public class LevelSetupSystem extends FluidSystem {
             BathroomLevel.Type.ENTRANCE,
             BathroomLevel.Type.TIPS,
             BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
-            BathroomLevel.Type.TOILET,
             BathroomLevel.Type.SUPPLY_CLOSET
     };
 
@@ -51,7 +49,7 @@ public class LevelSetupSystem extends FluidSystem {
         super.initialize();
 
 //        E().bathroomLevelModules(level1);
-        E().bathroomLevelModules(level1);
+        E().bathroomLevelModules(level2);
     }
 
     private int x = 0;

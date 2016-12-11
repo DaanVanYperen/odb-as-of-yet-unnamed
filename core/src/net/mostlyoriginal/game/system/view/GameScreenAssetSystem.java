@@ -106,6 +106,11 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         add("icon_mop", 150+26, 224-32, 16, 32, 1);
         add("icon_plunger", 150+26+16, 224-32, 16, 32, 1);
+        add("icon_plunger_and_mop", 256,192,16,32, 1);
+        //
+//        Mop + Plunger icon
+//
+
         add("icon_forbidden", 150+26+32, 224-32, 16, 16, 1);
         add("icon_sad", 150+26+32, 224-16, 16, 16, 1);
         add("icon_sad2", 150+26+32+16, 224-16, 16, 16, 1);
@@ -125,6 +130,34 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("clock_small_hand", 150+26+16+48, 224, 16, 16, 1);
 
         add("icon_press", 150+26+80, 224, 16, 32, 3);
+
+//
+//        Guest 2 happy walk animation:
+//        32,476,24,38,6
+//        Guest 2 neutral walk animation:
+//        32,514,24,38,6
+//        Guest 2 sad walk animation:
+//        32,552,24,38,6
+//        Guest 2 RAGE walk animation:
+//        32,590,24,38,6
+//
+//        Guest 2 happy peeing animation:
+//        176,476,24,38,2
+//        Guest 2 neutral peeing animation:
+//        176,514,24,38,2
+//        Guest 2 sad peeing animation:
+//        176,552,24,38,2
+//        Guest 2 RAGE peeing animation:
+//        176,590,24,38,2
+//
+//        Guest 2 happy poopface:
+//        224,476,24,38
+//        Guest 2 neutral poopface:
+//        224,514,24,38
+//        Guest 2 sad poopface:
+//        224,552,24,38
+//        Guest 2 RAGE poopface:
+//        224,590,24,38
 
 //        Guest happy walk animation:
 //        32, 324 24, 38
