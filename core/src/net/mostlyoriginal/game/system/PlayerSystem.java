@@ -1,4 +1,4 @@
-package net.mostlyoriginal.game;
+package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;

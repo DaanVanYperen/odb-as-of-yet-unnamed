@@ -4,8 +4,6 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
-import net.mostlyoriginal.game.CoinSystem;
-import net.mostlyoriginal.game.EmotionService;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.Emotion;
@@ -147,24 +145,28 @@ public class UseSystem extends FluidSystem {
     }
 
     private void worsenToiletState(E thing) {
-        if (thing.hasDirty()) {
-            // if dirty, become clogged as well.
-            thing.clogged();
-        } else if (thing.isClogged()) {
-            // if clogged, become dirty as well.
-            thing.dirty();
-        } else {
-            // become dirty or clogged randomly.
-            if (MathUtils.randomBoolean()) {
+        if ( MathUtils.random(1,100) <= GameRules.PERCENTAGE_CHANCE_OF_TOILET_DIRTY_ESCALATION) {
+            if (thing.hasDirty()) {
+                // if dirty, become clogged as well.
+                thing.clogged();
+            } else if (thing.isClogged()) {
+                // if clogged, become dirty as well.
                 thing.dirty();
             } else {
-                thing.clogged();
+                // become dirty or clogged randomly.
+                if (MathUtils.randomBoolean()) {
+                    thing.dirty();
+                } else {
+                    thing.clogged();
+                }
             }
         }
     }
 
     private void worsenUrinalState(E thing) {
-        thing.dirty();
+        if ( MathUtils.random(1,100) <= GameRules.PERCENTAGE_CHANCE_OF_URINAL_DIRTY_ESCALATION) {
+            thing.dirty();
+        }
     }
 
 
@@ -176,6 +178,7 @@ public class UseSystem extends FluidSystem {
                 thing.dirty();
             }
         }
+
     }
 
     public void stopBeingUsed(E e, E actor) {

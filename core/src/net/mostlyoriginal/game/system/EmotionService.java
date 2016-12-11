@@ -1,4 +1,4 @@
-package net.mostlyoriginal.game;
+package net.mostlyoriginal.game.system;
 
 import com.artemis.BaseEntitySystem;
 import com.artemis.BaseSystem;
