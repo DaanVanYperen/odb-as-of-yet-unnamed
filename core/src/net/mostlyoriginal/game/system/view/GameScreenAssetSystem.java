@@ -287,7 +287,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 //        Toilet large poop:
 //        416,152,32,72
 //        Toilet HUGE poop:
-//        448,152,32,72
+//        448,152,32,72EEEE
 //
 //        Fly variant 1:
 //        216,240,2,2

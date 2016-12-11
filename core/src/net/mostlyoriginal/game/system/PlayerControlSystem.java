@@ -88,7 +88,7 @@ public class PlayerControlSystem extends FluidSystem {
     }
 
     private E getModule(E player) {
-        return E(player.playerActiveModuleId());
+        return player.playerActiveModuleId() != -1 ? E(player.playerActiveModuleId()) : null;
     }
 
     private void shiftPosition(E player, int offset) {

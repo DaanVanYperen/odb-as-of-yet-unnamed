@@ -210,6 +210,7 @@ public class UseSystem extends FluidSystem {
     }
 
     public void startUsing(E actor, E item) {
+        if (item == null) return;
         if (item.hasTipBowl() && actor.hasPlayer()) return;
         if (item.hasInteractable() && item.interactableCooldownBefore() <= 0) {
 
