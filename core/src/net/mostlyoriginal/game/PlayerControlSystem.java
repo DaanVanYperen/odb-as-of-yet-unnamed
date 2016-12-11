@@ -24,19 +24,20 @@ public class PlayerControlSystem extends FluidSystem {
     @Override
     protected void process(E player) {
         if (!player.hasUsing()) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-                shiftPosition(player, -1);
-                player.animFlippedX(true);
+            if (!player.isMoving()) {
+                if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                    shiftPosition(player, -1);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                    shiftPosition(player, 1);
+                }
+                if ((Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE))) {
+                    startUsingModule(player);
+                }
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-                shiftPosition(player, 1);
-                player.animFlippedX(false);
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                startUsingModule(player);
-            }
+
+            moveToModule(player);
         }
-        moveToModule(player);
     }
 
     private void startUsingModule(E player) {
@@ -44,9 +45,22 @@ public class PlayerControlSystem extends FluidSystem {
     }
 
     private void moveToModule(E player) {
+        player.moving(false);
         if (player.playerActiveModuleId() != -1) {
             E module = getModule(player);
-            player.posX(module.posX() + module.boundsMinx());
+
+            float targetX = module.posX() + module.boundsMinx();
+            float movementSpeed = 200 * world.delta;
+
+            if (player.posX() + movementSpeed < targetX) {
+                player.posX(player.posX() + movementSpeed);
+                player.animFlippedX(false);
+                player.moving(true);
+            } else if (player.posX() - movementSpeed > targetX) {
+                player.posX(player.posX() - movementSpeed);
+                player.animFlippedX(true);
+                player.moving(true);
+            }
         }
     }
 

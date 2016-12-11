@@ -18,13 +18,14 @@ public class PlayerSystem extends FluidSystem {
     protected void process(E e) {
         switch (e.playerTool()) {
             case PLUNGER:
-                e.anim("player_plunger");
+                e.anim(e.isMoving() ? "player_walking_plunger" : "player_plunger");
                 break;
             case MOP:
-                e.anim("player_mop");
+                e.anim(e.isMoving() ? "player_walking_mop" : "player_mop");
                 break;
         }
     }
+
 
     //add("player_toiletpaper", 32, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
 //    add("player_plunger", 176, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
