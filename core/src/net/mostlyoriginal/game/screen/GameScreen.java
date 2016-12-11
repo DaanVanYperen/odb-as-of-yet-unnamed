@@ -50,6 +50,7 @@ public class GameScreen extends WorldScreen {
                         new VisitorSystem(),
                         new PlayerControlSystem(),
                         new PlayerSystem(),
+                        new ClockSystem(),
                         new CoinSystem(),
                         new PhysicsSystem(),
                         new InteractableCooldownSystem(),

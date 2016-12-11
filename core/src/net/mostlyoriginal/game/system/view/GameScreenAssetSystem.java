@@ -20,11 +20,12 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
     public static final int LAYER_BACKGROUND = 1;
     public static final int LAYER_BEHIND_ACTORS = 5;
-    public static final int LAYER_TOILET_DOOR = 10;
+    public static final int LAYER_CLOCK = 20;
+    public static final int LAYER_TOILET_DOOR = 100;
     public static final int LAYER_ACTORS = 2000;
     public static final int LAYER_PLAYER = 1000;
     public static final int LAYER_ICONS = 2100;
-    public static final int LAYER_ACTORS_BUSY = 9;
+    public static final int LAYER_ACTORS_BUSY = 90;
 
     public static final int DEFAULT_MODULE_HEIGHT = UNIT * 5 + 16;
     public static final int PLAYER_WIDTH = 24;
@@ -145,9 +146,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("progress_75", 192, 257, 21, 4, 1);
         add("progress_100", 192, 262, 21, 4, 1);
 
-        add("clock_face", 150 + 26 + 16, 224, 16, 16, 1);
-        add("clock_large_hand", 150 + 26 + 16 + 32, 224, 16, 16, 1);
-        add("clock_small_hand", 150 + 26 + 16 + 48, 224, 16, 16, 1);
+        add("clock_face", 150 + 26 + 16, 224, 15, 15, 1);
+        add("clock_large_hand", 150 + 26 + 32, 224, 15, 15, 1);
+        add("clock_small_hand", 150 + 26 + 48, 224, 15, 15, 1);
 
         add("icon_press", 150 + 26 + 80, 224, 16, 32, 3);
     }
