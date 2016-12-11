@@ -2,18 +2,12 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import com.artemis.utils.IntBag;
-import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.Hunt;
-import net.mostlyoriginal.game.component.module.Exit;
-import net.mostlyoriginal.game.component.module.Toilet;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
 import static com.artemis.E.E;
-import static com.badlogic.gdx.scenes.scene2d.ui.Table.Debug.actor;
 
 /**
  * @author Daan van Yperen

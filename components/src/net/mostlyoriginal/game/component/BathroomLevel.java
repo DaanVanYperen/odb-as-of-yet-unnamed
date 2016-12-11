@@ -18,6 +18,8 @@ public class BathroomLevel extends Component {
     public enum Type {
         ENTRANCE,
         TOILET,
-        TIPS, SUPPLY_CLOSET
+        TIPS,
+        URINAL,
+        SUPPLY_CLOSET
     }
 }

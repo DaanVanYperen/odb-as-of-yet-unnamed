@@ -9,6 +9,7 @@ import net.mostlyoriginal.game.component.Using;
 import net.mostlyoriginal.game.component.module.Exit;
 import net.mostlyoriginal.game.component.module.TipBowl;
 import net.mostlyoriginal.game.component.module.Toilet;
+import net.mostlyoriginal.game.component.module.Urinal;
 import net.mostlyoriginal.game.component.state.Dirty;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
@@ -47,6 +48,18 @@ public class DesireSystem extends FluidSystem {
                     entityId = randomOf(getDirtyToilet());
                 }
                 break;
+            case PEE:
+                entityId = randomOf(getCleanUrinal());
+                if ( entityId == MISSING_ENTITY_ID ) {
+                    entityId = randomOf(getDirtyUrinal());
+                }
+                if ( entityId == MISSING_ENTITY_ID ) {
+                    entityId = randomOf(getCleanToilet());
+                }
+                if ( entityId == MISSING_ENTITY_ID ) {
+                    entityId = randomOf(getDirtyToilet());
+                }
+                break;
         }
 
         if (entityId != MISSING_ENTITY_ID) {
@@ -69,6 +82,20 @@ public class DesireSystem extends FluidSystem {
         return world
                 .getAspectSubscriptionManager()
                 .get(Aspect.all(Toilet.class)).getEntities();
+    }
+
+
+    private IntBag getCleanUrinal() {
+        return world
+                .getAspectSubscriptionManager()
+                .get(Aspect.all(Urinal.class).exclude(Dirty.class)).getEntities();
+    }
+
+
+    private IntBag getDirtyUrinal() {
+        return world
+                .getAspectSubscriptionManager()
+                .get(Aspect.all(Urinal.class)).getEntities();
     }
 
 

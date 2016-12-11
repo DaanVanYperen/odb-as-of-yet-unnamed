@@ -52,7 +52,7 @@ public class EntranceSystem extends FluidSystem {
                 .pos(x, y)
                 .bounds(0,0,GameScreenAssetSystem.VISITOR_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_ACTORS)
-                .desire(Desire.Type.POOP)
+                .desire(MathUtils.randomBoolean() ? Desire.Type.POOP : Desire.Type.PEE)
                 .anim("visitor");
     }
 }

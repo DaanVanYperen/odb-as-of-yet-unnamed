@@ -76,12 +76,6 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("player_plunger", 584, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
         add("player_mop", 704, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
 
-        //Player, normal walk:
-        //x 32, y 288 - w 24, h 36 - six frames
-        //Player, plunger walk:
-        //x 176, y 288 - w 24, h 36 - six frames
-        //Player, mop walk:
-        //x 320, y 288 - w 24, h 36 - six frames
 
         // VISITOR 1
 
@@ -119,34 +113,23 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("visitor_poop_enraged2", 224, 590, 24, 38, 1);
 
 
+        // VISITOR 3
 
-//        Guest 3 happy walk animation:
-//        32,628,24,38,6
-//        Guest 3 neutral walk animation:
-//        32,666,24,38,6
-//        Guest 3 sad walk animation:
-//        32,704,24,38,6
-//        Guest 3 RAGE walk animation:
-//        32,742,24,38,6
-//
-//        Guest 3 happy peeing animation:
-//        176,628,24,38,2
-//        Guest 3 neutral peeing animation:
-//        176,666,24,38,2
-//        Guest 3 sad peeing animation:
-//        176,704,24,38,2
-//        Guest 3 RAGE peeing animation:
-//        176,742,24,38,2
-//
-//        Guest 3 happy poopface:
-//        224,628,24,38
-//        Guest 3 neutral poopface:
-//        224,666,24,38
-//        Guest 3 sad poopface:
-//        224,704,24,38
-//        Guest 3 RAGE poopface:
-//        224,742,24,38
-//
+        add("visitor_happy3", 32,628,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_neutral3", 32,666,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_angry3", 32,704,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_enraged3", 32,742,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+
+        add("visitor_pee_happy3", 176,628,24,38,2);
+        add("visitor_pee_neutral3", 176,666,24,38,2);
+        add("visitor_pee_angry3", 176,704,24,38,2);
+        add("visitor_pee_enraged3",  176,742,24,38,2);
+
+        add("visitor_poop_happy3",  224,628,24,38, 1);
+        add("visitor_poop_neutral3", 224,666,24,38, 1);
+        add("visitor_poop_angry3", 224,704,24,38, 1);
+        add("visitor_poop_enraged3",224,742,24,38, 1);
+
         add("coin_0", 96 - 16, 224 - 32, 16, 16, 1); // empty
         add("coin_1", 96, 224 - 32, 16, 16, 1);
         add("coin_2", 96 + 16, 224 - 32, 16, 16, 1);
@@ -184,5 +167,24 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("clock_small_hand", 150 + 26 + 48, 224, 15, 15, 1);
 
         add("icon_press", 150 + 26 + 80, 224, 16, 32, 3);
+
+//        Toilet large poop:
+//        416,152,32,72
+//        Toilet HUGE poop:
+//        448,152,32,72
+//
+//        Fly variant 1:
+//        216,240,2,2
+//        Fly variant 2:
+//        219,240,2,2
+//        Fly variant 3:
+//        216,243,2,2
+//        Fly variant 4:
+//        219,243,2,2
+//
+//        Sink dirty:
+//        512,32,32,64
+//        Sink GROSS:
+//        544,32,32,64
     }
 }

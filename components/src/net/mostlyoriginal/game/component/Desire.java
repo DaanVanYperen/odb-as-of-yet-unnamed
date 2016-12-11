@@ -11,8 +11,9 @@ public class Desire extends Component {
         LEAVE,
         TIP,
         POOP,
+        PEE,
     }
     public Type type;
-    public int index= MathUtils.random(1,2);
+    public int index= MathUtils.random(1,3);
     public void set(Type type) { this.type = type; }
 }

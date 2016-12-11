@@ -105,11 +105,11 @@ public class StatusRenderSystem extends FluidSystem {
         int yOff = 64 + yBounce;
         int xOff = 4;
         if (e.isClogged()&&e.isDirty()) {
-            batch.draw(iconPlungerAndMop, e.posX() + xOff, e.posY() + yOff);
+            batch.draw(iconPlungerAndMop, e.posX() + xOff, 64 + yOff);
         } else if (e.isClogged()) {
-            batch.draw(iconPlunger, e.posX() + xOff, e.posY() + yOff);
+            batch.draw(iconPlunger, e.posX() + xOff, 64 + yOff);
         } else if (e.isDirty()) {
-            batch.draw(iconMop, e.posX() + xOff, e.posY() + yOff);
+            batch.draw(iconMop, e.posX() + xOff, 64 + yOff);
         }
     }
 

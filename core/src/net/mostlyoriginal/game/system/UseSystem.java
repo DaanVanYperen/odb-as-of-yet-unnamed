@@ -45,7 +45,7 @@ public class UseSystem extends FluidSystem {
             startUsing(e, actor);
         }
 
-        if ( !actor.hasPlayer() || e.interactableDuration()==0 ) {
+        if (!actor.hasPlayer() || e.interactableDuration() == 0) {
             e.inUseDuration(e.inUseDuration() + delta);
         }
 
@@ -98,11 +98,11 @@ public class UseSystem extends FluidSystem {
     private void finishAsVisitor(E thing, E actor) {
         if (thing.hasToilet()) {
             worsenToiletState(thing);
-            if (isHappyEnoughToTip(actor)) {
-                actor.desireType(Desire.Type.TIP);
-            } else {
-                actor.desireType(Desire.Type.LEAVE);
-            }
+            tipOrLeave(actor);
+        }
+        if (thing.hasUrinal()) {
+            worsenUrinalState(thing);
+            tipOrLeave(actor);
         }
         if (thing.hasTipBowl()) {
             actor.desireType(Desire.Type.LEAVE);
@@ -113,6 +113,14 @@ public class UseSystem extends FluidSystem {
                 coinSystem.leaveAngrily(actor);
             }
             actor.deleteFromWorld();
+        }
+    }
+
+    private void tipOrLeave(E actor) {
+        if (isHappyEnoughToTip(actor)) {
+            actor.desireType(Desire.Type.TIP);
+        } else {
+            actor.desireType(Desire.Type.LEAVE);
         }
     }
 
@@ -138,7 +146,11 @@ public class UseSystem extends FluidSystem {
         }
     }
 
-    public void stopBeingUsed(E e,E actor) {
+    private void worsenUrinalState(E thing) {
+        thing.dirty();
+    }
+
+    public void stopBeingUsed(E e, E actor) {
         actor.renderLayer(actor.hasPlayer() ? LAYER_PLAYER : LAYER_ACTORS);
         actor.posY(actor.posY() - e.interactableUseOffsetY());
         renderBatchingSystem.sortedDirty = true;
@@ -152,10 +164,9 @@ public class UseSystem extends FluidSystem {
     }
 
     public void startUsing(E actor, E item) {
-        if (item.hasInteractable() && item.interactableCooldownBefore() <= 0 )
+        if (item.hasInteractable() && item.interactableCooldownBefore() <= 0)
             if (item.hasInUse()) {
-                if(item.inUseUserId() == actor.id() )
-                {
+                if (item.inUseUserId() == actor.id()) {
                     playerContinueUsing(actor, item);
                 }
             } else {
