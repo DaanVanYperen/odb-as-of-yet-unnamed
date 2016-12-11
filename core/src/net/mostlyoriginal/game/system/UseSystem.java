@@ -53,13 +53,32 @@ public class UseSystem extends FluidSystem {
         if (e.inUseDuration() >= e.interactableDuration()) {
             finishUsing(e);
         } else {
-            continueUsing(e);
+            continueUsing(e, actor);
         }
     }
 
-    private void continueUsing(E e) {
+    private void continueUsing(E e, E actor) {
         if (e.interactableEndAnimId() != null) {
             e.anim(e.interactableStartAnimId());
+        }
+        if (actor.hasUsing() && actor.usingSfxCooldown() > 0 && !actor.hasPlayer() )
+        {
+            actor.usingSfxCooldown(actor.usingSfxCooldown() - world.delta);
+            if ( actor.usingSfxCooldown() <= 0 ) {
+                if ( e.hasToilet() ) {
+                    assetSystem.playPoopSfx();
+                    actor.posY(actor.posY()+actor.usingSfxOffset());
+                    actor.usingSfxOffset(-actor.usingSfxOffset());
+                }
+                // 50% chance of chaining poops.
+                if ( MathUtils.random(1,100) < 50) {
+                    actor.usingSfxCooldown(MathUtils.random(0.2f,0.8f));
+
+                    // poop longerrrr!
+                    e.inUseDuration(e.inUseDuration() - 0.4f);
+                }
+            }
+
         }
     }
 
@@ -190,28 +209,28 @@ public class UseSystem extends FluidSystem {
 
     }
 
-    public void stopBeingUsed(E e, E actor) {
+    public void stopBeingUsed(E item, E actor) {
         actor.renderLayer(actor.hasPlayer() ? LAYER_PLAYER : LAYER_ACTORS);
-        actor.posY(actor.posY() - e.interactableUseOffsetY());
+        actor.posY(actor.posY() - item.interactableUseOffsetY());
         renderBatchingSystem.sortedDirty = true;
 
-        if( !actor.hasPlayer() && (e.hasToilet()||e.hasUrinal())) {
+        if( !actor.hasPlayer() && (item.hasToilet()||item.hasUrinal())) {
             assetSystem.playFlushSfx();
         }
-        if (e.hasExit() || e.hasEntrance()) {
+        if (item.hasExit() || item.hasEntrance()) {
             assetSystem.playDoorCloseSfx();
         }
-        if (e.hasToilet()) {
+        if (item.hasToilet()) {
             assetSystem.playDoorCloseSfx();
         }
 
-        if (e.interactableEndAnimId() != null) {
-            e.anim(e.interactableEndAnimId());
+        if (item.interactableEndAnimId() != null) {
+            item.anim(item.interactableEndAnimId());
         }
-        if (e.inUseUserId() != -1) {
-            getActor(e).removeUsing();
+        if (item.inUseUserId() != -1) {
+            actor.removeUsing();
         }
-        e.removeInUse();
+        item.removeInUse();
     }
 
     public void startUsing(E actor, E item) {
@@ -230,9 +249,6 @@ public class UseSystem extends FluidSystem {
                 }
             }
             if (!actor.hasPlayer()){
-                if (item.hasToilet()){
-                    assetSystem.playPoopSfx();
-                }
                 if (item.hasUrinal()){
                     assetSystem.playPeeSfx();
                 }
