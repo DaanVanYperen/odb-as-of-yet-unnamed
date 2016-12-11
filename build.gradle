@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        appName = 'Piddler'
+        appName = 'I Clean Toilets'
         appVersion = '1.6'
         gdxVersion = '1.9.4'
         artemisVersion = '2.1.0'

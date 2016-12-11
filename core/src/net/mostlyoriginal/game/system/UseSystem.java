@@ -188,6 +188,9 @@ public class UseSystem extends FluidSystem {
         actor.posY(actor.posY() - e.interactableUseOffsetY());
         renderBatchingSystem.sortedDirty = true;
 
+        if( !actor.hasPlayer() && (e.hasToilet()||e.hasUrinal())) {
+            assetSystem.playFlushSfx();
+        }
         if (e.hasExit() || e.hasEntrance()) {
             assetSystem.playDoorCloseSfx();
         }
@@ -208,7 +211,7 @@ public class UseSystem extends FluidSystem {
         if (item.hasTipBowl() && actor.hasPlayer()) return;
         if (item.hasInteractable() && item.interactableCooldownBefore() <= 0) {
 
-            if (actor.hasPlayer()) {
+            if (actor.hasPlayer() && !item.isInventory()) {
                 switch (actor.playerTool()) {
                     case PLUNGER:
                         assetSystem.playPlungerSfx();
@@ -216,6 +219,18 @@ public class UseSystem extends FluidSystem {
                     case MOP:
                         assetSystem.playMopSfx();
                         break;
+                }
+            }
+            if (!actor.hasPlayer()){
+                if (item.hasToilet()){
+                    assetSystem.playPoopSfx();
+                }
+                if (item.hasUrinal()){
+                    assetSystem.playPeeSfx();
+                }
+                if (item.hasSink())
+                {
+                    assetSystem.playSinkSfx();
                 }
             }
 
@@ -246,6 +261,9 @@ public class UseSystem extends FluidSystem {
         }
         if (item.hasToilet()) {
             assetSystem.playDoorCloseSfx();
+        }
+        if (item.isInventory()){
+            assetSystem.playSuppliesSfx();
         }
 
         actor.removeHunt().renderLayer(LAYER_ACTORS_BUSY);

@@ -66,6 +66,7 @@ public class CoinSystem extends FluidSystem {
 
     public void leaveAngrily(E e) {
         angerPending++;
+        assetSystem.playGuestAngrySfx();
         feedbackIcon("icon_sad", e.posX()+2, e.posY() + 48);
     }
 

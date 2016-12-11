@@ -41,6 +41,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final float PLAYER_USE_FRAME_DURATION = 0.2f;
     public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
     private static final float WASH_FRAME_DURATION = 0.6f;
+    public static final float LOW_VOLUME = 0.01f;
 
     public GameScreenAssetSystem() {
         super("tileset.png");
@@ -225,11 +226,23 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                 "plunger_03",
                 "plunger_04",
                 "plunger_05",
-
-                "footstep_left_01",
-                "footstep_left_02",
-                "footstep_right_01",
-                "footstep_right_02",
+                "supplies_01",
+                "supplies_02",
+                "supplies_03",
+                "poop_02",
+                "poop_01",
+                "poop_03",
+                "poop_04",
+                "poop_05",
+                "poop_06",
+                "pee_drips_01",
+                "pee_long_01",
+                "pee_long_02",
+                "pee_long_03",
+                "pee_short_01",
+                "pee_short_02",
+                "pee_short_03",
+                "toilet_flush_01",
                 "guest_angry_01",
                 "guest_angry_02",
                 "guest_angry_03",
@@ -242,25 +255,11 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                 "handwash_01",
                 "handwash_02",
                 "handwash_03",
-                "pee_drips_01",
-                "pee_long_01",
-                "pee_long_02",
-                "pee_long_03",
-                "pee_short_01",
-                "pee_short_02",
 
-                "pee_short_03",
-
-                "poop_01",
-                "poop_02",
-                "poop_03",
-                "poop_04",
-                "poop_05",
-                "poop_06",
-                "supplies_01",
-                "supplies_02",
-                "supplies_03",
-                "toilet_flush_01"
+                "footstep_left_01",
+                "footstep_left_02",
+                "footstep_right_01",
+                "footstep_right_02",
         });
 
 //        Toilet large poop:
@@ -284,11 +283,27 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     }
 
     public void playSfx(String... names) {
+        playSfx(names[MathUtils.random(0, names.length - 1)], sfxVolume);
+    }
+
+    public void playSfx(float volume, String... names) {
         playSfx(names[MathUtils.random(0, names.length - 1)]);
     }
 
+
+    public void playSfx(String name, float volume) {
+        if (volume > 0) {
+            Sound sfx = getSfx(name);
+            if (sfx != null) {
+                sfx.stop();
+                sfx.play(volume, MathUtils.random(1f, 1.04f), 0);
+            }
+        }
+    }
+
+
     public void playDoorCloseSfx() {
-        playSfx(
+        playSfx(LOW_VOLUME,
                 "door_close_01",
                 "door_close_02",
                 "door_close_03");
@@ -296,7 +311,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
 
     public void playDoorOpenSfx() {
-        playSfx(
+        playSfx(LOW_VOLUME,
                 "door_open_01",
                 "door_open_02",
                 "door_open_03");
@@ -334,6 +349,60 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                 "plunger_03",
                 "plunger_04",
                 "plunger_05");
+    }
+
+    public void playSuppliesSfx() {
+        playSfx( "supplies_01",
+                "supplies_02",
+                "supplies_03");
+    }
+
+    public void playPoopSfx() {
+        playSfx(
+                "poop_01",
+                "poop_02",
+                "poop_03",
+                "poop_04",
+                "poop_05",
+                "poop_06"
+        );
+    }
+
+    public void playFlushSfx() {
+        playSfx(
+                "toilet_flush_01"
+        );
+    }
+
+    public void playPeeSfx() {
+        playSfx("pee_drips_01",
+                "pee_long_01",
+                "pee_long_02",
+                "pee_long_03",
+                "pee_short_01",
+                "pee_short_02",
+                "pee_short_03"
+                );
+    }
+
+
+    public void playGuestAngrySfx() {
+        playSfx("guest_angry_01",
+                "guest_angry_02",
+                "guest_angry_03",
+                "guest_angry_04",
+                "guest_angry_05",
+                "guest_angry_06",
+                "guest_angry_07",
+                "guest_angry_08",
+                "guest_angry_09");
+    }
+
+
+    public void playSinkSfx() {
+        playSfx("handwash_01",
+                "handwash_02",
+                "handwash_03");
     }
 
 }

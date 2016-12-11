@@ -95,8 +95,21 @@ public class LevelSetupSystem extends FluidSystem {
                     BathroomLevel.Type.SUPPLY_CLOSET
             });
 
+    private Level urinalLevel = new Level(
+            "Stage 2: Toilets are us",
+            new BathroomLevel.Type[]{
+                    BathroomLevel.Type.ENTRANCE,
+                    BathroomLevel.Type.TIPS,
+                    BathroomLevel.Type.URINAL,
+                    BathroomLevel.Type.URINAL,
+                    BathroomLevel.Type.URINAL,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SUPPLY_CLOSET
+            });
+
+
     private Level[] levels = new Level[] {
-        level1, level2, level3, level4
+            level4, urinalLevel, level1, level2, level3, level4
     };
 
     public LevelSetupSystem() {
