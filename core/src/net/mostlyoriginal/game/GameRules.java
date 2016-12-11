@@ -12,4 +12,5 @@ public abstract class GameRules {
 
 
     public static int lastScore = -1;
+    public static int level = -1;
 }

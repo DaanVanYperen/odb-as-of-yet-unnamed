@@ -83,6 +83,7 @@ public class LogoScreenSetupSystem extends BaseSystem {
                 hasScore ? 280 : 220);
         //scheduleTransitionToGameScreen();
         GameRules.lastScore = NO_SCORE;
+        GameRules.level = 1;
     }
 
     private void addScore(int lastScore) {

@@ -7,4 +7,5 @@ import com.artemis.Component;
  */
 public class Clock extends Component {
     public float age;
+    public float speed = 10;
 }

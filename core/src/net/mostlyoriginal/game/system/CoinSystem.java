@@ -39,11 +39,11 @@ public class CoinSystem extends FluidSystem {
     private void increaseTipsWithPending(E e) {
         if (coinsPending>0) {
             e.tipBowlCoins(e.tipBowlCoins() + coinsPending);
+            GameRules.lastScore += coinsPending;
             coinsPending = 0;
         }
         if (angerPending >0) {
             e.tipBowlAnger(e.tipBowlAnger() + angerPending);
-            GameRules.lastScore = e.tipBowlCoins();
             angerPending = 0;
             considerLossCondition(e);
         }

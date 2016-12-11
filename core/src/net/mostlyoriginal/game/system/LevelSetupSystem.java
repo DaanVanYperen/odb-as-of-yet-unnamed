@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
+import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.BathroomLevel;
 import net.mostlyoriginal.game.component.Effect;
 import net.mostlyoriginal.game.system.common.FluidSystem;
@@ -94,6 +95,10 @@ public class LevelSetupSystem extends FluidSystem {
                     BathroomLevel.Type.SUPPLY_CLOSET
             });
 
+    private Level[] levels = new Level[] {
+        level1, level2, level3, level4
+    };
+
     public LevelSetupSystem() {
         super(Aspect.all(BathroomLevel.class));
     }
@@ -103,7 +108,7 @@ public class LevelSetupSystem extends FluidSystem {
         super.initialize();
 
 //        E().bathroomLevelModules(level1);
-        loadLevel(level4);
+        loadLevel(levels[MathUtils.clamp(GameRules.level-1,0,levels.length-1)]);
     }
 
     private void loadLevel(Level level) {
