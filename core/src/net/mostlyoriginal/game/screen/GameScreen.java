@@ -5,12 +5,14 @@ import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.link.EntityLinkManager;
 import com.badlogic.gdx.graphics.Color;
+import net.mostlyoriginal.api.manager.FontManager;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
+import net.mostlyoriginal.api.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.*;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
@@ -32,7 +34,8 @@ public class GameScreen extends WorldScreen {
                 .dependsOn(EntityLinkManager.class, ProfilerPlugin.class, OperationsPlugin.class)
                 .with(
                         new SuperMapper(),
-                        new EmotionService()
+                        new EmotionService(),
+                        new FontManager()
                 )
                 .with(
 
@@ -57,6 +60,7 @@ public class GameScreen extends WorldScreen {
                         new InteractableCooldownSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new AnimRenderSystem(renderBatchingSystem),
+                        new MyLabelRenderSystem(renderBatchingSystem),
                         new StatusRenderSystem()
                 ).build());
     }

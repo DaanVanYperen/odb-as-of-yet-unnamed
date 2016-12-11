@@ -61,6 +61,22 @@ public class LevelSetupSystem extends FluidSystem {
                     BathroomLevel.Type.SUPPLY_CLOSET
             });
 
+    private Level level3 = new Level(
+            "Stage X: Chili Con Carne Convention",
+            new BathroomLevel.Type[]{
+                    BathroomLevel.Type.ENTRANCE,
+                    BathroomLevel.Type.TIPS,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SUPPLY_CLOSET
+            });
+
     public LevelSetupSystem() {
         super(Aspect.all(BathroomLevel.class));
     }
@@ -70,9 +86,21 @@ public class LevelSetupSystem extends FluidSystem {
         super.initialize();
 
 //        E().bathroomLevelModules(level1);
+        loadLevel(level3);
+    }
+
+    private void loadLevel(Level level) {
         E()
-                .bathroomLevelModules(level2.level)
-                .bathroomLevelName(level2.name);
+                .bathroomLevelModules(level.level)
+                .bathroomLevelName(level.name);
+
+        E()
+                .pos(32,20)
+                .labelText(level.name)
+                .tint(0.3f,0.3f,0.3f,1f)
+                .fontFontName("5x5")
+                .fontScale(1.5f)
+                .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
     }
 
     private int x = 0;
