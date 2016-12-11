@@ -120,7 +120,7 @@ public class SetupWorldSystem extends FluidSystem {
 
         return E()
                 .pos(x+4, y+TOILET_Y-11)
-                .bounds(0, 0,GameScreenAssetSystem.TOILET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .bounds(2, 0,GameScreenAssetSystem.TOILET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim(MathUtils.randomBoolean() ? "module_part_door_closed" : "module_part_door_open")
                 .interactable("module_part_door_closed", "module_part_door_open")
