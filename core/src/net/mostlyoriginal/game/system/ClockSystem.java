@@ -28,6 +28,7 @@ public class ClockSystem extends FluidSystem {
     private float age=0;
     private CoinSystem coinSystem;
     private E face;
+    private GameScreenAssetSystem assetSystem;
 
     public ClockSystem() {
         super(Aspect.all(Clock.class));
@@ -86,8 +87,10 @@ public class ClockSystem extends FluidSystem {
     private void considerVictoryCondition(int hour ) {
         if ( !coinSystem.finishing && hour >= VICTORY_HOUR) {
             coinSystem.finishing = true;
+            assetSystem.playVictorySfx();
+            coinSystem.won = true;
             GameRules.level++;
-            world.getSystem(TransitionSystem.class).transition(GameScreen.class, 0.25f);
+            world.getSystem(TransitionSystem.class).transition(GameScreen.class, 2f);
         }
     }
 

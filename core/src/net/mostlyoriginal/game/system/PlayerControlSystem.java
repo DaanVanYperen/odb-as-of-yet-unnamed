@@ -23,12 +23,14 @@ public class PlayerControlSystem extends FluidSystem {
     }
 
     protected UseSystem useSystem;
+    protected CoinSystem coinSystem;
 
     public float lastUse = 0;
     public float autoClickCooldown = 0;
 
     @Override
     protected void process(E player) {
+        if (coinSystem.finishing) return;
         if (autoClickCooldown > 0 ) autoClickCooldown -= world.delta;
         lastUse += world.delta;
         boolean justPressedAction = (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE));

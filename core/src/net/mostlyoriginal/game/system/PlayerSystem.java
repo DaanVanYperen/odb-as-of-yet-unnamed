@@ -14,6 +14,8 @@ public class PlayerSystem extends FluidSystem {
         super(Aspect.all(Player.class, Anim.class));
     }
 
+    CoinSystem coinSystem;
+
     @Override
     protected void process(E e) {
         switch (e.playerTool()) {
@@ -26,6 +28,13 @@ public class PlayerSystem extends FluidSystem {
                 e.anim(e.hasUsing() ? "player_using_mop" :
                         e.isMoving() ? "player_walking_mop" : "player_mop");
                 break;
+        }
+        if ( coinSystem.finishing ) {
+            if ( coinSystem.won ) {
+                e.anim("player_winning");
+            } else {
+                e.anim("player_losing");
+            }
         }
     }
 

@@ -17,6 +17,8 @@ import static net.mostlyoriginal.api.operation.OperationFactory.*;
  * @author Daan van Yperen
  */
 public class CoinSystem extends FluidSystem {
+    public boolean won=false;
+
     public CoinSystem() {
         super(Aspect.all(TipBowl.class));
     }
@@ -52,7 +54,8 @@ public class CoinSystem extends FluidSystem {
     private void considerLossCondition(E e) {
         if ( !finishing && e.tipBowlAnger() >= e.tipBowlMaxAnger()) {
             finishing = true;
-            world.getSystem(TransitionSystem.class).transition(LogoScreen.class, 3);
+            assetSystem.playDefeatSfx();
+            world.getSystem(TransitionSystem.class).transition(LogoScreen.class, 5);
         }
     }
 

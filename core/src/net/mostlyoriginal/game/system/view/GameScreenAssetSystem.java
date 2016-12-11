@@ -97,6 +97,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("player_using_plunger", 824, 288, 24, 36, 2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
         add("player_using_mop", 872, 288, 24, 36, 2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
 
+        add("player_winning", 920,288,27,36,2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
+        add("player_losing", 974,288,20,36,2).setFrameDuration(PLAYER_USE_FRAME_DURATION);
+
         // VISITOR 1
 
         add("visitor_happy1", 32, 324, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
@@ -271,6 +274,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                 "progress_bar_50",
                 "progress_bar_75",
                 "progress_bar_100",
+                "victory",
+                "defeat"
 
         });
 
@@ -425,6 +430,14 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         playSfx("handwash_01",
                 "handwash_02",
                 "handwash_03");
+    }
+
+    public void playVictorySfx() {
+        playSfx("victory");
+    }
+
+    public void playDefeatSfx() {
+        playSfx("defeat");
     }
 
 }
