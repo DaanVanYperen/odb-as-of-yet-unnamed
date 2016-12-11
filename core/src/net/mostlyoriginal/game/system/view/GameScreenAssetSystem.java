@@ -30,6 +30,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int PLAYER_WIDTH = 24;
     public static final int PLAYER_HEIGHT = 36;
     public static final int MAIN_DOOR_WIDTH = 24;
+    public static final float WALK_FRAME_DURATION = 0.06f;
+    public static final float PLAYER_IDLE_FRAME_DURATION = 0.2f;
+    public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
 
     public GameScreenAssetSystem() {
         super("tileset.png");
@@ -59,10 +62,14 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("module_part_handicap_door_closed", 388, 96, 23, 43, 1);
         add("module_part_handicap_door_open", 420, 96, 12, 43, 1);
 
-        
-        add("player_toiletpaper", 32, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
-        add("player_plunger", 176, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
-        add("player_mop", 320, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6);
+
+        add("player_walking_toiletpaper", 32, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6).setFrameDuration(PLAYER_WALK_FRAME_DURATION);
+        add("player_walking_plunger", 176, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6).setFrameDuration(PLAYER_WALK_FRAME_DURATION);
+        add("player_walking_mop", 320, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 6).setFrameDuration(PLAYER_WALK_FRAME_DURATION);
+
+        add("player_toiletpaper", 464, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
+        add("player_plunger",584, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
+        add("player_mop", 704, 288, PLAYER_WIDTH, PLAYER_HEIGHT, 5).setFrameDuration(PLAYER_IDLE_FRAME_DURATION);
 
         //Player, normal walk:
         //x 32, y 288 - w 24, h 36 - six frames
@@ -71,10 +78,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         //Player, mop walk:
         //x 320, y 288 - w 24, h 36 - six frames
 
-        add("visitor_happy", 32, 324, 24, 38, 6);
-        add("visitor_neutral", 32, 362, 24, 38, 6);
-        add("visitor_angry", 32, 400, 24, 38, 6);
-        add("visitor_enraged", 32, 438, 24, 38, 6);
+        add("visitor_happy", 32, 324, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_neutral", 32, 362, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_angry", 32, 400, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_enraged", 32, 438, 24, 38, 6).setFrameDuration(WALK_FRAME_DURATION);
 
         add("visitor_pee_happy", 176, 362, 24, 38, 2);
         add("visitor_pee_neutral", 176, 362, 24, 38, 2);

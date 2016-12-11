@@ -45,7 +45,6 @@ public class EntranceSystem extends FluidSystem {
                 MathUtils.clamp(e.entranceAge() / e.entranceMaxAge(),0,1f));
         e.entranceTimeBetweenSpawns(
                 timeBetweenSpawns);
-        System.out.println(timeBetweenSpawns);
     }
 
     private void spawnVisitor(int x, int y) {
