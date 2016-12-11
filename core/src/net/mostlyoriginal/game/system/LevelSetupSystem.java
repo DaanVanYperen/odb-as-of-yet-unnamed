@@ -139,12 +139,21 @@ public class LevelSetupSystem extends FluidSystem {
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
                 .anim("module_part_toilet");
 
+        String doorClosed = "module_part_door_closed";
+        String doorOpen = "module_part_door_open";
+
+        if ( MathUtils.random(1,100) < 20 )
+        {
+            doorOpen = "module_part_handicap_door_open";
+            doorClosed = "module_part_handicap_door_closed";
+        }
+
         return E()
                 .pos(x+4, y+TOILET_Y-11)
                 .bounds(2, 0,GameScreenAssetSystem.TOILET_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
-                .anim(MathUtils.randomBoolean() ? "module_part_door_closed" : "module_part_door_open")
-                .interactable("module_part_door_closed", "module_part_door_open")
+                .anim(MathUtils.randomBoolean() ? doorClosed : doorOpen)
+                .interactable(doorClosed, doorOpen)
                 .interactableUseOffsetY(38)
                 .toiletBowlId(toiletBowl.id()).id();
     }
