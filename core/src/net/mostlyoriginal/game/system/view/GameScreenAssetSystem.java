@@ -13,6 +13,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int UNIT = 32;
     public static final int ENTRANCE_WIDTH = UNIT * 3;
     public static final int TOILET_WIDTH = UNIT;
+    public static final int URINAL_WIDTH = UNIT;
     public static final int TIPS_WIDTH = UNIT;
     public static final int SUPPLY_CLOSET_WIDTH = UNIT * 2;
     public static final int VISITOR_WIDTH = 24;
@@ -54,6 +55,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("module_part_toilet_dirty_clogged", 288, 152, 32, 72, 1);
         add("module_part_toilet_dirty", 320, 152, 32, 72, 1);
         add("module_part_toilet_clogged", 352, 152, 32, 72, 2);
+
+        add("module_part_urinal", 416,64,32,32, 1);
+        add("module_part_urinal_dirty", 416,32,32,32, 1);
 
         add("module_part_main_door_closed", 36, 217, MAIN_DOOR_WIDTH, 54, 1);
         add("module_part_main_door_open", 68, 217, 18, 54, 1);
@@ -114,6 +118,35 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("visitor_poop_angry2", 224, 552, 24, 38, 1);
         add("visitor_poop_enraged2", 224, 590, 24, 38, 1);
 
+
+
+//        Guest 3 happy walk animation:
+//        32,628,24,38,6
+//        Guest 3 neutral walk animation:
+//        32,666,24,38,6
+//        Guest 3 sad walk animation:
+//        32,704,24,38,6
+//        Guest 3 RAGE walk animation:
+//        32,742,24,38,6
+//
+//        Guest 3 happy peeing animation:
+//        176,628,24,38,2
+//        Guest 3 neutral peeing animation:
+//        176,666,24,38,2
+//        Guest 3 sad peeing animation:
+//        176,704,24,38,2
+//        Guest 3 RAGE peeing animation:
+//        176,742,24,38,2
+//
+//        Guest 3 happy poopface:
+//        224,628,24,38
+//        Guest 3 neutral poopface:
+//        224,666,24,38
+//        Guest 3 sad poopface:
+//        224,704,24,38
+//        Guest 3 RAGE poopface:
+//        224,742,24,38
+//
         add("coin_0", 96 - 16, 224 - 32, 16, 16, 1); // empty
         add("coin_1", 96, 224 - 32, 16, 16, 1);
         add("coin_2", 96 + 16, 224 - 32, 16, 16, 1);
