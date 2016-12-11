@@ -11,6 +11,7 @@ public class Desire extends Component {
         LEAVE,
         TIP,
         POOP,
+        WASH_HANDS,
         PEE,
     }
     public Type type;

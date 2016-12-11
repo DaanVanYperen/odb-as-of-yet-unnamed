@@ -20,6 +20,6 @@ public class BathroomLevel extends Component {
         TOILET,
         TIPS,
         URINAL,
-        SUPPLY_CLOSET
+        SINK, SUPPLY_CLOSET
     }
 }

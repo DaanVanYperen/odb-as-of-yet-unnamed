@@ -13,6 +13,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int UNIT = 32;
     public static final int ENTRANCE_WIDTH = UNIT * 3;
     public static final int TOILET_WIDTH = UNIT;
+    public static final int SINK_WIDTH = UNIT;
     public static final int URINAL_WIDTH = UNIT;
     public static final int TIPS_WIDTH = UNIT;
     public static final int SUPPLY_CLOSET_WIDTH = UNIT * 2;
@@ -58,6 +59,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         add("module_part_urinal", 416,64,32,32, 1);
         add("module_part_urinal_dirty", 416,32,32,32, 1);
+
+        add("module_part_sink", 448,32,32,64, 1);
+        add("module_part_sink_dirty", 512,32,32,64, 1);
+        add("module_part_sink_gross", 544,32,32,64, 1);
 
         add("module_part_main_door_closed", 36, 217, MAIN_DOOR_WIDTH, 54, 1);
         add("module_part_main_door_open", 68, 217, 18, 54, 1);

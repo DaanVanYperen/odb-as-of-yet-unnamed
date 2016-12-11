@@ -15,7 +15,7 @@ public class UrinalSystem extends FluidSystem {
 
     @Override
     protected void process(E e) {
-        if ( e.isDirty() ) {
+        if ( e.hasDirty() ) {
             e.anim("module_part_urinal_dirty");
         } else {
             e.anim("module_part_urinal");

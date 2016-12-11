@@ -6,12 +6,11 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.Using;
-import net.mostlyoriginal.game.component.module.Exit;
-import net.mostlyoriginal.game.component.module.TipBowl;
-import net.mostlyoriginal.game.component.module.Toilet;
-import net.mostlyoriginal.game.component.module.Urinal;
+import net.mostlyoriginal.game.component.module.*;
 import net.mostlyoriginal.game.component.state.Dirty;
 import net.mostlyoriginal.game.system.common.FluidSystem;
+
+import static net.mostlyoriginal.game.component.BathroomLevel.Type.SINK;
 
 /**
  * @author Daan van Yperen
@@ -41,6 +40,9 @@ public class DesireSystem extends FluidSystem {
                 break;
             case TIP:
                 entityId = randomOf(getTipBowls());
+                break;
+            case WASH_HANDS:
+                entityId = randomOf(getSink());
                 break;
             case POOP:
                 entityId = randomOf(getCleanToilet());
@@ -75,6 +77,12 @@ public class DesireSystem extends FluidSystem {
         return world
                 .getAspectSubscriptionManager()
                 .get(Aspect.all(Toilet.class).exclude(Dirty.class)).getEntities();
+    }
+
+    private IntBag getSink() {
+        return world
+                .getAspectSubscriptionManager()
+                .get(Aspect.all(Sink.class)).getEntities();
     }
 
 

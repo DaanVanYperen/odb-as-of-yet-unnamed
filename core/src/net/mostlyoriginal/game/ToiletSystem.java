@@ -16,9 +16,9 @@ public class ToiletSystem extends FluidSystem {
     @Override
     protected void process(E e) {
         E bowl = E.E(e.toiletBowlId());
-        if ( e.isDirty() && e.isClogged() ) {
+        if ( e.hasDirty() && e.isClogged() ) {
             bowl.anim("module_part_toilet_dirty_clogged");
-        } else if ( e.isDirty() ) {
+        } else if ( e.hasDirty() ) {
             bowl.anim("module_part_toilet_dirty");
         } else if ( e.isClogged() ) {
             bowl.anim("module_part_toilet_clogged");

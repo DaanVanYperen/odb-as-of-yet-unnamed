@@ -36,9 +36,11 @@ public class LevelSetupSystem extends FluidSystem {
     private BathroomLevel.Type[] level2 = {
             BathroomLevel.Type.ENTRANCE,
             BathroomLevel.Type.TIPS,
+            BathroomLevel.Type.SINK,
             BathroomLevel.Type.URINAL,
             BathroomLevel.Type.URINAL,
-            BathroomLevel.Type.URINAL,
+            BathroomLevel.Type.TOILET,
+            BathroomLevel.Type.TOILET,
             BathroomLevel.Type.TOILET,
             BathroomLevel.Type.SUPPLY_CLOSET
     };
@@ -87,6 +89,10 @@ public class LevelSetupSystem extends FluidSystem {
             case URINAL:
                 moduleId = spawnUrinal(x, Y_OFFSET);
                 x = x + GameScreenAssetSystem.TOILET_WIDTH;
+                break;
+            case SINK:
+                moduleId = spawnSink(x, Y_OFFSET);
+                x = x + GameScreenAssetSystem.SINK_WIDTH;
                 break;
             case SUPPLY_CLOSET:
                 moduleId = spawnCloset(x, Y_OFFSET);
@@ -151,7 +157,7 @@ public class LevelSetupSystem extends FluidSystem {
 
 
         return E()
-                .pos(x, y+TOILET_Y+24)
+                .pos(x, y+TOILET_Y+30)
                 .bounds(2, 0,GameScreenAssetSystem.URINAL_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
                 .anim()
@@ -159,6 +165,25 @@ public class LevelSetupSystem extends FluidSystem {
                 .interactableDuration(1.5f)
                 .interactableUseOffsetY(44)
                 .urinal()
+                .id();
+    }
+
+    private int spawnSink(int x, int y) {
+        E()
+                .pos(x, y)
+                .render(GameScreenAssetSystem.LAYER_BACKGROUND)
+                .anim("module_part_background");
+
+
+        return E()
+                .pos(x, y+TOILET_Y+32)
+                .bounds(2, 0,GameScreenAssetSystem.URINAL_WIDTH,GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
+                .anim()
+                .interactable()
+                .interactableDuration(1f)
+                .interactableUseOffsetY(44)
+                .sink()
                 .id();
     }
 

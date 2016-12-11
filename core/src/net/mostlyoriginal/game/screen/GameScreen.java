@@ -47,6 +47,7 @@ public class GameScreen extends WorldScreen {
                         new HuntSystem(),
                         new UseSystem(),
                         new ToiletSystem(),
+                        new SinkSystem(),
                         new UrinalSystem(),
                         new VisitorSystem(),
                         new PlayerControlSystem(),

@@ -83,7 +83,7 @@ public class StatusRenderSystem extends FluidSystem {
             renderTipBowlUI(e);
         }
 
-        if ( e.isDirty() || e.isClogged() )
+        if ( e.hasDirty() || e.isClogged() )
         {
             renderActionablesUI(e);
         }
@@ -104,11 +104,11 @@ public class StatusRenderSystem extends FluidSystem {
         int yBounce = (int) Interpolation.fade.apply(0, 8, Math.abs(1 - (((age + e.posX() * 0.1f) * 2f) % 2f)));
         int yOff = 64 + yBounce;
         int xOff = 4;
-        if (e.isClogged()&&e.isDirty()) {
+        if (e.isClogged()&&e.hasDirty()) {
             batch.draw(iconPlungerAndMop, e.posX() + xOff, 64 + yOff);
         } else if (e.isClogged()) {
             batch.draw(iconPlunger, e.posX() + xOff, 64 + yOff);
-        } else if (e.isDirty()) {
+        } else if (e.hasDirty()) {
             batch.draw(iconMop, e.posX() + xOff, 64 + yOff);
         }
     }

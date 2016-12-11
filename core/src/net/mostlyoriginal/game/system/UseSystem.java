@@ -84,7 +84,7 @@ public class UseSystem extends FluidSystem {
     }
 
     private void finishAsPlayer(E thing, E actor) {
-        if (thing.isDirty() && actor.playerTool() == Player.Tool.MOP) {
+        if (thing.hasDirty() && actor.playerTool() == Player.Tool.MOP) {
             thing.removeDirty();
         }
         if (thing.isClogged() && actor.playerTool() == Player.Tool.PLUNGER) {
@@ -98,10 +98,14 @@ public class UseSystem extends FluidSystem {
     private void finishAsVisitor(E thing, E actor) {
         if (thing.hasToilet()) {
             worsenToiletState(thing);
-            tipOrLeave(actor);
+            washHandsTipOrLeave(thing, actor);
         }
         if (thing.hasUrinal()) {
             worsenUrinalState(thing);
+            washHandsTipOrLeave(thing, actor);
+        }
+        if (thing.isSink()) {
+            worsenSinkState(thing);
             tipOrLeave(actor);
         }
         if (thing.hasTipBowl()) {
@@ -114,6 +118,19 @@ public class UseSystem extends FluidSystem {
             }
             actor.deleteFromWorld();
         }
+    }
+
+    private void washHandsTipOrLeave(E thing, E actor) {
+        if (thing.hasDirty()) {
+            // angry, so dirty, go wash hands. Chance to become even MORE angry!
+            washHands(actor);
+        } else {
+            tipOrLeave(actor);
+        }
+    }
+
+    private void washHands(E actor) {
+        actor.desireType(Desire.Type.WASH_HANDS);
     }
 
     private void tipOrLeave(E actor) {
@@ -130,7 +147,7 @@ public class UseSystem extends FluidSystem {
     }
 
     private void worsenToiletState(E thing) {
-        if (thing.isDirty()) {
+        if (thing.hasDirty()) {
             // if dirty, become clogged as well.
             thing.clogged();
         } else if (thing.isClogged()) {
@@ -148,6 +165,15 @@ public class UseSystem extends FluidSystem {
 
     private void worsenUrinalState(E thing) {
         thing.dirty();
+    }
+
+
+    private void worsenSinkState(E thing) {
+        if ( thing.hasDirty() ) {
+            thing.dirtyLevel(1);
+        } else {
+            thing.dirty();
+        }
     }
 
     public void stopBeingUsed(E e, E actor) {
@@ -194,7 +220,7 @@ public class UseSystem extends FluidSystem {
     }
 
     private void startUsingAsVisitor(E actor, E item) {
-        if (item.isDirty()) emotionService.worsenanger(actor);
+        if (item.hasDirty()) emotionService.worsenanger(actor);
         if (item.isClogged()) emotionService.worsenanger(actor);
     }
 
