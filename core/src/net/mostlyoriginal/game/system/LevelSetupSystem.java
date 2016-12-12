@@ -239,6 +239,8 @@ public class LevelSetupSystem extends FluidSystem {
         }
     }
 
+    private int initIndex=0;
+
     private int initModule(BathroomLevel.Type type) {
 
         int moduleId = -1;
@@ -273,6 +275,7 @@ public class LevelSetupSystem extends FluidSystem {
                 x = x + GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH;
                 break;
         }
+        initIndex++;
 
         return moduleId;
     }
@@ -306,7 +309,7 @@ public class LevelSetupSystem extends FluidSystem {
         E()
                 .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND)
-                .anim("module_part_background");
+                .anim(getBackground());
 
         E toiletBowl = E()
                 .pos(x, y + TOILET_Y)
@@ -338,7 +341,7 @@ public class LevelSetupSystem extends FluidSystem {
         E()
                 .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND)
-                .anim("module_part_background");
+                .anim(getBackground());
 
 
         E urinal = E()
@@ -360,7 +363,7 @@ public class LevelSetupSystem extends FluidSystem {
         E()
                 .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND)
-                .anim("module_part_background");
+                .anim(getBackground());
 
 
         return E()
@@ -372,11 +375,17 @@ public class LevelSetupSystem extends FluidSystem {
 
     }
 
+    private String getBackground() {
+        if (initIndex==2) return "module_part_backgroundW";
+        if (initIndex==activeLevel.level.length-2) return "module_part_backgroundE";
+        return "module_part_background";
+    }
+
     private int spawnSink(int x, int y) {
         E()
                 .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND)
-                .anim("module_part_background");
+                .anim(getBackground());
 
 
         E sink = E()
