@@ -33,6 +33,7 @@ public class UseSystem extends FluidSystem {
     }
 
     GameScreenAssetSystem assetSystem;
+    LevelSetupSystem levelSetupSystem;
     RenderBatchingSystem renderBatchingSystem;
     EmotionService emotionService;
 
@@ -117,6 +118,10 @@ public class UseSystem extends FluidSystem {
 
     private void finishAsVisitor(E thing, E actor) {
         if (thing.hasToilet()) {
+            if ( levelSetupSystem.activeLevel.extraPoops ) {
+                worsenToiletState(thing);
+                worsenToiletState(thing);
+            }
             worsenToiletState(thing);
             washHandsTipOrLeave(thing, actor);
         }

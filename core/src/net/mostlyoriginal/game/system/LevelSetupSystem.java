@@ -28,6 +28,7 @@ public class LevelSetupSystem extends FluidSystem {
         public float timeBetweenSpawnsHardest=2;
         private int minCount=1;
         private int maxCount=1;
+        public boolean extraPoops=false;
         public float clockSpeed=10;
 
         public Level(String name, BathroomLevel.Type[] level) {
@@ -54,83 +55,68 @@ public class LevelSetupSystem extends FluidSystem {
 
         }
 
+        public Level extraPoops()
+        {
+            this.extraPoops=true;
+            return this;
+        }
+
         public Level clockSpeed(int clockSpeed) {
             this.clockSpeed=clockSpeed;
             return this;
         }
     }
 
-    ;
-
-    private Level level1 = new Level(
-            "Stage 2: Toilets are us",
-            new BathroomLevel.Type[]{
-                    BathroomLevel.Type.ENTRANCE,
-                    BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.SUPPLY_CLOSET
-            });
-
-    private Level level2 = new Level(
-            "Stage 2: Toilets are us",
-            new BathroomLevel.Type[]{
-                    BathroomLevel.Type.ENTRANCE,
-                    BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.URINAL,
-                    BathroomLevel.Type.URINAL,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.SUPPLY_CLOSET
-            });
-
-    private Level level4 = new Level(
-            "Stage X: Zero Tolerance",
+    private Level introduction = new Level(
+            "Stage 1: Closets Contain Mops",
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
                     BathroomLevel.Type.SINK,
                     BathroomLevel.Type.TOILET,
                     BathroomLevel.Type.SUPPLY_CLOSET
-            }).lossCount(1);
+            })
+            .lossCount(3)
+            .clockSpeed(40)
+            .spawnDelay(8,8);
 
-    private Level level3 = new Level(
+    private Level chili = new Level(
             "Stage X: Chili Con Carne Convention",
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.TOILET,
                     BathroomLevel.Type.TOILET,
                     BathroomLevel.Type.TOILET,
                     BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SINK,
                     BathroomLevel.Type.TOILET,
                     BathroomLevel.Type.TOILET,
                     BathroomLevel.Type.SUPPLY_CLOSET
-            });
+            })
+            .extraPoops()
+            .clockSpeed(10)
+            .spawnCount(2,3)
+            .spawnDelay(10,6);
+            ;
 
-    private Level urinalLevel = new Level(
-            "Stage 2: Toilets are us",
+    private Level zeroTolerance = new Level(
+            "Stage X: Zero Tolerance",
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
                     BathroomLevel.Type.URINAL,
-                    BathroomLevel.Type.URINAL,
-                    BathroomLevel.Type.URINAL,
                     BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.SINK,
                     BathroomLevel.Type.SUPPLY_CLOSET
-            });
-
+            })
+            .lossCount(1)
+            .spawnCount(3,4)
+            .clockSpeed(10)
+            .spawnDelay(14,10);
 
     private Level panicLevel = new Level(
             "Stage X: AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!",
@@ -146,13 +132,13 @@ public class LevelSetupSystem extends FluidSystem {
                     BathroomLevel.Type.SINK,
                     BathroomLevel.Type.SUPPLY_CLOSET
             })
-            .clockSpeed(10)
-            .spawnCount(1,3)
-            .spawnDelay(8,4);
+            .clockSpeed(1)
+            .spawnCount(1,2)
+            .spawnDelay(4,1);
 
 
     private Level[] levels = new Level[] {
-            panicLevel
+            zeroTolerance, introduction, chili, panicLevel
     };
 
     public LevelSetupSystem() {

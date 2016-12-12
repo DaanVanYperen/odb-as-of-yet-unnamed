@@ -90,7 +90,7 @@ public class LogoScreenSetupSystem extends BaseSystem {
     }
 
     private void addScore(int lastScore) {
-        String title = "Godlike";
+        String title = scoreToTitle(lastScore);
         message2 = E.E()
                 .pos((Gdx.graphics.getWidth() / 2) - 16 - title.length()*15, Gdx.graphics.getHeight()-64 - 16)
                 .labelText(title)
@@ -106,6 +106,21 @@ public class LogoScreenSetupSystem extends BaseSystem {
                 .fontFontName("5x5")
                 .renderLayer(10)
                 .fontScale(6f);
+    }
+
+    private String scoreToTitle(int lastScore) {
+        if ( lastScore > 100 ) return "***I CLEAN TOILET***";
+        if ( lastScore > 90 ) return "**Godlike**";
+        if ( lastScore > 80 ) return "Keeper of Toilets";
+        if ( lastScore > 70 ) return "TP Wizard";
+        if ( lastScore > 60 ) return "Mop Guardian";
+        if ( lastScore > 50 ) return "Piddle Knight";
+        if ( lastScore > 40 ) return "Lavatory Supervisor";
+        if ( lastScore > 20 ) return "Urinal Warden";
+        if ( lastScore > 15 ) return "Toilet Lady";
+        if ( lastScore > 8 ) return "Cleaner";
+
+        return "Slouch";
     }
 
     private void addPressbutton(String text, int width) {
