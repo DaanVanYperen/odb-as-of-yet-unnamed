@@ -370,7 +370,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .pos(x + 3, y + 92)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND+1)
                 .bounds(0, 0, GameScreenAssetSystem.ENTRANCE_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
-                .anim("poster_" + MathUtils.random(1, 3))
+                .anim("poster_" + MathUtils.random(1, 8))
                 .id();
 
     }
@@ -415,7 +415,7 @@ public class LevelSetupSystem extends FluidSystem {
                     .pos(x + 64 + 3, y + 59)
                     .render()
                     .bounds(0, 0, GameScreenAssetSystem.ENTRANCE_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
-                    .anim("poster_" + MathUtils.random(1, 3))
+                    .anim("poster_" + MathUtils.random(1, 8))
                     .id();
         }
 

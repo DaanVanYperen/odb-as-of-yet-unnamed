@@ -15,6 +15,6 @@ public class Desire extends Component {
         PEE,
     }
     public Type type;
-    public int index= MathUtils.random(1,3);
+    public int index= MathUtils.random(1,7);
     public void set(Type type) { this.type = type; }
 }

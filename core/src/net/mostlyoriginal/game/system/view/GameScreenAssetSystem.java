@@ -117,6 +117,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("visitor_poop_angry1", 224, 400, 24, 38, 1);
         add("visitor_poop_enraged1", 224, 438, 24, 38, 1);
 
+        add("visitor_wash_happy1", 248, 324, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral1", 248, 362, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry1", 248, 400, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged1", 248, 438, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
 
         // VISITOR 2
 
@@ -134,6 +138,11 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("visitor_poop_neutral2", 224, 514, 24, 38, 1);
         add("visitor_poop_angry2", 224, 552, 24, 38, 1);
         add("visitor_poop_enraged2", 224, 590, 24, 38, 1);
+
+        add("visitor_wash_happy2", 248, 476, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral2", 248, 514, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry2", 248, 552, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged2", 248, 590, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
 
 
         // VISITOR 3
@@ -153,6 +162,99 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("visitor_poop_angry3", 224, 704, 24, 38, 1);
         add("visitor_poop_enraged3", 224, 742, 24, 38, 1);
 
+        add("visitor_wash_happy3", 248, 628, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral3", 248, 666, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry3", 248, 704, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged3", 248, 704, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
+
+        // VISITOR 4
+
+        add("visitor_happy4", 320,324,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_neutral4", 320,362,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_angry4", 320,400,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_enraged4", 320,438,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+
+        add("visitor_pee_happy4", 464,324,24,38,2);
+        add("visitor_pee_neutral4", 464,362,24,38,2);
+        add("visitor_pee_angry4", 464,400,24,38,2);
+        add("visitor_pee_enraged4", 464,438,24,38,2);
+
+        add("visitor_poop_happy4", 512,324,24,38, 1);
+        add("visitor_poop_neutral4", 512,362,24,38, 1);
+        add("visitor_poop_angry4", 512,400,24,38, 1);
+        add("visitor_poop_enraged4", 512,438,24,38, 1);
+
+        add("visitor_wash_happy4", 536,324,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral4", 536,362,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry4", 536,400,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged4", 536,438,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        
+        // VISITOR 5
+
+        add("visitor_happy5", 320,476,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_neutral5", 320,514,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_angry5", 320,552,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_enraged5", 320,590,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+
+        add("visitor_pee_happy5", 464,476,24,38,2);
+        add("visitor_pee_neutral5", 464,514,24,38,2);
+        add("visitor_pee_angry5", 464,552,24,38,2);
+        add("visitor_pee_enraged5", 464,590,24,38,2);
+
+        add("visitor_poop_happy5", 512,476,24,38,1);
+        add("visitor_poop_neutral5", 512,514,24,38,1);
+        add("visitor_poop_angry5", 512,400,24,38,1);
+        add("visitor_poop_enraged5", 512,590,24,38,1);
+
+        add("visitor_wash_happy5", 536,476,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral5", 536,514,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry5", 536,552,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged5", 536,590,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+
+        // VISITOR 6
+
+        add("visitor_happy6", 608,324,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_neutral6", 608,362,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_angry6", 608,400,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_enraged6", 608,438,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+
+        add("visitor_pee_happy6", 752,324,24,38,2);
+        add("visitor_pee_neutral6", 752,362,24,38,2);
+        add("visitor_pee_angry6", 752,400,24,38,2);
+        add("visitor_pee_enraged6", 752,438,24,38,2);
+
+        add("visitor_poop_happy6", 800,324,24,38,1);
+        add("visitor_poop_neutral6", 800,362,24,38,1);
+        add("visitor_poop_angry6", 800,400,24,38,1);
+        add("visitor_poop_enraged6", 800,438,24,38,1);
+
+        add("visitor_wash_happy6", 824,324,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral6", 824,362,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry6", 824,400,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged6", 824,438,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+
+        // VISITOR 7
+
+        add("visitor_happy7", 608,476,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_neutral7", 608,514,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_angry7", 608,552,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+        add("visitor_enraged7", 608,590,24,38,6).setFrameDuration(WALK_FRAME_DURATION);
+
+        add("visitor_pee_happy7", 752,476,24,38,2);
+        add("visitor_pee_neutral7",  752,514,24,38,2);
+        add("visitor_pee_angry7", 752,552,24,38,2);
+        add("visitor_pee_enraged7", 752,590,24,38,2);
+
+        add("visitor_poop_happy7", 800,476,24,38,1);
+        add("visitor_poop_neutral7", 800,514,24,38,1);
+        add("visitor_poop_angry7", 800,400,24,38,1);
+        add("visitor_poop_enraged7", 800,590,24,38,1);
+
+        add("visitor_wash_happy7", 824,476,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_neutral7", 824,514,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_angry7", 824,552,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+        add("visitor_wash_enraged7", 824,590,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
+
         add("coin_0", 96 - 16, 224 - 32, 16, 16, 1); // empty
         add("coin_1", 96, 224 - 32, 16, 16, 1);
         add("coin_2", 96 + 16, 224 - 32, 16, 16, 1);
@@ -163,25 +265,15 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("poster_1", 96, 224, 26, 42, 1);
         add("poster_2", 123, 224, 26, 42, 1);
         add("poster_3", 150, 224, 26, 42, 1);
+        add("poster_4", 512,224,26,42, 1);
+        add("poster_5", 539,224,26,42, 1);
+        add("poster_6", 566,224,26,42, 1);
+        add("poster_7", 593,224,26,42, 1);
+        add("poster_8", 620,224,26,42, 1);
 
         add("icon_mop", 150 + 26, 224 - 32, 16, 32, 1);
         add("icon_plunger", 150 + 26 + 16, 224 - 32, 16, 32, 1);
         add("icon_plunger_and_mop", 256, 192, 16, 32, 1);
-
-        add("visitor_wash_happy1", 248, 324, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_neutral1", 248, 362, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_angry1", 248, 400, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_enraged1", 248, 438, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-
-        add("visitor_wash_happy2", 248, 476, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_neutral2", 248, 514, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_angry2", 248, 552, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_enraged2", 248, 590, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-
-        add("visitor_wash_happy3", 248, 628, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_neutral3", 248, 666, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_angry3", 248, 704, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
-        add("visitor_wash_enraged3", 248, 704, 24, 38, 2).setFrameDuration(WASH_FRAME_DURATION);
 
         add("icon_forbidden", 150 + 26 + 32, 224 - 32, 16, 16, 1);
         add("icon_sad", 150 + 26 + 32, 224 - 16, 16, 16, 1);
