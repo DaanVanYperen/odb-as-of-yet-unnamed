@@ -203,7 +203,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         add("visitor_poop_happy5", 512,476,24,38,1);
         add("visitor_poop_neutral5", 512,514,24,38,1);
-        add("visitor_poop_angry5", 512,400,24,38,1);
+        add("visitor_poop_angry5", 512,552,24,38,1);
         add("visitor_poop_enraged5", 512,590,24,38,1);
 
         add("visitor_wash_happy5", 536,476,24,38,2).setFrameDuration(WASH_FRAME_DURATION);
