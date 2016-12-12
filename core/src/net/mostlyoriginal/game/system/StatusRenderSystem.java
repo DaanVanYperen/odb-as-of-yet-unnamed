@@ -8,7 +8,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
+import net.mostlyoriginal.game.component.Inventory;
+import net.mostlyoriginal.game.component.Tutorial;
 import net.mostlyoriginal.game.component.module.TipBowl;
+import net.mostlyoriginal.game.component.module.Toilet;
 import net.mostlyoriginal.game.component.state.Clogged;
 import net.mostlyoriginal.game.component.state.Dirty;
 import net.mostlyoriginal.game.system.common.FluidSystem;
@@ -27,13 +30,15 @@ public class StatusRenderSystem extends FluidSystem {
     private TextureRegion iconPlunger;
     private TextureRegion iconMop;
 
+    private TutorialService tutorialService;
+
     private float age;
     private TextureRegion[] iconProgress = new TextureRegion[5];
     private Animation animIconButton;
     private TextureRegion iconPlungerAndMop;
 
     public StatusRenderSystem() {
-        super(Aspect.one(TipBowl.class, Dirty.class, Clogged.class));
+        super(Aspect.one(TipBowl.class, Dirty.class, Clogged.class, Inventory.class, Toilet.class));
     }
 
     private SpriteBatch batch;
@@ -79,21 +84,40 @@ public class StatusRenderSystem extends FluidSystem {
     @Override
     protected void process(E e) {
 
-        if ( e.hasTipBowl() ) {
+        if (e.hasTipBowl()) {
             renderTipBowlUI(e);
         }
 
-        if ( e.hasDirty() || e.isClogged() )
-        {
+        if ((e.isInventory() && tutorialService.step() == Tutorial.Step.GRAB_MOP)
+                ) {
+            renderInteractionE(e, 8, 90);
+        }
+
+        if (
+                (e.hasToilet() && tutorialService.step() == Tutorial.Step.MOP_TOILET) ||
+                        (e.hasToilet() && tutorialService.step() == Tutorial.Step.PLUNGE_TOILET)
+                ) {
+            if (!e.hasInUse()) {
+                renderInteractionE(e, 4, 64);
+                return;
+            }
+        }
+
+        if (e.hasDirty() || e.isClogged()) {
             renderActionablesUI(e);
         }
 
     }
 
+
+    private void renderInteractionE(E e, int x, int y) {
+        batch.draw(animIconButton.getKeyFrame(age * 0.4f, true), e.posX() + x, e.posY() + y);
+    }
+
+
     private void renderActionablesUI(E e) {
 
-        if ( e.hasInUse() )
-        {
+        if (e.hasInUse()) {
             renderProgressPercentage(e);
         } else {
             renderDirtyCloggedIcons(e);
@@ -104,7 +128,7 @@ public class StatusRenderSystem extends FluidSystem {
         int yBounce = (int) Interpolation.fade.apply(0, 8, Math.abs(1 - (((age + e.posX() * 0.1f) * 2f) % 2f)));
         int yOff = 64 + yBounce;
         int xOff = 4;
-        if (e.isClogged()&&e.hasDirty()) {
+        if (e.isClogged() && e.hasDirty()) {
             batch.draw(iconPlungerAndMop, e.posX() + xOff, 64 + yOff);
         } else if (e.isClogged()) {
             batch.draw(iconPlunger, e.posX() + xOff, 64 + yOff);
@@ -115,13 +139,12 @@ public class StatusRenderSystem extends FluidSystem {
 
     private void renderProgressPercentage(E e) {
         E actor = getActor(e.inUseUserId());
-        if ( actor.hasPlayer() )
-        {
-            int percentage= (int)(MathUtils.clamp(e.inUseDuration() / e.interactableDuration(), 0f, 1f) * 100);
+        if (actor.hasPlayer()) {
+            int percentage = (int) (MathUtils.clamp(e.inUseDuration() / e.interactableDuration(), 0f, 1f) * 100);
             // just to indicate player pressed the right button show some progress.
-            if ( percentage > 0 && percentage < 25 ) percentage=25;
-            batch.draw(iconProgress[(percentage/25)], e.posX()+1, e.posY() + 68);
-            batch.draw(animIconButton.getKeyFrame(age,true), e.posX()+3, e.posY() + 74);
+            if (percentage > 0 && percentage < 25) percentage = 25;
+            batch.draw(iconProgress[(percentage / 25)], e.posX() + 1, e.posY() + 68);
+            batch.draw(animIconButton.getKeyFrame(age, true), e.posX() + 3, e.posY() + 74);
         }
     }
 

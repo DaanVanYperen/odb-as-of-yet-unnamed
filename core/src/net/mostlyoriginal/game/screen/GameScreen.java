@@ -4,6 +4,7 @@ import com.artemis.SuperMapper;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.link.EntityLinkManager;
+import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.manager.FontManager;
@@ -39,7 +40,9 @@ public class GameScreen extends WorldScreen {
                 .with(
                         new SuperMapper(),
                         new EmotionService(),
-                        new FontManager()
+                        new FontManager(),
+                        new TagManager(),
+                        new TutorialService()
                 )
                 .with(
 

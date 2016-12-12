@@ -5,10 +5,7 @@ import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.game.GameRules;
-import net.mostlyoriginal.game.component.Desire;
-import net.mostlyoriginal.game.component.Emotion;
-import net.mostlyoriginal.game.component.Interactable;
-import net.mostlyoriginal.game.component.Player;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.component.module.Sink;
 import net.mostlyoriginal.game.component.state.InUse;
 import net.mostlyoriginal.game.system.common.FluidSystem;
@@ -27,6 +24,7 @@ public class UseSystem extends FluidSystem {
     public static final int ACT_OFFSET_Y = 32;
     public static final float COOLDOWN_AFTER_USAGE = 0.8f;
     private CoinSystem coinSystem;
+    private TutorialService tutorialService;
 
     public UseSystem() {
         super(Aspect.all(InUse.class, Interactable.class));
@@ -62,18 +60,17 @@ public class UseSystem extends FluidSystem {
         if (e.interactableEndAnimId() != null) {
             e.anim(e.interactableStartAnimId());
         }
-        if (actor.hasUsing() && actor.usingSfxCooldown() > 0 && !actor.hasPlayer() )
-        {
+        if (actor.hasUsing() && actor.usingSfxCooldown() > 0 && !actor.hasPlayer()) {
             actor.usingSfxCooldown(actor.usingSfxCooldown() - world.delta);
-            if ( actor.usingSfxCooldown() <= 0 ) {
-                if ( e.hasToilet() ) {
+            if (actor.usingSfxCooldown() <= 0) {
+                if (e.hasToilet()) {
                     assetSystem.playPoopSfx();
-                    actor.posY(actor.posY()+actor.usingSfxOffset());
+                    actor.posY(actor.posY() + actor.usingSfxOffset());
                     actor.usingSfxOffset(-actor.usingSfxOffset());
                 }
                 // 50% chance of chaining poops.
-                if ( MathUtils.random(1,100) < 50) {
-                    actor.usingSfxCooldown(MathUtils.random(0.2f,0.8f));
+                if (MathUtils.random(1, 100) < 50) {
+                    actor.usingSfxCooldown(MathUtils.random(0.2f, 0.8f));
 
                     // poop longerrrr!
                     e.inUseDuration(e.inUseDuration() - 0.4f);
@@ -107,18 +104,27 @@ public class UseSystem extends FluidSystem {
     private void finishAsPlayer(E thing, E actor) {
         if (thing.hasDirty() && actor.playerTool() == Player.Tool.MOP) {
             thing.removeDirty();
+            if (tutorialService.step() == Tutorial.Step.MOP_TOILET) {
+                tutorialService.next();
+            }
         }
         if (thing.isClogged() && actor.playerTool() == Player.Tool.PLUNGER) {
             thing.removeClogged();
+            if (tutorialService.step() == Tutorial.Step.PLUNGE_TOILET) {
+                tutorialService.next();
+            }
         }
         if (thing.isInventory()) {
             actor.playerNextTool();
+            if (tutorialService.step() == Tutorial.Step.GRAB_MOP && actor.playerTool() == Player.Tool.MOP) {
+                tutorialService.next();
+            }
         }
     }
 
     private void finishAsVisitor(E thing, E actor) {
         if (thing.hasToilet()) {
-            if ( levelSetupSystem.activeLevel.extraPoops ) {
+            if (levelSetupSystem.activeLevel.extraPoops) {
                 worsenToiletState(thing);
                 worsenToiletState(thing);
             }
@@ -135,8 +141,7 @@ public class UseSystem extends FluidSystem {
         }
         if (thing.hasTipBowl()) {
             actor.desireType(Desire.Type.LEAVE);
-            if ( actor.emotionState() == Emotion.State.HAPPY )
-            {
+            if (actor.emotionState() == Emotion.State.HAPPY) {
                 coinSystem.payCoin(actor);
                 coinSystem.payCoin(actor);
             }
@@ -151,7 +156,7 @@ public class UseSystem extends FluidSystem {
     }
 
     private void washHandsTipOrLeave(E thing, E actor) {
-        if (thing.hasDirty()&&hasSink()) {
+        if (thing.hasDirty() && hasSink()) {
             // angry, so dirty, go wash hands. Chance to become even MORE angry!
             washHands(actor);
         } else {
@@ -183,8 +188,8 @@ public class UseSystem extends FluidSystem {
     private void worsenToiletState(E thing) {
         if (MathUtils.random(1, 100) <= GameRules.PERCENTAGE_CHANCE_OF_TOILET_DIRTY_ESCALATION) {
             if (thing.hasDirty()) {
-                if (thing.dirtyLevel() == 1 ) thing.dirtyLevel(2);
-                if (thing.dirtyLevel() == 0 ) thing.dirtyLevel(1);
+                if (thing.dirtyLevel() == 1) thing.dirtyLevel(2);
+                if (thing.dirtyLevel() == 0) thing.dirtyLevel(1);
                 // if dirty, become clogged as well.
                 thing.clogged();
             } else if (thing.isClogged()) {
@@ -224,7 +229,7 @@ public class UseSystem extends FluidSystem {
         actor.posY(actor.posY() - item.interactableUseOffsetY());
         renderBatchingSystem.sortedDirty = true;
 
-        if( !actor.hasPlayer() && (item.hasToilet()||item.hasUrinal())) {
+        if (!actor.hasPlayer() && (item.hasToilet() || item.hasUrinal())) {
             assetSystem.playFlushSfx();
         }
         if (item.hasExit() || item.hasEntrance()) {
@@ -258,12 +263,11 @@ public class UseSystem extends FluidSystem {
                         break;
                 }
             }
-            if (!actor.hasPlayer()){
-                if (item.hasUrinal()){
+            if (!actor.hasPlayer()) {
+                if (item.hasUrinal()) {
                     assetSystem.playPeeSfx();
                 }
-                if (item.hasSink())
-                {
+                if (item.hasSink()) {
                     assetSystem.playSinkSfx();
                 }
             }
@@ -296,7 +300,7 @@ public class UseSystem extends FluidSystem {
         if (item.hasToilet()) {
             assetSystem.playDoorCloseSfx();
         }
-        if (item.isInventory()){
+        if (item.isInventory()) {
             assetSystem.playSuppliesSfx();
         }
 

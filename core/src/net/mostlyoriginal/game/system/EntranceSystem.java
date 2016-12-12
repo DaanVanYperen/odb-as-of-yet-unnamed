@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Desire;
+import net.mostlyoriginal.game.component.Tutorial;
 import net.mostlyoriginal.game.component.module.Entrance;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -18,6 +19,7 @@ import static com.artemis.E.E;
 public class EntranceSystem extends FluidSystem {
 
     public static final float MINUTES_TILL_VICTORY_MINUS_ONE_HOUR = 540f;
+    private TutorialService tutorialService;
 
     public EntranceSystem() {
         super(Aspect.all(Entrance.class, Pos.class));
@@ -35,21 +37,21 @@ public class EntranceSystem extends FluidSystem {
     }
 
     private void considerSpawningVisitor(E e) {
-        e.entranceCooldown(e.entranceCooldown()-world.getDelta());
-        if ( e.entranceCooldown() <= 0 )
-        {
-            e.entranceCooldown(e.entranceTimeBetweenSpawns());
-            e.anim(e.interactableStartAnimId());
-            int count=MathUtils.random(e.entranceMinCount(),e.entranceMaxCount());
-            spawnsPending += count;
-        }
+        if (tutorialService.step() == Tutorial.Step.DONE) {
+            e.entranceCooldown(e.entranceCooldown() - world.getDelta());
+            if (e.entranceCooldown() <= 0) {
+                e.entranceCooldown(e.entranceTimeBetweenSpawns());
+                e.anim(e.interactableStartAnimId());
+                int count = MathUtils.random(e.entranceMinCount(), e.entranceMaxCount());
+                spawnsPending += count;
+            }
 
-        spawnCooldown -= world.delta;
-        if ( spawnsPending > 0 && spawnCooldown <= 0 )
-        {
-            spawnCooldown = MathUtils.random(0.2f,0.3f);
-            spawnsPending--;
-            spawnVisitor((int)(e.posX() + e.boundsMinx()), (int)(e.posY() - e.boundsMiny()));
+            spawnCooldown -= world.delta;
+            if (spawnsPending > 0 && spawnCooldown <= 0) {
+                spawnCooldown = MathUtils.random(0.2f, 0.3f);
+                spawnsPending--;
+                spawnVisitor((int) (e.posX() + e.boundsMinx()), (int) (e.posY() - e.boundsMiny()));
+            }
         }
     }
 

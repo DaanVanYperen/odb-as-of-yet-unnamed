@@ -5,6 +5,7 @@ import com.artemis.E;
 import com.badlogic.gdx.math.Interpolation;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.Clock;
+import net.mostlyoriginal.game.component.Tutorial;
 import net.mostlyoriginal.game.component.module.TipBowl;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.screen.LogoScreen;
@@ -33,6 +34,7 @@ public class ClockSystem extends FluidSystem {
     private float hour;
     private float minute;
     public int minutesPassed;
+    private TutorialService tutorialService;
 
     public ClockSystem() {
         super(Aspect.all(Clock.class));
@@ -64,8 +66,10 @@ public class ClockSystem extends FluidSystem {
     @Override
     protected void process(E e) {
 
-        age += world.delta * 4f;
-        e.clockAge(e.clockAge()+world.delta);
+        if (tutorialService.step() == Tutorial.Step.DONE) {
+            age += world.delta * 4f;
+            e.clockAge(e.clockAge() + world.delta);
+        }
 
         minutesPassed = (int)(e.clockAge()*e.clockSpeed());
         hour = 8+(minutesPassed /60);

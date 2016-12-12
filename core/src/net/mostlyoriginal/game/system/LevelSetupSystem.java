@@ -30,6 +30,8 @@ public class LevelSetupSystem extends FluidSystem {
         private int maxCount=1;
         public boolean extraPoops=false;
         public float clockSpeed=10;
+        public boolean tutorial;
+        public boolean startDirty;
 
         public Level(String name, BathroomLevel.Type[] level) {
             this.name = name;
@@ -65,6 +67,16 @@ public class LevelSetupSystem extends FluidSystem {
             this.clockSpeed=clockSpeed;
             return this;
         }
+
+        public Level setTutorial(boolean tutorial) {
+            this.tutorial = tutorial;
+            return this;
+        }
+
+        public Level startDirty(boolean b) {
+            this.startDirty = b;
+            return this;
+        }
     }
 
     private Level introduction = new Level(
@@ -78,7 +90,9 @@ public class LevelSetupSystem extends FluidSystem {
             })
             .lossCount(3)
             .clockSpeed(40)
-            .spawnDelay(8,8);
+            .spawnDelay(8,8)
+            .startDirty(true)
+            .setTutorial(true);
 
     private Level growingRooms = new Level(
             "Stage 2: Sink Or Swim",
@@ -155,7 +169,7 @@ public class LevelSetupSystem extends FluidSystem {
 
 
     private Level[] levels = new Level[] {
-           growingRooms, introduction, zeroTolerance, chili, panicLevel
+            introduction, growingRooms, zeroTolerance, chili, panicLevel
     };
 
     public LevelSetupSystem() {
@@ -183,6 +197,11 @@ public class LevelSetupSystem extends FluidSystem {
                 .fontFontName("5x5")
                 .fontScale(1.5f)
                 .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
+
+        if ( activeLevel.tutorial) {
+            E()
+                    .tutorial().tag("tutorial");
+        }
     }
 
     private int x = 0;
@@ -281,14 +300,17 @@ public class LevelSetupSystem extends FluidSystem {
             doorClosed = "module_part_handicap_door_closed";
         }
 
-        return E()
+        E toilet = E()
                 .pos(x + 4, y + TOILET_Y - 11)
                 .bounds(2, 0, GameScreenAssetSystem.TOILET_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_TOILET_DOOR)
                 .anim(MathUtils.randomBoolean() ? doorClosed : doorOpen)
                 .interactable(doorClosed, doorOpen)
                 .interactableUseOffsetY(38)
-                .toiletBowlId(toiletBowl.id()).id();
+                .toiletBowlId(toiletBowl.id());
+        if ( activeLevel.startDirty ) toilet.dirty();
+        if ( activeLevel.startDirty ) toilet.clogged();
+        return toilet.id();
     }
 
     private int spawnUrinal(int x, int y) {
