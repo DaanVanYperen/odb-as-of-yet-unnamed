@@ -25,6 +25,9 @@ public class EntranceSystem extends FluidSystem {
 
     ClockSystem clockSystem;
 
+    public int spawnsPending = 0;
+    public float spawnCooldown = 0;
+
     @Override
     protected void process(E e) {
         scaleDifficultyWithTime(e);
@@ -38,9 +41,15 @@ public class EntranceSystem extends FluidSystem {
             e.entranceCooldown(e.entranceTimeBetweenSpawns());
             e.anim(e.interactableStartAnimId());
             int count=MathUtils.random(e.entranceMinCount(),e.entranceMaxCount());
-            for (int i = 0; i < count; i++) {
-                spawnVisitor((int)(e.posX() + e.boundsMinx()), (int)(e.posY() - e.boundsMiny()));
-            }
+            spawnsPending += count;
+        }
+
+        spawnCooldown -= world.delta;
+        if ( spawnsPending > 0 && spawnCooldown <= 0 )
+        {
+            spawnCooldown = MathUtils.random(0.2f,0.3f);
+            spawnsPending--;
+            spawnVisitor((int)(e.posX() + e.boundsMinx()), (int)(e.posY() - e.boundsMiny()));
         }
     }
 
