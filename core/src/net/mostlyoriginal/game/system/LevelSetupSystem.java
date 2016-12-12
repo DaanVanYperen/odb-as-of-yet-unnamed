@@ -80,7 +80,7 @@ public class LevelSetupSystem extends FluidSystem {
     }
 
     private Level introduction = new Level(
-            "Stage 1: Closets Contain Mops",
+            "Stage 1: First Day",
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
@@ -89,12 +89,12 @@ public class LevelSetupSystem extends FluidSystem {
                     BathroomLevel.Type.SUPPLY_CLOSET
             })
             .lossCount(3)
-            .clockSpeed(40)
+            .clockSpeed(35)
             .spawnDelay(8,8)
             .startDirty(true)
             .setTutorial(true);
 
-    private Level growingRooms = new Level(
+    private Level sinkOrSwim = new Level(
             "Stage 2: Sink Or Swim",
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
@@ -111,8 +111,29 @@ public class LevelSetupSystem extends FluidSystem {
             .clockSpeed(10)
             .spawnDelay(8,4);
 
+    private Level procrastinationHurts = new Level(
+            "Stage 3: Procrastination Hurts",
+            new BathroomLevel.Type[]{
+                    BathroomLevel.Type.ENTRANCE,
+                    BathroomLevel.Type.TIPS,
+                    BathroomLevel.Type.URINAL,
+                    BathroomLevel.Type.POSTER,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.POSTER,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SUPPLY_CLOSET
+            })
+            .lossCount(4)
+            .clockSpeed(15)
+            .spawnCount(2,3)
+            .startDirty(true)
+            .spawnDelay(10,6);
+
     private Level zeroTolerance = new Level(
-            "Stage X: Zero Tolerance",
+            "Stage 4: Zero Tolerance",
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
@@ -131,7 +152,7 @@ public class LevelSetupSystem extends FluidSystem {
             .spawnDelay(14,10);
 
     private Level chili = new Level(
-            "Stage X: Chili Con Carne Convention",
+            "Stage 5: Chili Con Carne Convention",
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
@@ -150,7 +171,7 @@ public class LevelSetupSystem extends FluidSystem {
             ;
 
     private Level panicLevel = new Level(
-            "Stage X: AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!",
+            "Stage 6: AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!",
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
@@ -164,12 +185,12 @@ public class LevelSetupSystem extends FluidSystem {
                     BathroomLevel.Type.SUPPLY_CLOSET
             })
             .clockSpeed(1)
-            .spawnCount(1,2)
+            .spawnCount(1,4)
             .spawnDelay(4,1);
 
 
     private Level[] levels = new Level[] {
-            introduction, growingRooms, zeroTolerance, chili, panicLevel
+            introduction, sinkOrSwim, procrastinationHurts, zeroTolerance, chili, panicLevel
     };
 
     public LevelSetupSystem() {
@@ -320,7 +341,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .anim("module_part_background");
 
 
-        return E()
+        E urinal = E()
                 .pos(x, y + TOILET_Y + 30)
                 .bounds(2, 0, GameScreenAssetSystem.URINAL_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
@@ -328,7 +349,9 @@ public class LevelSetupSystem extends FluidSystem {
                 .interactable()
                 .interactableDuration(1.5f)
                 .interactableUseOffsetY(44)
-                .urinal()
+                .urinal();
+        if ( activeLevel.startDirty ) urinal.dirty();
+        return urinal
                 .id();
     }
 
@@ -356,7 +379,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .anim("module_part_background");
 
 
-        return E()
+        E sink = E()
                 .pos(x, y + TOILET_Y + 32)
                 .bounds(2, 0, GameScreenAssetSystem.URINAL_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
                 .render(GameScreenAssetSystem.LAYER_BEHIND_ACTORS)
@@ -364,7 +387,9 @@ public class LevelSetupSystem extends FluidSystem {
                 .interactable()
                 .interactableDuration(1f)
                 .interactableUseOffsetY(44)
-                .sink()
+                .sink();
+        if ( activeLevel.startDirty ) sink.dirtyLevel(MathUtils.random(0,2));
+        return sink
                 .id();
     }
 
