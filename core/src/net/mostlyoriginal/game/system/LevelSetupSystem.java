@@ -18,14 +18,17 @@ public class LevelSetupSystem extends FluidSystem {
 
     public static final int Y_OFFSET = 25;
     public static final int TOILET_Y = 48;
-    private Level activeLevel;
+    public Level activeLevel;
 
-    private static class Level {
+    public static class Level {
         public String name;
         public BathroomLevel.Type[] level;
         public int lossCount = 5;
         public float timeBetweenSpawnsEasiest=12;
         public float timeBetweenSpawnsHardest=2;
+        private int minCount=1;
+        private int maxCount=1;
+        public float clockSpeed=10;
 
         public Level(String name, BathroomLevel.Type[] level) {
             this.name = name;
@@ -41,6 +44,18 @@ public class LevelSetupSystem extends FluidSystem {
         {
             this.timeBetweenSpawnsEasiest =easy;
             this.timeBetweenSpawnsHardest = hard;
+            return this;
+        }
+
+        public Level spawnCount(int minCount, int maxCount) {
+            this.minCount = minCount;
+            this.maxCount = maxCount;
+            return this;
+
+        }
+
+        public Level clockSpeed(int clockSpeed) {
+            this.clockSpeed=clockSpeed;
             return this;
         }
     }
@@ -123,10 +138,17 @@ public class LevelSetupSystem extends FluidSystem {
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
                     BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.URINAL,
                     BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.URINAL,
                     BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.SINK,
                     BathroomLevel.Type.SUPPLY_CLOSET
-            }).spawnDelay(14,14);
+            })
+            .clockSpeed(10)
+            .spawnCount(1,3)
+            .spawnDelay(8,4);
 
 
     private Level[] levels = new Level[] {
@@ -326,6 +348,8 @@ public class LevelSetupSystem extends FluidSystem {
                 .entrance()
                 .entranceTimeBetweenSpawnsEasiest(activeLevel.timeBetweenSpawnsEasiest)
                 .entranceTimeBetweenSpawnsHardest(activeLevel.timeBetweenSpawnsHardest)
+                .entranceMinCount(activeLevel.minCount)
+                .entranceMaxCount(activeLevel.maxCount)
                 .exit()
                 .interactable("module_part_main_door_open", "module_part_main_door_closed")
                 .id();

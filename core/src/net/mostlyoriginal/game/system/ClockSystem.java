@@ -29,6 +29,7 @@ public class ClockSystem extends FluidSystem {
     private CoinSystem coinSystem;
     private E face;
     private GameScreenAssetSystem assetSystem;
+    LevelSetupSystem levelSetupSystem;
     private float hour;
     private float minute;
     public int minutesPassed;
@@ -45,6 +46,7 @@ public class ClockSystem extends FluidSystem {
                 .pos(CLOCK_X, CLOCK_Y)
                 .anim("clock_face")
                 .clock()
+                .clockSpeed(levelSetupSystem.activeLevel.clockSpeed)
                 .renderLayer(GameScreenAssetSystem.LAYER_CLOCK);
 
         smallHand = E()

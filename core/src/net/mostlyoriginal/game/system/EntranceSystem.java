@@ -37,7 +37,10 @@ public class EntranceSystem extends FluidSystem {
         {
             e.entranceCooldown(e.entranceTimeBetweenSpawns());
             e.anim(e.interactableStartAnimId());
-            spawnVisitor((int)(e.posX() + e.boundsMinx()), (int)(e.posY() - e.boundsMiny()));
+            int count=MathUtils.random(e.entranceMinCount(),e.entranceMaxCount());
+            for (int i = 0; i < count; i++) {
+                spawnVisitor((int)(e.posX() + e.boundsMinx()), (int)(e.posY() - e.boundsMiny()));
+            }
         }
     }
 
