@@ -251,7 +251,12 @@ public class UseSystem extends FluidSystem {
     public void startUsing(E actor, E item) {
         if (item == null) return;
         if (item.hasTipBowl() && actor.hasPlayer()) return;
+
+        // avoid grabbing mop too early.
+        if (item.isInventory() && tutorialService.step() != Tutorial.Step.DONE && tutorialService.step() != Tutorial.Step.GRAB_MOP)
+            return;
         if (item.hasInteractable() && item.interactableCooldownBefore() <= 0) {
+
 
             if (actor.hasPlayer() && !item.isInventory()) {
                 switch (actor.playerTool()) {

@@ -18,21 +18,30 @@ import static net.mostlyoriginal.api.operation.OperationFactory.*;
  * @author Daan van Yperen
  */
 public class CoinSystem extends FluidSystem {
-    public boolean won=false;
+    public boolean won = false;
 
     public CoinSystem() {
         super(Aspect.all(TipBowl.class));
     }
 
-    int xOffset=0;
+    int xOffset = 0;
     int coinsPending = 0;
     int angerPending = 0;
     boolean finishing = false;
+    float cashoutCooldown = 0;
 
     @Override
     protected void process(E e) {
         increaseTipsWithPending(e);
         showMassedWealth(e);
+        if (finishing) {
+            if (e.tipBowlCoins() > 0 && cashoutCooldown <= 0) {
+                cashoutCooldown = 0.2f;
+                e.tipBowlCoins(e.tipBowlCoins() - 1);
+                assetSystem.playCoinSfx();
+            } else cashoutCooldown -= world.delta;
+
+        }
     }
 
     private void showMassedWealth(E e) {
@@ -40,12 +49,12 @@ public class CoinSystem extends FluidSystem {
     }
 
     private void increaseTipsWithPending(E e) {
-        if (coinsPending>0) {
+        if (coinsPending > 0) {
             e.tipBowlCoins(e.tipBowlCoins() + coinsPending);
             GameRules.lastScore += coinsPending;
             coinsPending = 0;
         }
-        if (angerPending >0) {
+        if (angerPending > 0) {
             e.tipBowlAnger(e.tipBowlAnger() + angerPending);
             angerPending = 0;
             considerLossCondition(e);
@@ -53,7 +62,7 @@ public class CoinSystem extends FluidSystem {
     }
 
     private void considerLossCondition(E e) {
-        if ( !finishing && e.tipBowlAnger() >= e.tipBowlMaxAnger()) {
+        if (!finishing && e.tipBowlAnger() >= e.tipBowlMaxAnger()) {
             finishing = true;
             assetSystem.playDefeatSfx();
             world.getSystem(TransitionSystem.class).transition(LogoScreen.class, 5);
@@ -65,13 +74,13 @@ public class CoinSystem extends FluidSystem {
     public void payCoin(E e) {
         coinsPending++;
         assetSystem.playCoinSfx();
-        feedbackIcon("icon_coin", e.posX()+2 + MathUtils.random(-4,4), e.posY() + 32 + MathUtils.random(-4,4));
+        feedbackIcon("icon_coin", e.posX() + 2 + MathUtils.random(-4, 4), e.posY() + 32 + MathUtils.random(-4, 4));
     }
 
     public void leaveAngrily(E e) {
         angerPending++;
         assetSystem.playGuestAngrySfx();
-        feedbackIcon("icon_sad", e.posX()+2, e.posY() + 48);
+        feedbackIcon("icon_sad", e.posX() + 2, e.posY() + 48);
     }
 
     private void feedbackIcon(String icon_coin, float x, float y) {
@@ -86,20 +95,20 @@ public class CoinSystem extends FluidSystem {
                 .physicsVy(20)
                 .physicsFriction(0)
                 .script(
-                        tween(Tint.WHITE, Tint.TRANSPARENT,3f)
+                        tween(Tint.WHITE, Tint.TRANSPARENT, 3f)
                 );
     }
 
-    private String coinAnim(E e ) {
-        if ( e.tipBowlCoins() > 16 )
+    private String coinAnim(E e) {
+        if (e.tipBowlCoins() > 16)
             return "coin_5";
-        if ( e.tipBowlCoins() > 8 )
+        if (e.tipBowlCoins() > 8)
             return "coin_4";
-        if ( e.tipBowlCoins() > 4 )
+        if (e.tipBowlCoins() > 4)
             return "coin_3";
-        if ( e.tipBowlCoins() > 1 )
+        if (e.tipBowlCoins() > 1)
             return "coin_2";
-        if ( e.tipBowlCoins() > 0 )
+        if (e.tipBowlCoins() > 0)
             return "coin_1";
         return "missing";
     }
