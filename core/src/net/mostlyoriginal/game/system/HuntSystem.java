@@ -50,7 +50,7 @@ public class HuntSystem extends FluidSystem {
             actor.posX(actor.posX() - movementSpeed);
             actor.animFlippedX(true);
             return false;
-        }
+        } else if ( !actor.hasUsing() ) { actor.animAge(0); }
         return true;
     }
 }
