@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.module.TipBowl;
@@ -64,7 +65,7 @@ public class CoinSystem extends FluidSystem {
     public void payCoin(E e) {
         coinsPending++;
         assetSystem.playCoinSfx();
-        feedbackIcon("icon_coin", e.posX()+2, e.posY() + 32);
+        feedbackIcon("icon_coin", e.posX()+2 + MathUtils.random(-4,4), e.posY() + 32 + MathUtils.random(-4,4));
     }
 
     public void leaveAngrily(E e) {

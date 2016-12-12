@@ -72,7 +72,7 @@ public class LevelSetupSystem extends FluidSystem {
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.TOILET,
                     BathroomLevel.Type.TOILET,
                     BathroomLevel.Type.SUPPLY_CLOSET
             })
@@ -80,24 +80,22 @@ public class LevelSetupSystem extends FluidSystem {
             .clockSpeed(40)
             .spawnDelay(8,8);
 
-    private Level chili = new Level(
-            "Stage X: Chili Con Carne Convention",
+    private Level growingRooms = new Level(
+            "Stage 2: Sink Or Swim",
             new BathroomLevel.Type[]{
                     BathroomLevel.Type.ENTRANCE,
                     BathroomLevel.Type.TIPS,
                     BathroomLevel.Type.TOILET,
                     BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.SINK,
                     BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.POSTER,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.POSTER,
                     BathroomLevel.Type.SUPPLY_CLOSET
             })
-            .extraPoops()
+            .lossCount(3)
             .clockSpeed(10)
-            .spawnCount(2,3)
-            .spawnDelay(10,6);
-            ;
+            .spawnDelay(8,4);
 
     private Level zeroTolerance = new Level(
             "Stage X: Zero Tolerance",
@@ -117,6 +115,25 @@ public class LevelSetupSystem extends FluidSystem {
             .spawnCount(3,4)
             .clockSpeed(10)
             .spawnDelay(14,10);
+
+    private Level chili = new Level(
+            "Stage X: Chili Con Carne Convention",
+            new BathroomLevel.Type[]{
+                    BathroomLevel.Type.ENTRANCE,
+                    BathroomLevel.Type.TIPS,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.SINK,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.TOILET,
+                    BathroomLevel.Type.SUPPLY_CLOSET
+            })
+            .extraPoops()
+            .clockSpeed(10)
+            .spawnCount(2,3)
+            .spawnDelay(10,6);
+            ;
 
     private Level panicLevel = new Level(
             "Stage X: AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!",
@@ -138,7 +155,7 @@ public class LevelSetupSystem extends FluidSystem {
 
 
     private Level[] levels = new Level[] {
-            zeroTolerance, introduction, chili, panicLevel
+           growingRooms, introduction, zeroTolerance, chili, panicLevel
     };
 
     public LevelSetupSystem() {
@@ -197,6 +214,10 @@ public class LevelSetupSystem extends FluidSystem {
                 break;
             case TOILET:
                 moduleId = spawnToilet(x, Y_OFFSET);
+                x = x + GameScreenAssetSystem.URINAL_WIDTH;
+                break;
+            case POSTER:
+                moduleId = spawnPoster(x, Y_OFFSET);
                 x = x + GameScreenAssetSystem.URINAL_WIDTH;
                 break;
             case URINAL:
@@ -287,6 +308,23 @@ public class LevelSetupSystem extends FluidSystem {
                 .interactableUseOffsetY(44)
                 .urinal()
                 .id();
+    }
+
+
+    private int spawnPoster(int x, int y) {
+        E()
+                .pos(x, y)
+                .render(GameScreenAssetSystem.LAYER_BACKGROUND)
+                .anim("module_part_background");
+
+
+        return E()
+                .pos(x + 3, y + 92)
+                .render(GameScreenAssetSystem.LAYER_BACKGROUND+1)
+                .bounds(0, 0, GameScreenAssetSystem.ENTRANCE_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
+                .anim("poster_" + MathUtils.random(1, 3))
+                .id();
+
     }
 
     private int spawnSink(int x, int y) {

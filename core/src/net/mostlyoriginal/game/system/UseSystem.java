@@ -135,6 +135,11 @@ public class UseSystem extends FluidSystem {
         }
         if (thing.hasTipBowl()) {
             actor.desireType(Desire.Type.LEAVE);
+            if ( actor.emotionState() == Emotion.State.HAPPY )
+            {
+                coinSystem.payCoin(actor);
+                coinSystem.payCoin(actor);
+            }
             coinSystem.payCoin(actor);
         }
         if (thing.isExit()) {
