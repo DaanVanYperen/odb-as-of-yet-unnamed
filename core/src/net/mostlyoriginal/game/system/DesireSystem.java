@@ -8,9 +8,8 @@ import net.mostlyoriginal.game.component.Desire;
 import net.mostlyoriginal.game.component.Using;
 import net.mostlyoriginal.game.component.module.*;
 import net.mostlyoriginal.game.component.state.Dirty;
+import net.mostlyoriginal.game.component.state.InUse;
 import net.mostlyoriginal.game.system.common.FluidSystem;
-
-import static net.mostlyoriginal.game.component.BathroomLevel.Type.SINK;
 
 /**
  * @author Daan van Yperen
@@ -46,20 +45,20 @@ public class DesireSystem extends FluidSystem {
                 break;
             case POOP:
                 entityId = randomOf(getCleanToilet());
-                if ( entityId == MISSING_ENTITY_ID ) {
-                    entityId = randomOf(getDirtyToilet());
+                if ( entityId == MISSING_ENTITY_ID || MathUtils.random(1,100) < 50 ) {
+                    entityId = randomOf(getAnyToilet());
                 }
                 break;
             case PEE:
                 entityId = randomOf(getCleanUrinal());
-                if ( entityId == MISSING_ENTITY_ID ) {
-                    entityId = randomOf(getDirtyUrinal());
+                if ( entityId == MISSING_ENTITY_ID || MathUtils.random(1,100) < 50 ) {
+                    entityId = randomOf(getAnyUrinal());
                 }
                 if ( entityId == MISSING_ENTITY_ID ) {
                     entityId = randomOf(getCleanToilet());
                 }
                 if ( entityId == MISSING_ENTITY_ID ) {
-                    entityId = randomOf(getDirtyToilet());
+                    entityId = randomOf(getAnyToilet());
                 }
                 break;
         }
@@ -82,28 +81,28 @@ public class DesireSystem extends FluidSystem {
     private IntBag getSink() {
         return world
                 .getAspectSubscriptionManager()
-                .get(Aspect.all(Sink.class)).getEntities();
+                .get(Aspect.all(Sink.class).exclude(InUse.class)).getEntities();
     }
 
 
-    private IntBag getDirtyToilet() {
+    private IntBag getAnyToilet() {
         return world
                 .getAspectSubscriptionManager()
-                .get(Aspect.all(Toilet.class)).getEntities();
+                .get(Aspect.all(Toilet.class).exclude(InUse.class)).getEntities();
     }
 
 
     private IntBag getCleanUrinal() {
         return world
                 .getAspectSubscriptionManager()
-                .get(Aspect.all(Urinal.class).exclude(Dirty.class)).getEntities();
+                .get(Aspect.all(Urinal.class).exclude(Dirty.class, InUse.class)).getEntities();
     }
 
 
-    private IntBag getDirtyUrinal() {
+    private IntBag getAnyUrinal() {
         return world
                 .getAspectSubscriptionManager()
-                .get(Aspect.all(Urinal.class)).getEntities();
+                .get(Aspect.all(Urinal.class).exclude(InUse.class)).getEntities();
     }
 
 
