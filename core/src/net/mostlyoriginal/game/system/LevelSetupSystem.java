@@ -167,6 +167,8 @@ public class LevelSetupSystem extends FluidSystem {
     public static short CAT_AGENT=0x2;
     public static short CAT_CAR=0x4;
     public static short CAT_BULLET=0x8;
+    public static short CAT_PRESIDENT=0x16;
+
 
     private void addPresident(int x, int y) {
         E e = E()
@@ -184,8 +186,8 @@ public class LevelSetupSystem extends FluidSystem {
                 .tag("president")
                 .locomotion()
                 .bounds(0, 0, 32, 16)
-                .renderLayer(GameScreenAssetSystem.LAYER_CAR+10);
-        Body president = boxPhysicsSystem.addAsBox(e2, e2.getBounds().cx(), e2.getBounds().cy(), 1f, CAT_CAR, (short) (CAT_BOUNDARY|CAT_BULLET));
+                .renderLayer(GameScreenAssetSystem.LAYER_CAR-10);
+        Body president = boxPhysicsSystem.addAsBox(e2, e2.getBounds().cx(), e2.getBounds().cy(), 1f, CAT_PRESIDENT, (short) (CAT_BULLET));
 
         E e3 = E()
                 .pos(x, y)

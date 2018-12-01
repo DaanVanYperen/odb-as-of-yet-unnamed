@@ -33,7 +33,7 @@ public class BoxPhysicsSystem extends FluidSystem {
             private void bulletHit(Fixture fixtureA, Fixture fixtureB) {
                 if (fixtureA.getFilterData().categoryBits == LevelSetupSystem.CAT_BULLET) {
                     short cat = fixtureB.getFilterData().categoryBits;
-                    if ( cat == LevelSetupSystem.CAT_CAR || cat == LevelSetupSystem.CAT_AGENT  || cat == LevelSetupSystem.CAT_CAR) {
+                    if ( cat == LevelSetupSystem.CAT_CAR || cat == LevelSetupSystem.CAT_AGENT  || cat == LevelSetupSystem.CAT_PRESIDENT) {
                         ((E) fixtureB.getBody().getUserData()).struck();
                         ((E) fixtureA.getBody().getUserData()).struck();
                     }

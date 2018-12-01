@@ -23,17 +23,13 @@ public class StruckSystem extends FluidSystem {
             e.deleteFromWorld();
         }
 
-        if ( e.id() == entityWithTag("president").id()) {
+        E president = entityWithTag("president");
+        if ( president != null && e.id() == president.id()) {
             if ( e.hasBoxed() ) {
                 e.slowTime();
                 Body body = e.boxedBody();
                 for (JointEdge jointEdge : body.getJointList()) {
                     boxPhysicsSystem.box2d.destroyJoint(jointEdge.joint);
-                    break;
-                }
-                for (Fixture fixture : body.getFixtureList()) {
-                    fixture.getFilterData().maskBits=0;
-                    fixture.refilter();
                 }
                 body.applyLinearImpulse(0,500f,e.posX() / boxPhysicsSystem.scaling,e.posY() / boxPhysicsSystem.scaling, true);
             }
