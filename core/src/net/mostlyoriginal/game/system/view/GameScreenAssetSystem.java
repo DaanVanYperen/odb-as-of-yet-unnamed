@@ -1,5 +1,6 @@
 package net.mostlyoriginal.game.system.view;
 
+import com.artemis.E;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -10,7 +11,10 @@ import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.SpriteData;
+import net.mostlyoriginal.game.system.BoxPhysicsSystem;
 import net.mostlyoriginal.game.system.render.SpriteLibrary;
+
+import static com.artemis.E.E;
 
 /**
  * @author Daan van Yperen
@@ -51,6 +55,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final float LOW_VOLUME = 0.01f;
     private Music music;
     private SpriteLibrary spriteLibrary;
+    private BoxPhysicsSystem boxPhysicsSystem;
 
     public GameScreenAssetSystem() {
         super("tileset.png");
@@ -390,7 +395,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         GameRules.music.play();
         GameRules.music.setPan(0, 0.1f);
 
-
+        E e = E()
+                .mouseCursor()
+                .pos()
+                .renderLayer(LAYER_ACTORS + 10);
 //        Toilet large poop:
 //        416,152,32,72
 //        Toilet HUGE poop:

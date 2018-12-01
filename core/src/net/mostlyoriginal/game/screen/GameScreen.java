@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.manager.FontManager;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
+import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
 import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
@@ -61,8 +62,10 @@ public class GameScreen extends TransitionableWorldScreen {
                         new PlayerSystem(),
                         new ClockSystem(),
                         new CoinSystem(),
+                        new MouseCursorSystem(),
                         new PhysicsSystem(),
                         new BoxPhysicsSystem(),
+                        new MouseThrowSystem(),
                         new InteractableCooldownSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),

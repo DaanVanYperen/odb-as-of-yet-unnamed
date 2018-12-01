@@ -148,7 +148,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .fontScale(1.5f)
                 .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
 
-        boxPhysicsSystem.addPhysics(e, e.getBounds().cx(), e.getBounds().cy());
+        boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy());
 
 
         for (int i = 0; i < 20; i++) {
@@ -168,7 +168,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .animId("bodyguard_01")
                 .bounds(8,0,16,24)
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS);
-        boxPhysicsSystem.addPhysics(e, 8, e.getBounds().cy());
+        boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy());
     }
 
     private int x = 0;
