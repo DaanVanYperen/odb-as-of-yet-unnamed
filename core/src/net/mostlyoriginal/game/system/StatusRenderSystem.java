@@ -52,25 +52,25 @@ public class StatusRenderSystem extends FluidSystem {
     protected void begin() {
         super.begin();
 
-        batch.setProjectionMatrix(cameraSystem.camera.combined);
-        batch.begin();
-        iconCoin = assetSystem.get("icon_coin").getKeyFrame(0);
-        iconTexture = assetSystem.get("icon_sad").getKeyFrame(0);
-        iconSad = assetSystem.get("icon_sad2").getKeyFrame(0);
-
-
-        iconPlunger = assetSystem.get("icon_plunger").getKeyFrame(0);
-        iconMop = assetSystem.get("icon_mop").getKeyFrame(0);
-        iconPlungerAndMop = assetSystem.get("icon_plunger_and_mop").getKeyFrame(0);
-
-
-        iconProgress[0] = assetSystem.get("progress_0").getKeyFrame(0);
-        iconProgress[1] = assetSystem.get("progress_25").getKeyFrame(0);
-        iconProgress[2] = assetSystem.get("progress_50").getKeyFrame(0);
-        iconProgress[3] = assetSystem.get("progress_75").getKeyFrame(0);
-        iconProgress[4] = assetSystem.get("progress_100").getKeyFrame(0);
-        animIconButton = assetSystem.get("icon_button");
-
+//        batch.setProjectionMatrix(cameraSystem.camera.combined);
+//        batch.begin();
+////        iconCoin = assetSystem.get("icon_coin").getKeyFrame(0);
+////        iconTexture = assetSystem.get("icon_sad").getKeyFrame(0);
+////        iconSad = assetSystem.get("icon_sad2").getKeyFrame(0);
+////
+////
+////        iconPlunger = assetSystem.get("icon_plunger").getKeyFrame(0);
+////        iconMop = assetSystem.get("icon_mop").getKeyFrame(0);
+////        iconPlungerAndMop = assetSystem.get("icon_plunger_and_mop").getKeyFrame(0);
+////
+////
+////        iconProgress[0] = assetSystem.get("progress_0").getKeyFrame(0);
+////        iconProgress[1] = assetSystem.get("progress_25").getKeyFrame(0);
+////        iconProgress[2] = assetSystem.get("progress_50").getKeyFrame(0);
+////        iconProgress[3] = assetSystem.get("progress_75").getKeyFrame(0);
+////        iconProgress[4] = assetSystem.get("progress_100").getKeyFrame(0);
+////        animIconButton = assetSystem.get("icon_button");
+//
 
         age += world.delta;
     }
@@ -83,35 +83,35 @@ public class StatusRenderSystem extends FluidSystem {
 
     @Override
     protected void process(E e) {
-
-        if (e.hasTipBowl()) {
-            renderTipBowlUI(e);
-        }
-
-        if ((e.isInventory() && tutorialService.step() == Tutorial.Step.GRAB_MOP)
-                ) {
-            renderInteractionE(e, 8, 90);
-        }
-
-        if (
-                (e.hasToilet() && tutorialService.step() == Tutorial.Step.MOP_TOILET) ||
-                        (e.hasToilet() && tutorialService.step() == Tutorial.Step.PLUNGE_TOILET)
-                ) {
-            if (!e.hasInUse()) {
-                renderInteractionE(e, 4, 64);
-                return;
-            }
-        }
-
-        if (e.hasDirty() || e.isClogged()) {
-            renderActionablesUI(e);
-        }
+//
+//        if (e.hasTipBowl()) {
+//            renderTipBowlUI(e);
+//        }
+//
+//        if ((e.isInventory() && tutorialService.step() == Tutorial.Step.GRAB_MOP)
+//                ) {
+//            renderInteractionE(e, 8, 90);
+//        }
+//
+//        if (
+//                (e.hasToilet() && tutorialService.step() == Tutorial.Step.MOP_TOILET) ||
+//                        (e.hasToilet() && tutorialService.step() == Tutorial.Step.PLUNGE_TOILET)
+//                ) {
+//            if (!e.hasInUse()) {
+//                renderInteractionE(e, 4, 64);
+//                return;
+//            }
+//        }
+//
+//        if (e.hasDirty() || e.isClogged()) {
+//            renderActionablesUI(e);
+//        }
 
     }
 
 
     private void renderInteractionE(E e, int x, int y) {
-        batch.draw(animIconButton.getKeyFrame(age * 0.4f, true), e.posX() + x, e.posY() + y);
+//        batch.draw(animIconButton.getKeyFrame(age * 0.4f, true), e.posX() + x, e.posY() + y);
     }
 
 
@@ -138,14 +138,14 @@ public class StatusRenderSystem extends FluidSystem {
     }
 
     private void renderProgressPercentage(E e) {
-        E actor = getActor(e.inUseUserId());
-        if (actor.hasPlayer()) {
-            int percentage = (int) (MathUtils.clamp(e.inUseDuration() / e.interactableDuration(), 0f, 1f) * 100);
-            // just to indicate player pressed the right button show some progress.
-            if (percentage > 0 && percentage < 25) percentage = 25;
-            batch.draw(iconProgress[(percentage / 25)], e.posX() + 1, e.posY() + 68);
-            batch.draw(animIconButton.getKeyFrame(age, true), e.posX() + 3, e.posY() + 74);
-        }
+//        E actor = getActor(e.inUseUserId());
+//        if (actor.hasPlayer()) {
+//            int percentage = (int) (MathUtils.clamp(e.inUseDuration() / e.interactableDuration(), 0f, 1f) * 100);
+//            // just to indicate player pressed the right button show some progress.
+//            if (percentage > 0 && percentage < 25) percentage = 25;
+//            batch.draw(iconProgress[(percentage / 25)], e.posX() + 1, e.posY() + 68);
+//            batch.draw(animIconButton.getKeyFrame(age, true), e.posX() + 3, e.posY() + 74);
+//        }
     }
 
     private E getActor(int id) {

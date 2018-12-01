@@ -64,9 +64,9 @@ public class GameScreen extends TransitionableWorldScreen {
                         new PhysicsSystem(),
                         new InteractableCooldownSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),
-                        new AnimRenderSystem(renderBatchingSystem),
+                        new MyAnimRenderSystem(renderBatchingSystem),
                         new MyLabelRenderSystem(renderBatchingSystem),
-                        new StatusRenderSystem(),
+                        //new StatusRenderSystem(),
                         new TransitionSystem(GdxArtemisGame.getInstance(),this),
                         new DiscoSystem()
                 ).build());

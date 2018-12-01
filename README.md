@@ -1,4 +1,4 @@
-odb-icleantoilet
+odb-orange-guard
 =====================
 
 #### Summary
@@ -15,8 +15,6 @@ The project was created on top of [libgdx-artemis-quickstart](https://github.com
 
 #### License summary
 Code, graphics and sound are under a separate license. Feel free to do whatever with the code, the graphics however are copyrighted.
-
-[Play online](http://www.mostlyoriginal.net/play-icleantoilet/)
 
 
 

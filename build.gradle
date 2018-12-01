@@ -1,10 +1,10 @@
 buildscript {
     ext {
-        appName = 'I Clean Toilet'
-        appVersion = '1.6'
-        gdxVersion = '1.9.4'
+        appName = 'Orange Guard'
+        appVersion = '1.0'
+        gdxVersion = '1.9.6'
         artemisVersion = '2.1.0'
-        artemisContribVersion = '2.1.0'
+        artemisContribVersion = '2.3.0'
         roboVMVersion = '2.2.0'
         //box2DLightsVersion = '1.4'
         //aiVersion = '1.8.0'
@@ -171,9 +171,9 @@ project(":components") {
         compile "net.mostlyoriginal.artemis-odb:contrib-core:$artemisContribVersion"
         compile "net.mostlyoriginal.artemis-odb:contrib-jam:$artemisContribVersion"
 
-        compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+        //compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-        compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+        //compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
     }
 }
 
