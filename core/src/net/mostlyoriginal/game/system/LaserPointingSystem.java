@@ -23,8 +23,8 @@ import static net.mostlyoriginal.game.system.LevelSetupSystem.CAT_CAR;
 public class LaserPointingSystem extends FluidSystem {
 
     private static final int MAX_LASERS = 3;
-    private static final float CHARGEUP_DURATION = 5f;
-    private static final float FIRING_DURATION = 5f;
+    private static final float CHARGEUP_DURATION = 3f;
+    private static final float FIRING_DURATION = 3f;
     private E head;
     private BoxPhysicsSystem boxPhysicsSystem;
     private RayCastCallback callback = new RayCastCallback() {
@@ -65,10 +65,10 @@ public class LaserPointingSystem extends FluidSystem {
     protected void begin() {
         super.begin();
 
-        if (getEntityIds().size() < 1) {
+        if (getEntityIds().size() < 3) {
             cooldown -= world.delta;
             if (cooldown <= 0) {
-                cooldown += MathUtils.random(6, 12);
+                cooldown = MathUtils.random(4, 8);
                 head = entityWithTag("presidenthead");
                 spawnLaser((int) (head.posX() + MathUtils.random(-GameRules.SCREEN_WIDTH / 2, GameRules.SCREEN_WIDTH / 2)));
             }

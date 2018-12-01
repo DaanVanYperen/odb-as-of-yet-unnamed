@@ -20,6 +20,7 @@ public class StruckSystem extends FluidSystem {
     @Override
     protected void process(E e) {
         e.removeStruck();
+        e.removeSlowTime();
 
         if ( e.isGuard()) {
             Body body = e.boxedBody();
