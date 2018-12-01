@@ -63,7 +63,7 @@ public class LaserPointingSystem extends FluidSystem {
         if (getEntityIds().size() < MAX_LASERS) {
             cooldown -= world.delta;
             if (cooldown <= 0) {
-                cooldown += 2;
+                cooldown += MathUtils.random(2,4);
                 head = entityWithTag("presidenthead");
                 spawnLaser((int) (head.posX() + MathUtils.random(-GameRules.SCREEN_WIDTH / 3, GameRules.SCREEN_WIDTH / 3)));
             }
@@ -95,6 +95,8 @@ public class LaserPointingSystem extends FluidSystem {
     }
 
     private void killPresident() {
+        E presidenthead = entityWithTag("president");
+        presidenthead.tint(1f,0f,0f,1f);
 
     }
 

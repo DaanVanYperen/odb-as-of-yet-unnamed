@@ -17,6 +17,7 @@ public class BoxPhysicsSystem extends FluidSystem {
 
     public float scaling = 8f;
     public Body groundBody;
+    private MouseThrowSystem mouseThrowSystem;
 
     public BoxPhysicsSystem() {
         super(Aspect.all(Pos.class, Boxed.class));
@@ -130,6 +131,10 @@ public class BoxPhysicsSystem extends FluidSystem {
     public void removed(Entity e) {
         Body body = E.E(e).boxedBody();
         if (body != null) {
+            for (JointEdge jointEdge : body.getJointList()) {
+                // bit hacky but it should suffice.
+                mouseThrowSystem.forgetJoint(jointEdge);
+            }
             box2d.destroyBody(body);
         }
     }
@@ -148,13 +153,17 @@ public class BoxPhysicsSystem extends FluidSystem {
             body.setTransform(body.getPosition(), 0);
         }
 
-        if (stepping && body.getAngle() > -0.1f && body.getAngle() < 0.1f) {
+        if (stepping && within(body.getAngle(), 0.1f) && within(body.getLinearVelocity().y, 0.1f)) {
             Vector2 vel = body.getLinearVelocity();
             v3.x = e.posX() / scaling;
             v3.y = e.posY() / scaling;
             v4.x = (8f - vel.x) * body.getMass();
             body.applyLinearImpulse(v4, v3, true);
         }
+    }
+
+    private boolean within(float val, float deviation) {
+        return val >= -deviation && val <= deviation;
     }
 
     @Override

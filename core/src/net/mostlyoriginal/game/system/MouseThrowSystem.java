@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.joints.MouseJoint;
 import com.badlogic.gdx.physics.box2d.joints.MouseJointDef;
@@ -48,7 +49,7 @@ public class MouseThrowSystem extends FluidSystem {
     protected void end() {
         super.end();
         if ( Gdx.input.isTouched()) {
-            if (focusFixture != null && mouseJoint == null && focusFixture.getBody() != null) {
+            if (focusFixture != null && focusFixture.getBody() != boxPhysicsSystem.groundBody && mouseJoint == null && focusFixture.getBody() != null) {
                 MouseJointDef def = new MouseJointDef();
                 def.bodyA = boxPhysicsSystem.groundBody;
                 Body targetBody = focusFixture.getBody();
@@ -78,5 +79,11 @@ public class MouseThrowSystem extends FluidSystem {
         posX = pos.x / boxPhysicsSystem.scaling;
         posY = pos.y / boxPhysicsSystem.scaling;
         boxPhysicsSystem.box2d.QueryAABB(callback, (pos.x - 5) / boxPhysicsSystem.scaling, (pos.y - 5) / boxPhysicsSystem.scaling, (pos.x + 5) / boxPhysicsSystem.scaling, (pos.y + 5) / boxPhysicsSystem.scaling);
+    }
+
+    public void forgetJoint(JointEdge jointEdge) {
+        if ( mouseJoint == jointEdge.joint) {
+            mouseJoint = null;
+        }
     }
 }

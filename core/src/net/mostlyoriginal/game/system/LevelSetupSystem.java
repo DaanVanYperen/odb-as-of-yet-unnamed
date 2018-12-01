@@ -2,13 +2,13 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.BathroomLevel;
-import net.mostlyoriginal.game.component.Effect;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
@@ -23,6 +23,7 @@ public class LevelSetupSystem extends FluidSystem {
     public Level activeLevel;
 
     public BoxPhysicsSystem boxPhysicsSystem;
+    public GameScreenAssetSystem gameScreenAssetSystem;
 
     public static class Level {
         public String name;
@@ -176,6 +177,7 @@ public class LevelSetupSystem extends FluidSystem {
         E e2 = E()
                 .pos(x, y)
                 .animId("president")
+                .tag("president")
                 .bounds(0, 0, 32, 16)
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR+10);
         Body president = boxPhysicsSystem.addAsBox(e2, e2.getBounds().cx(), e2.getBounds().cy(), 1f, CAT_CAR, CAT_BOUNDARY);
@@ -224,7 +226,7 @@ public class LevelSetupSystem extends FluidSystem {
         boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short)(CAT_BOUNDARY|CAT_AGENT));
     }
 
-    private int x = 0;
+    private int gx = 0;
 
     @Override
     protected void process(E e) {
@@ -246,8 +248,7 @@ public class LevelSetupSystem extends FluidSystem {
 
         switch (type) {
             case BUILDING:
-                moduleId = spawnBuilding(x, 0);
-                x = x + GameScreenAssetSystem.BUILDING_WIDTH;
+                moduleId = spawnBuilding(gx, 0);
                 break;
         }
         initIndex++;
@@ -262,12 +263,17 @@ public class LevelSetupSystem extends FluidSystem {
 //                .render(GameScreenAssetSystem.LAYER_BACKGROUND)
 //                .anim(getBackground());
 
-        return E()
+        String sprite = "building_0" + MathUtils.random(1, 3);
+        E e = E()
                 .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND + 1)
+                .tint(1f, 1f, 1f, 0.6f)
                 .bounds(0, 0, GameScreenAssetSystem.BUILDING_WIDTH, GameScreenAssetSystem.BUILDING_HEIGHT)
-                .anim("building_0" + MathUtils.random(1, 3))
-                .id();
+                .anim(sprite);
+        gx = gx + ((TextureRegion)gameScreenAssetSystem.get(sprite).getKeyFrame(0,false)).getRegionWidth();
+        return e.id();
+
+
     }
 
 
