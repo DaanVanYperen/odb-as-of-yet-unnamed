@@ -45,6 +45,7 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
 
     protected SpriteBatch batch;
     private Origin DEFAULT_ORIGIN= new Origin(0.5f, 0.5f);
+    private BoxPhysicsSystem boxPhysicsSystem;
 
     public MyAnimRenderSystem(EntityProcessPrincipal principal) {
         super(Aspect.all(Pos.class, Anim.class, Render.class).exclude(Invisible.class), principal);
@@ -80,7 +81,7 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
         if ( anim.id != null ) drawAnimation(anim, angle, origin, pos, anim.id,scale);
         if ( anim.id2 != null ) drawAnimation(anim, angle,origin,  pos, anim.id2,scale);
 
-        anim.age += world.delta * anim.speed;
+        anim.age += world.delta * anim.speed * (boxPhysicsSystem.slowmotion ? 0.2f : 1f);
     }
 
     /** Pixel perfect aligning. */

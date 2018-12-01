@@ -124,7 +124,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         cooldown = cooldown -= world.delta * 1f;
         if (cooldown <= 0) {
             cooldown += timeStep;
-            box2d.step(timeStep * ( slowmotion ? 0.2f : 1f), 6, 2);
+            box2d.step(timeStep * ( slowmotion ? 0.4f : 1f), 6, 2);
             stepping = true;
         } else
             stepping = false;

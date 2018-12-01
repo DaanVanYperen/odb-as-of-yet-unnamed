@@ -35,6 +35,11 @@ public class SlowTimeSystem extends FluidSystem {
 
     @Override
     protected void process(E e) {
-        boxPhysicsSystem.slowmotion=true;
+        e.slowTimeCooldown(e.slowTimeCooldown() - world.delta);
+        if ( e.slowTimeCooldown() <= 0 ) {
+            e.removeSlowTime();
+        } else {
+            boxPhysicsSystem.slowmotion = true;
+        }
     }
 }

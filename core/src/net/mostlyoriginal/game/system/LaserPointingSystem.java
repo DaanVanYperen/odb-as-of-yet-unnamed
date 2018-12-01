@@ -22,7 +22,7 @@ import static net.mostlyoriginal.game.system.LevelSetupSystem.CAT_CAR;
  */
 public class LaserPointingSystem extends FluidSystem {
 
-    private static final int MAX_LASERS = 5;
+    private static final int MAX_LASERS = 3;
     private static final float CHARGEUP_DURATION = 5f;
     private static final float FIRING_DURATION = 5f;
     private E head;
@@ -68,9 +68,9 @@ public class LaserPointingSystem extends FluidSystem {
         if (getEntityIds().size() < MAX_LASERS) {
             cooldown -= world.delta;
             if (cooldown <= 0) {
-                cooldown += MathUtils.random(4, 8);
+                cooldown += MathUtils.random(6, 12);
                 head = entityWithTag("presidenthead");
-                spawnLaser((int) (head.posX() + MathUtils.random(-GameRules.SCREEN_WIDTH / 3, GameRules.SCREEN_WIDTH / 3)));
+                spawnLaser((int) (head.posX() + MathUtils.random(-GameRules.SCREEN_WIDTH / 2, GameRules.SCREEN_WIDTH / 2)));
             }
         }
     }
@@ -112,11 +112,11 @@ public class LaserPointingSystem extends FluidSystem {
                 .pos(laser.sourceX, laser.sourceY)
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 10)
                 .bounds(0,0,6,6)
-                .slowTime()
+                //.slowTimeCooldown(5f)
                 .bullet()
                 .anim("bullet");
 
-        v2.set(laser.targetX + 60f,laser.targetY).sub(laser.sourceX,laser.sourceY).scl(0.1f);
+        v2.set(laser.targetX + 60f *2f,laser.targetY).sub(laser.sourceX,laser.sourceY).scl(0.05f);
 
         Body body = boxPhysicsSystem.addAsBox(e, 3, 3, 5f, CAT_BULLET, (short) (CAT_CAR | CAT_AGENT));
         for (Fixture fixture : body.getFixtureList()) {

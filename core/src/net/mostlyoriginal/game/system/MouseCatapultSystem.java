@@ -59,19 +59,23 @@ public class MouseCatapultSystem extends FluidSystem {
 
         focusFixture = null;
         scanFor(pos, 5);
-        if ( focusFixture == null ) scanFor(pos, 10);
-        if ( focusFixture == null ) scanFor(pos, 15);
+        if (focusFixture == null) scanFor(pos, 10);
+        if (focusFixture == null) scanFor(pos, 15);
 
 
         if (Gdx.input.isTouched()) {
             if (focusFixture != null && focusFixture.getBody() != boxPhysicsSystem.groundBody && focusFixture.getBody().getUserData() != null && dragging == null) {
                 dragging = (E) focusFixture.getBody().getUserData();
                 origin.set(e.posX(), e.posY());
+                if (!dragging.isGuard()) {
+                    dragging = null;
+                }
             }
         } else {
             if (dragging != null) {
                 if (dragging.hasBoxed()) {
                     Body body = dragging.boxedBody();
+                    dragging.slowTimeCooldown(3f);
                     v2.set(dragging.posX(), dragging.posY()).sub(e.posX(), e.posY()).scl(body.getMass());
                     body.applyLinearImpulse(v2.x, v2.y,
                             (dragging.posX() + dragging.boundsCx()) / boxPhysicsSystem.scaling,
