@@ -80,7 +80,7 @@ public class LaserPointingSystem extends FluidSystem {
 
         if (laser.charging <= CHARGEUP_DURATION) {
             laser.charging += world.delta;
-            e.tint(1f, 1f, 1f, Interpolation.fade.apply(laser.charging / CHARGEUP_DURATION) * 0.6f + 0.4f);
+            e.tint(1f, 1f, 1f, Interpolation.fade.apply(laser.charging / CHARGEUP_DURATION) * 0.2f + 0.2f);
         } else {
             laser.firing += world.delta;
             if (laser.firing <= FIRING_DURATION) {
