@@ -248,7 +248,7 @@ public class LevelSetupSystem extends FluidSystem {
 
         switch (type) {
             case BUILDING:
-                moduleId = spawnBuilding(gx, 0);
+                moduleId = spawnBuilding(gx, BoxPhysicsSystem.FLOOR_LEVEL_Y- 10);
                 break;
         }
         initIndex++;

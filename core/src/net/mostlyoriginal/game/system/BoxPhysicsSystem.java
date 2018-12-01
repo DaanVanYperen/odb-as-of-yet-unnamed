@@ -15,9 +15,10 @@ import net.mostlyoriginal.game.system.common.FluidSystem;
  */
 public class BoxPhysicsSystem extends FluidSystem {
 
+    public static final int FLOOR_LEVEL_Y = 50;
     public float scaling = 8f;
     public Body groundBody;
-    private MouseThrowSystem mouseThrowSystem;
+    //private MouseThrowSystem mouseThrowSystem;
 
     public BoxPhysicsSystem() {
         super(Aspect.all(Pos.class, Boxed.class));
@@ -88,7 +89,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         groundBody = box2d.createBody(bodyDef);
 
         EdgeShape shape = new EdgeShape();
-        shape.set(0, 10 / scaling, 99999 / scaling, 10 / scaling);
+        shape.set(0, FLOOR_LEVEL_Y / scaling, 99999 / scaling, FLOOR_LEVEL_Y / scaling);
 //        PolygonShape shape = new PolygonShape();
 //        shape.setAsBox(20 / scaling, 1000 / scaling);
 
@@ -133,7 +134,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         if (body != null) {
             for (JointEdge jointEdge : body.getJointList()) {
                 // bit hacky but it should suffice.
-                mouseThrowSystem.forgetJoint(jointEdge);
+                //mouseThrowSystem.forgetJoint(jointEdge);
             }
             box2d.destroyBody(body);
         }
