@@ -4,12 +4,10 @@ package net.mostlyoriginal.game.system;
  */
 
 import com.artemis.Aspect;
-import com.artemis.E;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Angle;
 import net.mostlyoriginal.api.component.basic.Origin;
 import net.mostlyoriginal.api.component.basic.Pos;
@@ -45,7 +43,7 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
 
     protected SpriteBatch batch;
     private Origin DEFAULT_ORIGIN= new Origin(0.5f, 0.5f);
-    private BoxPhysicsSystem boxPhysicsSystem;
+    private SlowTimeSystem slowTimeSystem;
 
     public MyAnimRenderSystem(EntityProcessPrincipal principal) {
         super(Aspect.all(Pos.class, Anim.class, Render.class).exclude(Invisible.class), principal);
@@ -81,7 +79,7 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
         if ( anim.id != null ) drawAnimation(anim, angle, origin, pos, anim.id,scale);
         if ( anim.id2 != null ) drawAnimation(anim, angle,origin,  pos, anim.id2,scale);
 
-        anim.age += world.delta * anim.speed * (boxPhysicsSystem.slowmotion ? 0.2f : 1f);
+        anim.age += world.delta * anim.speed * slowTimeSystem.slowdownFactor();
     }
 
     /** Pixel perfect aligning. */

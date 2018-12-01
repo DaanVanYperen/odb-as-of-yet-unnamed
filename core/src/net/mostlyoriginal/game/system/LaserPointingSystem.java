@@ -65,7 +65,7 @@ public class LaserPointingSystem extends FluidSystem {
     protected void begin() {
         super.begin();
 
-        if (getEntityIds().size() < MAX_LASERS) {
+        if (getEntityIds().size() < 1) {
             cooldown -= world.delta;
             if (cooldown <= 0) {
                 cooldown += MathUtils.random(6, 12);

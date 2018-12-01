@@ -4,17 +4,8 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.RayCastCallback;
-import net.mostlyoriginal.game.GameRules;
-import net.mostlyoriginal.game.component.Laser;
 import net.mostlyoriginal.game.component.SlowTime;
 import net.mostlyoriginal.game.system.common.FluidSystem;
-import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
-
-import static net.mostlyoriginal.game.system.LevelSetupSystem.*;
 
 /**
  * @author Daan van Yperen
@@ -22,15 +13,33 @@ import static net.mostlyoriginal.game.system.LevelSetupSystem.*;
 public class SlowTimeSystem extends FluidSystem {
 
     private BoxPhysicsSystem boxPhysicsSystem;
+    private boolean slowmotion;
 
     public SlowTimeSystem() {
         super(Aspect.all(SlowTime.class));
     }
 
+    float slowdownAge = 0;
+
     @Override
     protected void begin() {
         super.begin();
-        boxPhysicsSystem.slowmotion=false;
+        slowmotion=false;
+    }
+
+    protected float slowdownFactor() {
+        float factor = Interpolation.pow2.apply(1f - slowdownAge) * 0.6f + 0.4f;
+        return factor;
+    }
+
+    @Override
+    protected void end() {
+        super.end();
+        if (slowmotion) {
+            slowdownAge = MathUtils.clamp(slowdownAge + world.delta*2f, 0, 1f);
+        } else {
+            slowdownAge = MathUtils.clamp(slowdownAge - world.delta*2f, 0, 1f);
+        }
     }
 
     @Override
@@ -39,7 +48,7 @@ public class SlowTimeSystem extends FluidSystem {
         if ( e.slowTimeCooldown() <= 0 ) {
             e.removeSlowTime();
         } else {
-            boxPhysicsSystem.slowmotion = true;
+            slowmotion = true;
         }
     }
 }

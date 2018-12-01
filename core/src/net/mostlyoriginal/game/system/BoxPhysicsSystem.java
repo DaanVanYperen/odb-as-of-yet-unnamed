@@ -16,8 +16,9 @@ public class BoxPhysicsSystem extends FluidSystem {
 
     public static final int FLOOR_LEVEL_Y = 50;
     public float scaling = 8f;
-    public boolean slowmotion = false;
     public Body groundBody;
+    private SlowTimeSystem slowdownSystem;
+
     //private MouseThrowSystem mouseThrowSystem;
 
     public BoxPhysicsSystem() {
@@ -124,7 +125,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         cooldown = cooldown -= world.delta * 1f;
         if (cooldown <= 0) {
             cooldown += timeStep;
-            box2d.step(timeStep * ( slowmotion ? 0.4f : 1f), 6, 2);
+            box2d.step(timeStep * slowdownSystem.slowdownFactor(), 6, 2);
             stepping = true;
         } else
             stepping = false;
@@ -137,7 +138,6 @@ public class BoxPhysicsSystem extends FluidSystem {
             cooldown2 += 3f;
         }
         cooldown2 -= world.delta;
-        slowmotion=false;
     }
 
     float cooldown2 = 0;

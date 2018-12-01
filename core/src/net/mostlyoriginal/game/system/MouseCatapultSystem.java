@@ -71,6 +71,10 @@ public class MouseCatapultSystem extends FluidSystem {
                     dragging = null;
                 }
             }
+
+            if ( dragging != null ) {
+                dragging.slowTimeCooldown(0.2f);
+            }
         } else {
             if (dragging != null) {
                 if (dragging.hasBoxed()) {
