@@ -36,6 +36,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int LAYER_BEHIND_ACTORS = 5;
     public static final int LAYER_CLOCK = 20;
     public static final int LAYER_TOILET_DOOR = 100;
+    public static final int LAYER_PRESIDENT = 1800;
+    public static final int LAYER_PRESIDENT_HEAD = 1850;
+    public static final int LAYER_CAR = 1850;
     public static final int LAYER_ACTORS = 2000;
     public static final int LAYER_PLAYER = 1000;
     public static final int LAYER_ICONS = 2100;

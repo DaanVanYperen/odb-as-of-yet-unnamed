@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.artemis.Entity;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -56,7 +57,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         super.initialize();
     }
 
-    public void addAsBox(E e, float cx, float cy) {
+    public Body addAsBox(E e, float cx, float cy, float density) {
         final BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.x = e.getPos().xy.x / scaling;
@@ -69,7 +70,7 @@ public class BoxPhysicsSystem extends FluidSystem {
 
         final FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 1f;
+        fixtureDef.density = density;
 
         body.createFixture(fixtureDef);
 
@@ -77,6 +78,8 @@ public class BoxPhysicsSystem extends FluidSystem {
         body.setUserData(e);
 
         shape.dispose();
+
+        return body;
     }
 
     protected void addGroudBody() {
@@ -125,13 +128,20 @@ public class BoxPhysicsSystem extends FluidSystem {
     float cooldown2 = 0;
 
     @Override
+    public void removed(Entity e) {
+        Body body = E.E(e).boxedBody();
+        if ( body != null ) {
+            box2d.destroyBody(body);
+        }
+    }
+
+    @Override
     protected void process(E e) {
         Body body = e.boxedBody();
         e.pos(body.getPosition().x * scaling - e.boundsCx(), body.getPosition().y * scaling - e.boundsCy());
         e.angleRotation((float) Math.toDegrees(body.getAngle()));
 
         if (cooldown2 <= 0) {
-            System.out.println("bla");
             body.applyLinearImpulse(0, 10f, 0, 0, true);
         }
     }

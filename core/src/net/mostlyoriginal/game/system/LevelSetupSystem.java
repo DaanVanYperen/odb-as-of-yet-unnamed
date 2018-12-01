@@ -3,6 +3,10 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Joint;
+import com.badlogic.gdx.physics.box2d.JointDef;
+import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.BathroomLevel;
 import net.mostlyoriginal.game.component.Effect;
@@ -26,12 +30,12 @@ public class LevelSetupSystem extends FluidSystem {
         public String name;
         public BathroomLevel.Type[] level;
         public int lossCount = 5;
-        public float timeBetweenSpawnsEasiest=12;
-        public float timeBetweenSpawnsHardest=2;
-        private int minCount=1;
-        private int maxCount=1;
-        public boolean extraPoops=false;
-        public float clockSpeed=10;
+        public float timeBetweenSpawnsEasiest = 12;
+        public float timeBetweenSpawnsHardest = 2;
+        private int minCount = 1;
+        private int maxCount = 1;
+        public boolean extraPoops = false;
+        public float clockSpeed = 10;
         public boolean tutorial;
         public boolean startDirty;
 
@@ -40,14 +44,13 @@ public class LevelSetupSystem extends FluidSystem {
             this.level = level;
         }
 
-        public Level lossCount(int count ) {
+        public Level lossCount(int count) {
             this.lossCount = count;
             return this;
         }
 
-        public Level spawnDelay(float easy, float hard)
-        {
-            this.timeBetweenSpawnsEasiest =easy;
+        public Level spawnDelay(float easy, float hard) {
+            this.timeBetweenSpawnsEasiest = easy;
             this.timeBetweenSpawnsHardest = hard;
             return this;
         }
@@ -59,14 +62,13 @@ public class LevelSetupSystem extends FluidSystem {
 
         }
 
-        public Level extraPoops()
-        {
-            this.extraPoops=true;
+        public Level extraPoops() {
+            this.extraPoops = true;
             return this;
         }
 
         public Level clockSpeed(int clockSpeed) {
-            this.clockSpeed=clockSpeed;
+            this.clockSpeed = clockSpeed;
             return this;
         }
 
@@ -112,12 +114,12 @@ public class LevelSetupSystem extends FluidSystem {
             })
             .lossCount(3)
             .clockSpeed(35)
-            .spawnDelay(8,8)
+            .spawnDelay(8, 8)
             .startDirty(true)
             .setTutorial(true);
 
 
-    private Level[] levels = new Level[] {
+    private Level[] levels = new Level[]{
             introduction
     };
 
@@ -130,7 +132,7 @@ public class LevelSetupSystem extends FluidSystem {
         super.initialize();
 
 //        E().bathroomLevelModules(level1);
-        loadLevel(levels[MathUtils.clamp(GameRules.level-1,0,levels.length-1)]);
+        loadLevel(levels[MathUtils.clamp(GameRules.level - 1, 0, levels.length - 1)]);
     }
 
     private void loadLevel(Level level) {
@@ -143,17 +145,19 @@ public class LevelSetupSystem extends FluidSystem {
                 .pos(50, 200)
                 .labelText(level.name)
                 .tint(0.3f, 0.3f, 0.3f, 1f)
-                .bounds(0,0,200,50)
+                .bounds(0, 0, 200, 50)
                 .fontFontName("5x5")
                 .fontScale(1.5f)
                 .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
 
-        boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy());
+        boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 1f);
 
 
         for (int i = 0; i < 20; i++) {
             addAgent(200 + MathUtils.random(24), 10 + i * 30);
         }
+
+        addPresident(GameRules.SCREEN_WIDTH / 4, 200);
 
 
 //        if ( activeLevel.tutorial) {
@@ -162,13 +166,62 @@ public class LevelSetupSystem extends FluidSystem {
 //        }
     }
 
-    private void addAgent( int x, int y) {
+    private void addPresident(int x, int y) {
+        E e = E()
+                .pos(x, y)
+                .animId("limo")
+                .bounds(0, 0, 72, 24)
+                .renderLayer(GameScreenAssetSystem.LAYER_CAR);
+        Body car = boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 10f);
+
+        E e2 = E()
+                .pos(x, y)
+                .animId("president")
+                .bounds(0, 0, 32, 16)
+                .renderLayer(GameScreenAssetSystem.LAYER_CAR+10);
+        Body president = boxPhysicsSystem.addAsBox(e2, e2.getBounds().cx(), e2.getBounds().cy(), 1f);
+
+        E e3 = E()
+                .pos(x, y)
+                .tag("presidenthead")
+                .bounds(0, 0, 8, 8);
+        Body presidentHead = boxPhysicsSystem.addAsBox(e3,4,4, 1f);
+
+        {
+            final WeldJointDef def = new WeldJointDef();
+            def.bodyA = car;
+            def.bodyB = president;
+            def.collideConnected = false;
+            def.type = JointDef.JointType.WeldJoint;
+            def.localAnchorA.x = -16/ boxPhysicsSystem.scaling;
+            def.localAnchorA.y = 5 / boxPhysicsSystem.scaling;
+            def.localAnchorB.x = 0 / boxPhysicsSystem.scaling;
+            def.localAnchorB.y = 0 / boxPhysicsSystem.scaling;
+            boxPhysicsSystem.box2d.createJoint(def);
+        }
+
+        {
+            final WeldJointDef def = new WeldJointDef();
+            def.bodyA = president;
+            def.bodyB = presidentHead;
+            def.collideConnected = false;
+            def.type = JointDef.JointType.WeldJoint;
+            def.localAnchorA.x = 0 / boxPhysicsSystem.scaling;
+            def.localAnchorA.y = 2 / boxPhysicsSystem.scaling;
+            def.localAnchorB.x = 0 / boxPhysicsSystem.scaling;
+            def.localAnchorB.y = 0 / boxPhysicsSystem.scaling;
+            boxPhysicsSystem.box2d.createJoint(def);
+        }
+    }
+
+    private void addAgent(int x, int y) {
         E e = E()
                 .pos(x, y)
                 .animId("bodyguard_01")
-                .bounds(8,0,16,24)
+                .bounds(8, 0, 16, 24)
+                .guard()
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS);
-        boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy());
+        boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f);
     }
 
     private int x = 0;
@@ -177,7 +230,7 @@ public class LevelSetupSystem extends FluidSystem {
     protected void process(E e) {
         if (!e.bathroomLevelInitialized()) {
             e.bathroomLevelInitialized(true);
-            if ( e.bathroomLevelModules() != null) {
+            if (e.bathroomLevelModules() != null) {
                 for (BathroomLevel.Type type : e.bathroomLevelModules()) {
                     e.bathroomLevelModuleEntityIds().add(initModule(type));
                 }
@@ -185,7 +238,7 @@ public class LevelSetupSystem extends FluidSystem {
         }
     }
 
-    private int initIndex=0;
+    private int initIndex = 0;
 
     private int initModule(BathroomLevel.Type type) {
 
@@ -254,8 +307,8 @@ public class LevelSetupSystem extends FluidSystem {
                 .interactable(doorClosed, doorOpen)
                 .interactableUseOffsetY(38)
                 .toiletBowlId(toiletBowl.id());
-        if ( activeLevel.startDirty ) toilet.dirty();
-        if ( activeLevel.startDirty ) toilet.clogged();
+        if (activeLevel.startDirty) toilet.dirty();
+        if (activeLevel.startDirty) toilet.clogged();
         return toilet.id();
     }
 
@@ -275,7 +328,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .interactableDuration(1.5f)
                 .interactableUseOffsetY(44)
                 .urinal();
-        if ( activeLevel.startDirty ) urinal.dirty();
+        if (activeLevel.startDirty) urinal.dirty();
         return urinal
                 .id();
     }
@@ -289,15 +342,15 @@ public class LevelSetupSystem extends FluidSystem {
 
         return E()
                 .pos(x, y)
-                .render(GameScreenAssetSystem.LAYER_BACKGROUND+1)
+                .render(GameScreenAssetSystem.LAYER_BACKGROUND + 1)
                 .bounds(0, 0, GameScreenAssetSystem.BUILDING_WIDTH, GameScreenAssetSystem.BUILDING_HEIGHT)
                 .anim("building_0" + MathUtils.random(1, 3))
                 .id();
     }
 
     private String getBackground() {
-        if (initIndex==2) return "module_part_backgroundW";
-        if (initIndex==activeLevel.level.length-2) return "module_part_backgroundE";
+        if (initIndex == 2) return "module_part_backgroundW";
+        if (initIndex == activeLevel.level.length - 2) return "module_part_backgroundE";
         return "module_part_background";
     }
 
@@ -317,7 +370,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .interactableDuration(1f)
                 .interactableUseOffsetY(44)
                 .sink();
-        if ( activeLevel.startDirty ) sink.dirtyLevel(MathUtils.random(0,2));
+        if (activeLevel.startDirty) sink.dirtyLevel(MathUtils.random(0, 2));
         return sink
                 .id();
     }
