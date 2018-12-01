@@ -6,8 +6,11 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.game.GameRules;
+import net.mostlyoriginal.game.component.SpriteData;
+import net.mostlyoriginal.game.system.render.SpriteLibrary;
 
 /**
  * @author Daan van Yperen
@@ -42,9 +45,12 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final float PLAYER_IDLE_FRAME_DURATION = 0.2f;
     public static final float PLAYER_USE_FRAME_DURATION = 0.2f;
     public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
+    public static final int BUILDING_WIDTH = 128;
+    public static final int BUILDING_HEIGHT = 160;
     private static final float WASH_FRAME_DURATION = 0.6f;
     public static final float LOW_VOLUME = 0.01f;
     private Music music;
+    private SpriteLibrary spriteLibrary;
 
     public GameScreenAssetSystem() {
         super("tileset.png");
@@ -53,6 +59,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     @Override
     protected void initialize() {
         super.initialize();
+
+        loadSprites();
 
         add("module_entrance", 0, 0, ENTRANCE_WIDTH, DEFAULT_MODULE_HEIGHT, 1);
         add("module_tips", ENTRANCE_WIDTH, 0, TIPS_WIDTH, DEFAULT_MODULE_HEIGHT, 1);
@@ -402,6 +410,17 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 //        Sink GROSS:
 //        544,32,32,64
     }
+
+
+    private void loadSprites() {
+        final Json json = new Json();
+        spriteLibrary = json.fromJson(SpriteLibrary.class, Gdx.files.internal("sprites.json"));
+        for (SpriteData sprite : spriteLibrary.sprites) {
+            Animation animation = add(sprite.id, sprite.x, sprite.y, sprite.width, sprite.height, sprite.countX, sprite.countY, this.tileset, sprite.milliseconds * 0.001f);
+            if (!sprite.repeat) animation.setPlayMode(Animation.PlayMode.NORMAL);
+        }
+    }
+
 
     public void playSfx(String... names) {
         playSfx(names[MathUtils.random(0, names.length - 1)], sfxVolume);

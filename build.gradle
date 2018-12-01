@@ -56,7 +56,7 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
 // Optional LibGDX Modules
-//        compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
 //        compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
 //        compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
 //        compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
@@ -139,8 +139,8 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
 
 // Optional LibGDX Modules
-//        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion:sources"
-//        compile "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
+        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion:sources"
+        compile "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
 //        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion:sources"
 //        compile "com.badlogicgames.gdx:gdx-ai:$aiVersion:sources"
 //        compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion:sources"
@@ -170,6 +170,7 @@ project(":components") {
         // components to expose
         compile "net.mostlyoriginal.artemis-odb:contrib-core:$artemisContribVersion"
         compile "net.mostlyoriginal.artemis-odb:contrib-jam:$artemisContribVersion"
+        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
 
         //compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
@@ -195,7 +196,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
 
 // Optional LibGDX Modules
-//        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
 //        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
 //        compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
 //        compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"

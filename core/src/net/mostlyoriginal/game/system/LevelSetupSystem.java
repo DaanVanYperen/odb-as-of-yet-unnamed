@@ -20,6 +20,8 @@ public class LevelSetupSystem extends FluidSystem {
     public static final int TOILET_Y = 48;
     public Level activeLevel;
 
+    public BoxPhysicsSystem boxPhysicsSystem;
+
     public static class Level {
         public String name;
         public BathroomLevel.Type[] level;
@@ -80,13 +82,33 @@ public class LevelSetupSystem extends FluidSystem {
     }
 
     private Level introduction = new Level(
-            "Stage 1: First Day",
+            "Protect the President!",
             new BathroomLevel.Type[]{
-                    BathroomLevel.Type.ENTRANCE,
-                    BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.SUPPLY_CLOSET
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
             })
             .lossCount(3)
             .clockSpeed(35)
@@ -94,103 +116,9 @@ public class LevelSetupSystem extends FluidSystem {
             .startDirty(true)
             .setTutorial(true);
 
-    private Level sinkOrSwim = new Level(
-            "Stage 2: Sink Or Swim",
-            new BathroomLevel.Type[]{
-                    BathroomLevel.Type.ENTRANCE,
-                    BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.POSTER,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.POSTER,
-                    BathroomLevel.Type.SUPPLY_CLOSET
-            })
-            .lossCount(3)
-            .clockSpeed(10)
-            .spawnDelay(8,4);
-
-    private Level procrastinationHurts = new Level(
-            "Stage 3: Procrastination Hurts",
-            new BathroomLevel.Type[]{
-                    BathroomLevel.Type.ENTRANCE,
-                    BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.URINAL,
-                    BathroomLevel.Type.POSTER,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.POSTER,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.SUPPLY_CLOSET
-            })
-            .lossCount(4)
-            .clockSpeed(15)
-            .spawnCount(2,3)
-            .startDirty(true)
-            .spawnDelay(10,6);
-
-    private Level zeroTolerance = new Level(
-            "Stage 4: Zero Tolerance",
-            new BathroomLevel.Type[]{
-                    BathroomLevel.Type.ENTRANCE,
-                    BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.URINAL,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.SUPPLY_CLOSET
-            })
-            .lossCount(1)
-            .spawnCount(3,4)
-            .clockSpeed(10)
-            .spawnDelay(14,10);
-
-    private Level chili = new Level(
-            "Stage 5: Chili Con Carne Convention",
-            new BathroomLevel.Type[]{
-                    BathroomLevel.Type.ENTRANCE,
-                    BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.SUPPLY_CLOSET
-            })
-            .extraPoops()
-            .clockSpeed(10)
-            .spawnCount(2,3)
-            .spawnDelay(10,6);
-            ;
-
-    private Level panicLevel = new Level(
-            "Stage 6: AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!",
-            new BathroomLevel.Type[]{
-                    BathroomLevel.Type.ENTRANCE,
-                    BathroomLevel.Type.TIPS,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.URINAL,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.URINAL,
-                    BathroomLevel.Type.TOILET,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.SINK,
-                    BathroomLevel.Type.SUPPLY_CLOSET
-            })
-            .clockSpeed(1)
-            .spawnCount(1,4)
-            .spawnDelay(4,1);
-
 
     private Level[] levels = new Level[] {
-            introduction, sinkOrSwim, procrastinationHurts, zeroTolerance, chili, panicLevel
+            introduction
     };
 
     public LevelSetupSystem() {
@@ -211,18 +139,36 @@ public class LevelSetupSystem extends FluidSystem {
                 .bathroomLevelModules(level.level)
                 .bathroomLevelName(level.name);
 
-        E()
-                .pos(32,20)
+        E e = E()
+                .pos(50, 200)
                 .labelText(level.name)
-                .tint(0.3f,0.3f,0.3f,1f)
+                .tint(0.3f, 0.3f, 0.3f, 1f)
+                .bounds(0,0,200,50)
                 .fontFontName("5x5")
                 .fontScale(1.5f)
                 .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
 
-        if ( activeLevel.tutorial) {
-            E()
-                    .tutorial().tag("tutorial");
+        boxPhysicsSystem.addPhysics(e, e.getBounds().cx(), e.getBounds().cy());
+
+
+        for (int i = 0; i < 20; i++) {
+            addAgent(200 + MathUtils.random(24), 10 + i * 30);
         }
+
+
+//        if ( activeLevel.tutorial) {
+//            E()
+//                    .tutorial().tag("tutorial");
+//        }
+    }
+
+    private void addAgent( int x, int y) {
+        E e = E()
+                .pos(x, y)
+                .animId("bodyguard_01")
+                .bounds(8,0,16,24)
+                .renderLayer(GameScreenAssetSystem.LAYER_ACTORS);
+        boxPhysicsSystem.addPhysics(e, 8, e.getBounds().cy());
     }
 
     private int x = 0;
@@ -246,33 +192,9 @@ public class LevelSetupSystem extends FluidSystem {
         int moduleId = -1;
 
         switch (type) {
-            case ENTRANCE:
-                moduleId = spawnEntrance(x, Y_OFFSET);
-                x = x + GameScreenAssetSystem.ENTRANCE_WIDTH;
-                break;
-            case TIPS:
-                moduleId = spawnTips(x, Y_OFFSET);
-                x = x + GameScreenAssetSystem.TIPS_WIDTH;
-                break;
-            case TOILET:
-                moduleId = spawnToilet(x, Y_OFFSET);
-                x = x + GameScreenAssetSystem.URINAL_WIDTH;
-                break;
-            case POSTER:
-                moduleId = spawnPoster(x, Y_OFFSET);
-                x = x + GameScreenAssetSystem.URINAL_WIDTH;
-                break;
-            case URINAL:
-                moduleId = spawnUrinal(x, Y_OFFSET);
-                x = x + GameScreenAssetSystem.TOILET_WIDTH;
-                break;
-            case SINK:
-                moduleId = spawnSink(x, Y_OFFSET);
-                x = x + GameScreenAssetSystem.SINK_WIDTH;
-                break;
-            case SUPPLY_CLOSET:
-                moduleId = spawnCloset(x, Y_OFFSET);
-                x = x + GameScreenAssetSystem.SUPPLY_CLOSET_WIDTH;
+            case BUILDING:
+                moduleId = spawnBuilding(x, Y_OFFSET);
+                x = x + GameScreenAssetSystem.BUILDING_WIDTH;
                 break;
         }
         initIndex++;
@@ -359,20 +281,18 @@ public class LevelSetupSystem extends FluidSystem {
     }
 
 
-    private int spawnPoster(int x, int y) {
-        E()
-                .pos(x, y)
-                .render(GameScreenAssetSystem.LAYER_BACKGROUND)
-                .anim(getBackground());
-
+    private int spawnBuilding(int x, int y) {
+//        E()
+//                .pos(x, y)
+//                .render(GameScreenAssetSystem.LAYER_BACKGROUND)
+//                .anim(getBackground());
 
         return E()
-                .pos(x + 3, y + 92)
+                .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND+1)
-                .bounds(0, 0, GameScreenAssetSystem.ENTRANCE_WIDTH, GameScreenAssetSystem.DEFAULT_MODULE_HEIGHT)
-                .anim("poster_" + MathUtils.random(1, 8))
+                .bounds(0, 0, GameScreenAssetSystem.BUILDING_WIDTH, GameScreenAssetSystem.BUILDING_HEIGHT)
+                .anim("building_0" + MathUtils.random(1, 3))
                 .id();
-
     }
 
     private String getBackground() {
