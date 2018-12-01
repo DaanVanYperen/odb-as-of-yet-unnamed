@@ -1,0 +1,376 @@
+{
+  "sprites": [
+    {
+      "id": "player-hook",
+      "comment": "player hook.",
+      "x": 0,
+      "y": 298,
+      "countX": 1,
+      "countY": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "player-idle",
+      "comment": "Player flying straight.",
+      "x": 0,
+      "y": 64,
+      "countX": 2,
+      "countY": 1,
+      "width": 32,
+      "milliseconds": 250,
+      "repeat": true,
+      "height": 32
+    },
+    {
+      "id": "player-left",
+      "comment": "Player rolling left.",
+      "x": 0,
+      "y": 64,
+      "countX": 2,
+      "countY": 1,
+      "width": 32,
+      "height": 32
+      "milliseconds": 250,
+      "repeat": true
+    },
+    {
+      "id": "player-right",
+      "comment": "Player rolling right.",
+      "x": 0,
+      "y": 64,
+      "countX": 2,
+      "countY": 1,
+      "width": 32,
+      "height": 32
+      "milliseconds": 250,
+      "repeat": true
+    },
+    {
+      "id": "car-BLUE",
+      "comment": "Blue car.",
+      "x": 0,
+      "y": 96,
+      "countX": 2,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 250,
+      "repeat": true
+    },
+    {
+      "id": "car-GREEN",
+      "comment": "Green car.",
+      "x": 0,
+      "y": 128,
+      "countX": 2,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 250,
+      "repeat": true
+    },
+    {
+      "id": "car-YELLOW",
+      "comment": "Yellow car.",
+      "x": 0,
+      "y": 160,
+      "countX": 2,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 250,
+      "repeat": true
+    },
+    {
+      "id": "car-RED",
+      "comment": "Red car.",
+      "x": 0,
+      "y": 192,
+      "countX": 2,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 250,
+      "repeat": true
+    },
+    {
+      "id": "car-PURPLE",
+      "comment": "Purple car.",
+      "x": 0,
+      "y": 224,
+      "countX": 2,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 250,
+      "repeat": true
+    },
+    {
+      "id": "car-BLUE-score",
+      "comment": "Blue car.",
+      "x": 64,
+      "y": 96,
+      "countX": 7,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 50,
+      "repeat": false
+    },
+    {
+      "id": "car-GREEN-score",
+      "comment": "Green car.",
+      "x": 64,
+      "y": 128,
+      "countX": 7,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 50,
+      "repeat": false
+    },
+    {
+      "id": "car-YELLOW-score",
+      "comment": "Yellow car.",
+      "x": 64,
+      "y": 160,
+      "countX": 7,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 50,
+      "repeat": false
+    },
+    {
+      "id": "car-RED-score",
+      "comment": "Red car.",
+      "x": 64,
+      "y": 192,
+      "countX": 7,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 50,
+      "repeat": false
+    },
+    {
+      "id": "car-PURPLE-score",
+      "comment": "Purple car.",
+      "x": 64,
+      "y": 224,
+      "countX": 7,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 50,
+      "repeat": false
+    },
+    {
+      "id": "boundingbox",
+      "comment": "Boundingbox  for debugyay.",
+      "x": 0,
+      "y": 862,
+      "countX": 1,
+      "countY": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "pylon",
+      "comment": "",
+      "x": 0,
+      "y": 320,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "pylon-down",
+      "comment": "",
+      "x": 32,
+      "y": 320,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "drum",
+      "comment": "",
+      "x": 0,
+      "y": 352,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "drum-down",
+      "comment": "",
+      "x": 32,
+      "y": 352,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "frogger",
+      "comment": "",
+      "x": 0,
+      "y": 256,
+      "width": 32,
+      "height": 32,
+      "countX": 3
+    },
+    {
+      "id": "frogger-down",
+      "comment": "",
+      "x": 224,
+      "y": 256,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "barricade",
+      "comment": "",
+      "x": 64,
+      "y": 320,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "shrub",
+      "comment": "",
+      "x": 64,
+      "y": 352,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "shrub-down",
+      "comment": "",
+      "x": 64,
+      "y": 352,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "shrub2",
+      "comment": "",
+      "x": 96,
+      "y": 384,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "shrub2-down",
+      "comment": "",
+      "x": 96,
+      "y": 384,
+      "width": 32,
+      "height": 32
+    },
+	{
+      "id": "startinglightss",
+      "comment": "Starting lights counting down to the race.",
+      "x": 0,
+      "y": 704,
+      "countX": 1,
+      "countY": 4, 
+	  "milliseconds": 1000,
+      "width": 128,
+      "height": 32
+    },
+    {
+      "id": "player-skidmarks",
+      "comment": "Skidmarks for player car.",
+      "x": 64,
+      "y": 64,
+      "countX": 1,
+      "countY": 1,
+      "width": 32,
+      "height": 32
+    },	
+   {
+      "id": "car-BLUE-skidmarks",
+      "comment": "Skidmarks for Blue car.",
+      "x": 288,
+      "y": 196,
+     "countX": 1,
+     "countY": 1,
+     "width": 32,
+      "height": 32
+    },
+    {
+      "id": "car-GREEN-skidmarks",
+      "comment": "Skidmarks for Green car.",
+      "x": 288,
+      "y": 128,
+      "countX": 1,
+      "countY": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "car-YELLOW-skidmarks",
+      "comment": "Skidmarks for Yellow car.",
+      "x": 288,
+      "y": 160,
+      "countX": 1,
+      "countY": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "car-RED-skidmarks",
+      "comment": "Skidmarks for Red car.",
+      "x": 288,
+      "y": 192,
+      "countX": 1,
+      "countY": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "car-PURPLE-skidmarks",
+      "comment": "Skidmarks for Purple car.",
+      "x": 288,
+      "y": 224,
+      "countX": 1,
+      "countY": 1,
+      "width": 32,
+      "height": 32
+    },	
+    {
+      "id": "oil-slick-1",
+      "comment": "Big oil slick.",
+      "x": 544,
+      "y": 512,
+      "countX": 9,
+      "countY": 1,
+      "width": 32,
+      "height": 64,
+      "milliseconds": 80,
+      "repeat": true
+    },
+    {
+      "id": "oil-slick-2",
+      "comment": "Small oil slick.",
+      "x": 544,
+      "y": 576,
+      "countX": 8,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 80,
+      "repeat": true
+    },
+    {
+      "id": "oil-slick-3",
+      "comment": "Other small oil slick.",
+      "x": 544,
+      "y": 608,
+      "countX": 7,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 80,
+      "repeat": true
+    },
+  ]
+}
