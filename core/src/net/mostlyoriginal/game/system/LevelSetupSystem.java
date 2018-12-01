@@ -150,8 +150,12 @@ public class LevelSetupSystem extends FluidSystem {
                     .fontScale(1.5f)
                     .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 5; i++) {
                 addAgent(100 + i * 30, BoxPhysicsSystem.FLOOR_LEVEL_Y + 20, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50);
+            }
+
+            for (int i = 0; i < 5; i++) {
+                addAgent(320 + i * 30, BoxPhysicsSystem.FLOOR_LEVEL_Y + 20, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50);
             }
 
             addPresident(GameRules.SCREEN_WIDTH / 4, 200);
