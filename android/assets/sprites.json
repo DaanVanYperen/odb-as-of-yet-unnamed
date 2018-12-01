@@ -447,5 +447,17 @@
       "milliseconds": 80,
       "repeat": true
     },
+    {
+      "id": "president",
+      "comment": "Mr. President.",
+      "x": 0,
+      "y": 992,
+      "countX": 1,
+      "countY": 1,
+      "width": 32,
+      "height": 16,
+      "milliseconds": 80,
+      "repeat": true
+    },
   ]
 }
