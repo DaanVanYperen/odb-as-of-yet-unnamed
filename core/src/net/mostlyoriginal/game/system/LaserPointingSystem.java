@@ -5,12 +5,17 @@ import com.artemis.E;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.Laser;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
+
+import static net.mostlyoriginal.game.system.LevelSetupSystem.CAT_AGENT;
+import static net.mostlyoriginal.game.system.LevelSetupSystem.CAT_BULLET;
+import static net.mostlyoriginal.game.system.LevelSetupSystem.CAT_CAR;
 
 /**
  * @author Daan van Yperen
@@ -63,7 +68,7 @@ public class LaserPointingSystem extends FluidSystem {
         if (getEntityIds().size() < MAX_LASERS) {
             cooldown -= world.delta;
             if (cooldown <= 0) {
-                cooldown += MathUtils.random(2,4);
+                cooldown += MathUtils.random(4, 8);
                 head = entityWithTag("presidenthead");
                 spawnLaser((int) (head.posX() + MathUtils.random(-GameRules.SCREEN_WIDTH / 3, GameRules.SCREEN_WIDTH / 3)));
             }
@@ -87,28 +92,48 @@ public class LaserPointingSystem extends FluidSystem {
                 laser.blink += world.delta * 16f;
                 e.tint(1f, 1f, 1f, laser.blink % 2 < 1f ? 1f : 0);
                 intercept(e, laser);
+                if ( !laser.fired && laser.firing > FIRING_DURATION-1) {
+                    killPresident(laser);
+                    laser.fired=true;
+                }
             } else {
-                killPresident();
+                e.deleteFromWorld();
             }
         }
 
     }
 
-    private void killPresident() {
-        E presidenthead = entityWithTag("president");
-        presidenthead.tint(1f,0f,0f,1f);
 
+    Vector2 v2 = new Vector2();
+
+    private void killPresident(Laser laser) {
+
+        E e = E.E()
+                .pos(laser.sourceX, laser.sourceY)
+                .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 10)
+                .bounds(0,0,6,6)
+                .slowTime()
+                .bullet()
+                .anim("bullet");
+
+        v2.set(laser.targetX + 60f,laser.targetY).sub(laser.sourceX,laser.sourceY).scl(0.1f);
+
+        Body body = boxPhysicsSystem.addAsBox(e, 3, 3, 5f, CAT_BULLET, (short) (CAT_CAR | CAT_AGENT));
+        for (Fixture fixture : body.getFixtureList()) {
+            fixture.setSensor(true);
+        }
+        body.setGravityScale(0f);
+        body.setLinearVelocity(v2.x,v2.y);
     }
 
     private E hitFixture;
 
     private void intercept(E e, Laser laser) {
         hitFixture = null;
-        boxPhysicsSystem.box2d.rayCast(callback, laser.sourceX / boxPhysicsSystem.scaling, laser.sourceY / boxPhysicsSystem.scaling, laser.targetX / boxPhysicsSystem.scaling, laser.targetY / boxPhysicsSystem.scaling);
-        if ( hitFixture != null)
-        {
-            hitFixture.deleteFromWorld();
-            e.deleteFromWorld();
-        }
+        //boxPhysicsSystem.box2d.rayCast(callback, laser.sourceX / boxPhysicsSystem.scaling, laser.sourceY / boxPhysicsSystem.scaling, laser.targetX / boxPhysicsSystem.scaling, laser.targetY / boxPhysicsSystem.scaling);
+        //if (hitFixture != null) {
+//            hitFixture.deleteFromWorld();
+//            e.deleteFromWorld();
+//        }
     }
 }

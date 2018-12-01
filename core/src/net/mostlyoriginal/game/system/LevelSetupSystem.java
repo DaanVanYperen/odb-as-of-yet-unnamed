@@ -5,6 +5,7 @@ import com.artemis.E;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import net.mostlyoriginal.game.GameRules;
@@ -139,22 +140,22 @@ public class LevelSetupSystem extends FluidSystem {
         E()
                 .bathroomLevelModules(level.level)
                 .bathroomLevelName(level.name);
+        {
+            E e = E()
+                    .pos(50, 200)
+                    .labelText(level.name)
+                    .tint(0.3f, 0.3f, 0.3f, 1f)
+                    .bounds(0, 0, 200, 50)
+                    .fontFontName("5x5")
+                    .fontScale(1.5f)
+                    .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
 
-        E e = E()
-                .pos(50, 200)
-                .labelText(level.name)
-                .tint(0.3f, 0.3f, 0.3f, 1f)
-                .bounds(0, 0, 200, 50)
-                .fontFontName("5x5")
-                .fontScale(1.5f)
-                .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
+            for (int i = 0; i < 10; i++) {
+                addAgent(100 + i * 30, BoxPhysicsSystem.FLOOR_LEVEL_Y + 20, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50);
+            }
 
-        for (int i = 0; i < 20; i++) {
-            addAgent(200 + MathUtils.random(24), 10 + i * 30);
+            addPresident(GameRules.SCREEN_WIDTH / 4, 200);
         }
-
-        addPresident(GameRules.SCREEN_WIDTH / 4, 200);
-
 
 //        if ( activeLevel.tutorial) {
 //            E()
@@ -162,30 +163,35 @@ public class LevelSetupSystem extends FluidSystem {
 //        }
     }
 
-    short CAT_BOUNDARY=0x1;
-    short CAT_AGENT=0x2;
-    short CAT_CAR=0x4;
+    public static short CAT_BOUNDARY=0x1;
+    public static short CAT_AGENT=0x2;
+    public static short CAT_CAR=0x4;
+    public static short CAT_BULLET=0x8;
 
     private void addPresident(int x, int y) {
         E e = E()
                 .pos(x, y)
                 .animId("limo")
+                .locomotion()
+                .tag("presidentcar")
                 .bounds(0, 0, 72, 24)
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR);
-        Body car = boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 10f, CAT_CAR, CAT_BOUNDARY);
+        Body car = boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 10f, CAT_CAR, (short) (CAT_BOUNDARY));
 
         E e2 = E()
                 .pos(x, y)
                 .animId("president")
                 .tag("president")
+                .locomotion()
                 .bounds(0, 0, 32, 16)
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR+10);
-        Body president = boxPhysicsSystem.addAsBox(e2, e2.getBounds().cx(), e2.getBounds().cy(), 1f, CAT_CAR, CAT_BOUNDARY);
+        Body president = boxPhysicsSystem.addAsBox(e2, e2.getBounds().cx(), e2.getBounds().cy(), 1f, CAT_CAR, (short) (CAT_BOUNDARY|CAT_BULLET));
 
         E e3 = E()
                 .pos(x, y)
                 .tag("presidenthead")
                 .cameraFocus()
+                .locomotion()
                 .bounds(0, 0, 8, 8);
         Body presidentHead = boxPhysicsSystem.addAsBox(e3,4,4, 1f, CAT_CAR, CAT_BOUNDARY);
 
@@ -216,14 +222,15 @@ public class LevelSetupSystem extends FluidSystem {
         }
     }
 
-    private void addAgent(int x, int y) {
+    private void addAgent(int x, int y, int layer) {
         E e = E()
                 .pos(x, y)
                 .animId("bodyguard_01")
                 .bounds(8, 0, 16, 24)
+                .locomotion()
                 .guard()
-                .renderLayer(GameScreenAssetSystem.LAYER_ACTORS);
-        boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short)(CAT_BOUNDARY|CAT_AGENT));
+                .renderLayer(layer);
+        boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short)(CAT_BOUNDARY|CAT_BULLET));
     }
 
     private int gx = 0;

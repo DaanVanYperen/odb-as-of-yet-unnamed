@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.BaseSystem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
@@ -15,6 +16,7 @@ public class BoxPhysicsDebugRenderSystem extends BaseSystem {
     private BoxPhysicsSystem boxPhysicsSystem;
     private OrthographicCamera camera;
     private CameraSystem cameraSystem;
+    private boolean enabled;
 
     @Override
     protected void initialize() {
@@ -32,8 +34,12 @@ public class BoxPhysicsDebugRenderSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
-        camera.position.x = cameraSystem.camera.position.x / boxPhysicsSystem.scaling;
-        camera.update();
-        debugRenderer.render(boxPhysicsSystem.box2d, camera.combined);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F8)) enabled = !enabled;
+        if (enabled) {
+            camera.position.x = cameraSystem.camera.position.x / boxPhysicsSystem.scaling;
+            camera.update();
+            debugRenderer.render(boxPhysicsSystem.box2d, camera.combined);
+
+        }
     }
 }

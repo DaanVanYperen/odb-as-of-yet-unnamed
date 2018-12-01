@@ -3,7 +3,6 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.artemis.Entity;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import net.mostlyoriginal.api.component.basic.Pos;
@@ -17,6 +16,7 @@ public class BoxPhysicsSystem extends FluidSystem {
 
     public static final int FLOOR_LEVEL_Y = 50;
     public float scaling = 8f;
+    public boolean slowmotion = false;
     public Body groundBody;
     //private MouseThrowSystem mouseThrowSystem;
 
@@ -26,6 +26,18 @@ public class BoxPhysicsSystem extends FluidSystem {
         box2d.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
+                bulletHit(contact.getFixtureA(), contact.getFixtureB());
+                bulletHit(contact.getFixtureB(), contact.getFixtureA());
+            }
+
+            private void bulletHit(Fixture fixtureA, Fixture fixtureB) {
+                if (fixtureA.getFilterData().categoryBits == LevelSetupSystem.CAT_BULLET) {
+                    short cat = fixtureB.getFilterData().categoryBits;
+                    if ( cat == LevelSetupSystem.CAT_CAR || cat == LevelSetupSystem.CAT_AGENT  || cat == LevelSetupSystem.CAT_CAR) {
+                        ((E) fixtureB.getBody().getUserData()).struck();
+                        ((E) fixtureA.getBody().getUserData()).struck();
+                    }
+                }
             }
 
             @Override
@@ -56,8 +68,8 @@ public class BoxPhysicsSystem extends FluidSystem {
     public Body addAsBox(E e, float cx, float cy, float density, short categoryBits, short maskBits) {
         final BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.x = e.getPos().xy.x / scaling;
-        bodyDef.position.y = e.getPos().xy.y / scaling;
+        bodyDef.position.x = (e.getPos().xy.x - e.boundsCx()) / scaling;
+        bodyDef.position.y = (e.getPos().xy.y - e.boundsCy()) / scaling;
 
         Body body = box2d.createBody(bodyDef);
 
@@ -107,11 +119,12 @@ public class BoxPhysicsSystem extends FluidSystem {
     @Override
     protected void begin() {
         super.begin();
+        //if (Gdx.input.isKeyJustPressed(Input.Keys.F7)) slowmotion = !slowmotion;
 
-        cooldown = cooldown -= world.delta;
+        cooldown = cooldown -= world.delta * 1f;
         if (cooldown <= 0) {
             cooldown += timeStep;
-            box2d.step(timeStep, 6, 2);
+            box2d.step(timeStep * ( slowmotion ? 0.2f : 1f), 6, 2);
             stepping = true;
         } else
             stepping = false;
@@ -124,6 +137,7 @@ public class BoxPhysicsSystem extends FluidSystem {
             cooldown2 += 3f;
         }
         cooldown2 -= world.delta;
+        slowmotion=false;
     }
 
     float cooldown2 = 0;
@@ -145,21 +159,29 @@ public class BoxPhysicsSystem extends FluidSystem {
 
     @Override
     protected void process(E e) {
+
         Body body = e.boxedBody();
         e.pos(body.getPosition().x * scaling - e.boundsCx(), body.getPosition().y * scaling - e.boundsCy());
         e.angleRotation((float) Math.toDegrees(body.getAngle()));
 
+
         if (cooldown2 <= 0) {
-            //body.applyLinearImpulse(0, 10f, 0, 0, true);
             body.setTransform(body.getPosition(), 0);
         }
 
-        if (stepping && within(body.getAngle(), 0.1f) && within(body.getLinearVelocity().y, 0.1f)) {
-            Vector2 vel = body.getLinearVelocity();
-            v3.x = e.posX() / scaling;
-            v3.y = e.posY() / scaling;
-            v4.x = (8f - vel.x) * body.getMass();
-            body.applyLinearImpulse(v4, v3, true);
+        if ( e.hasLocomotion() ) {
+
+            if (stepping && within(body.getAngle(), 0.1f) && within(body.getLinearVelocity().y, 0.1f)) {
+                Vector2 vel = body.getLinearVelocity();
+                v3.x = e.posX() / scaling;
+                v3.y = e.posY() / scaling;
+                v4.x = (8f - vel.x) * body.getMass();
+                body.applyLinearImpulse(v4, v3, true);
+            }
+        }
+
+        if ( e.posY() < -50 ) {
+            e.deleteFromWorld();
         }
     }
 

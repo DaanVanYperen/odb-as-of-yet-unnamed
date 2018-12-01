@@ -14,6 +14,7 @@ public class Laser extends Component {
     public float charging=0;
     public float firing=0;
     public float blink;
+    public boolean fired;
 
     public void set(float sourceX, float sourceY ) {
         this.sourceX=sourceX;
