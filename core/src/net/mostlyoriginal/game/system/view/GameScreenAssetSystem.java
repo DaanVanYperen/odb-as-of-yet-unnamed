@@ -53,7 +53,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final float PLAYER_USE_FRAME_DURATION = 0.2f;
     public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
     public static final int BUILDING_WIDTH = 128;
-    public static final int BUILDING_HEIGHT = 160;
+    public static final int BUILDING_HEIGHT = 360;
     private static final float WASH_FRAME_DURATION = 0.6f;
     public static final float LOW_VOLUME = 0.01f;
     private Music music;

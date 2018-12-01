@@ -14,6 +14,7 @@ public abstract class GameRules {
 
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
+    public static final int CAMERA_ZOOM = 2;
 
 
     public static int lastScore = -1;

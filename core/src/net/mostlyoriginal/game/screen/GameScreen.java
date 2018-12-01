@@ -15,6 +15,7 @@ import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.system.*;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
+import net.mostlyoriginal.game.system.render.CameraFollowSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.MyClearScreenSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
@@ -65,6 +66,7 @@ public class GameScreen extends TransitionableWorldScreen {
                         new MouseCursorSystem(),
                         new PhysicsSystem(),
                         new BoxPhysicsSystem(),
+                        new CameraFollowSystem(),
                         new LaserPointingSystem(),
                         new MouseThrowSystem(),
                         new InteractableCooldownSystem(),
@@ -73,9 +75,9 @@ public class GameScreen extends TransitionableWorldScreen {
                         new MyLabelRenderSystem(renderBatchingSystem),
                         new LaserRenderSystem(renderBatchingSystem),
                         //new StatusRenderSystem(),
-                        new BoxPhysicsDebugRenderSystem(),
-                        new TransitionSystem(GdxArtemisGame.getInstance(),this),
-                        new DiscoSystem()
+                        new BoxPhysicsDebugRenderSystem()
+                        //new TransitionSystem(GdxArtemisGame.getInstance(),this),
+                        //new DiscoSystem()
                 ).build());
     }
 

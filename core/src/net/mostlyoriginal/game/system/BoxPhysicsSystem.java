@@ -24,12 +24,6 @@ public class BoxPhysicsSystem extends FluidSystem {
         box2d.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
-                E a = (E) contact.getFixtureA().getBody().getUserData();
-                E b = (E) contact.getFixtureA().getBody().getUserData();
-
-                if (a != null && b != null && (a.isMouseCursor() || b.isMouseCursor())) {
-                    a.scale(MathUtils.random(1f, 2f));
-                }
             }
 
             @Override
@@ -47,7 +41,7 @@ public class BoxPhysicsSystem extends FluidSystem {
 
             }
         });
-        addGroudBody();
+        addGroundBody();
     }
 
     public World box2d;
@@ -57,7 +51,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         super.initialize();
     }
 
-    public Body addAsBox(E e, float cx, float cy, float density) {
+    public Body addAsBox(E e, float cx, float cy, float density, short categoryBits, short maskBits) {
         final BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.x = e.getPos().xy.x / scaling;
@@ -71,6 +65,8 @@ public class BoxPhysicsSystem extends FluidSystem {
         final FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = density;
+        fixtureDef.filter.categoryBits = categoryBits;
+        fixtureDef.filter.maskBits = maskBits;
 
         body.createFixture(fixtureDef);
 
@@ -82,7 +78,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         return body;
     }
 
-    protected void addGroudBody() {
+    protected void addGroundBody() {
         final BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.x = 0;
@@ -91,7 +87,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         groundBody = box2d.createBody(bodyDef);
 
         EdgeShape shape = new EdgeShape();
-        shape.set(0, 0, 600 / scaling, 0);
+        shape.set(0, 10 / scaling, 99999 / scaling, 10 / scaling);
 //        PolygonShape shape = new PolygonShape();
 //        shape.setAsBox(20 / scaling, 1000 / scaling);
 
@@ -104,6 +100,7 @@ public class BoxPhysicsSystem extends FluidSystem {
     float cooldown = 0;
 
     float timeStep = (1.0f / 60.0f);
+    boolean stepping = false;
 
     @Override
     protected void begin() {
@@ -113,7 +110,9 @@ public class BoxPhysicsSystem extends FluidSystem {
         if (cooldown <= 0) {
             cooldown += timeStep;
             box2d.step(timeStep, 6, 2);
-        }
+            stepping = true;
+        } else
+            stepping = false;
     }
 
     @Override
@@ -130,10 +129,13 @@ public class BoxPhysicsSystem extends FluidSystem {
     @Override
     public void removed(Entity e) {
         Body body = E.E(e).boxedBody();
-        if ( body != null ) {
+        if (body != null) {
             box2d.destroyBody(body);
         }
     }
+
+    Vector2 v3 = new Vector2();
+    Vector2 v4 = new Vector2();
 
     @Override
     protected void process(E e) {
@@ -142,7 +144,16 @@ public class BoxPhysicsSystem extends FluidSystem {
         e.angleRotation((float) Math.toDegrees(body.getAngle()));
 
         if (cooldown2 <= 0) {
-            body.applyLinearImpulse(0, 10f, 0, 0, true);
+            //body.applyLinearImpulse(0, 10f, 0, 0, true);
+            body.setTransform(body.getPosition(), 0);
+        }
+
+        if (stepping && body.getAngle() > -0.1f && body.getAngle() < 0.1f) {
+            Vector2 vel = body.getLinearVelocity();
+            v3.x = e.posX() / scaling;
+            v3.y = e.posY() / scaling;
+            v4.x = (8f - vel.x) * body.getMass();
+            body.applyLinearImpulse(v4, v3, true);
         }
     }
 

@@ -14,6 +14,7 @@ public class BoxPhysicsDebugRenderSystem extends BaseSystem {
     private Box2DDebugRenderer debugRenderer;
     private BoxPhysicsSystem boxPhysicsSystem;
     private OrthographicCamera camera;
+    private CameraSystem cameraSystem;
 
     @Override
     protected void initialize() {
@@ -31,6 +32,8 @@ public class BoxPhysicsDebugRenderSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
+        camera.position.x = cameraSystem.camera.position.x / boxPhysicsSystem.scaling;
+        camera.update();
         debugRenderer.render(boxPhysicsSystem.box2d, camera.combined);
     }
 }

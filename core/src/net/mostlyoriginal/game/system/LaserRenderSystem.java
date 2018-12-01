@@ -36,6 +36,8 @@ public class LaserRenderSystem extends DeferredEntityProcessingSystem {
 
     protected M<Origin> mOrigin;
     private M<Laser> mLaser;
+    private M<Tint> mTint;
+
 
     protected CameraSystem cameraSystem;
     protected AbstractAssetSystem abstractAssetSystem;
@@ -68,7 +70,7 @@ public class LaserRenderSystem extends DeferredEntityProcessingSystem {
 
         final Laser laser = mLaser.get(e);
 
-        batch.setColor(Tint.WHITE.color);
+        batch.setColor(mTint.getSafe(e,Tint.WHITE).color);
 
         final Animation<TextureRegion> gdxanim = (Animation<TextureRegion>) abstractAssetSystem.get("laser");
         final TextureRegion frame = gdxanim.getKeyFrame(0, false);
