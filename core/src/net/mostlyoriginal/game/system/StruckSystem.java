@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.*;
 import net.mostlyoriginal.game.component.Struck;
 import net.mostlyoriginal.game.system.common.FluidSystem;
@@ -19,8 +20,21 @@ public class StruckSystem extends FluidSystem {
     @Override
     protected void process(E e) {
         e.removeStruck();
-        if (e.isGuard() || e.isBullet()) {
+
+        if ( e.isGuard()) {
+            Body body = e.boxedBody();
+            body.setTransform(body.getPosition(), MathUtils.random(-10f,10f));
+            for (Fixture fixture : body.getFixtureList()) {
+                Filter filterData = fixture.getFilterData();
+                filterData.maskBits = 0;
+                fixture.setFilterData(filterData);
+            }
+            return;
+        }
+
+        if (e.isBullet()) {
             e.deleteFromWorld();
+            return;
         }
 
         E president = entityWithTag("president");

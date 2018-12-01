@@ -171,13 +171,18 @@ public class BoxPhysicsSystem extends FluidSystem {
 
         if ( e.hasLocomotion() ) {
 
-            if (stepping && within(body.getAngle(), 0.1f) && within(body.getLinearVelocity().y, 0.1f)) {
+            if (stepping && within(body.getAngle(), 0.1f) && within(body.getLinearVelocity().y, 0.1f) && !e.hasSlowTime()) {
                 Vector2 vel = body.getLinearVelocity();
                 v3.x = e.posX() / scaling;
                 v3.y = e.posY() / scaling;
                 v4.x = (8f - vel.x) * body.getMass();
                 body.applyLinearImpulse(v4, v3, true);
+
+                if ( e.isGuard() && !e.hasSlowTime() ) {
+                    e.anim("bodyguard_01");
+                }
             }
+
         }
 
         if ( e.posY() < -50 ) {

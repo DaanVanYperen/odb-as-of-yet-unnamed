@@ -69,6 +69,8 @@ public class MouseCatapultSystem extends FluidSystem {
                 origin.set(e.posX(), e.posY());
                 if (!dragging.isGuard()) {
                     dragging = null;
+                } else {
+                    dragging.anim("bodyguard_01_crouch");
                 }
             }
 
@@ -79,6 +81,7 @@ public class MouseCatapultSystem extends FluidSystem {
             if (dragging != null) {
                 if (dragging.hasBoxed()) {
                     Body body = dragging.boxedBody();
+                    dragging.anim("bodyguard_01_jump");
                     dragging.slowTimeCooldown(3f);
                     v2.set(dragging.posX(), dragging.posY()).sub(e.posX(), e.posY()).scl(body.getMass());
                     body.applyLinearImpulse(v2.x, v2.y,
