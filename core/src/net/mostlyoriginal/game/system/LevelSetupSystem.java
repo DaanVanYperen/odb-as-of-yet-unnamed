@@ -111,6 +111,18 @@ public class LevelSetupSystem extends FluidSystem {
                     BathroomLevel.Type.BUILDING,
                     BathroomLevel.Type.BUILDING,
                     BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
+                    BathroomLevel.Type.BUILDING,
             })
             .lossCount(3)
             .clockSpeed(35)
@@ -276,7 +288,7 @@ public class LevelSetupSystem extends FluidSystem {
 //                .render(GameScreenAssetSystem.LAYER_BACKGROUND)
 //                .anim(getBackground());
 
-        String sprite = "building_0" + MathUtils.random(1, 3);
+        String sprite = "building_0" + MathUtils.random(1, 7);
         E e = E()
                 .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND + 1)
