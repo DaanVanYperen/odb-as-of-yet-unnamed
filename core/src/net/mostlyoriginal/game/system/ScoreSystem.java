@@ -63,7 +63,7 @@ public class ScoreSystem extends BaseSystem {
                 .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
 
         E.E()
-                .pos(x + 2 , y + 2)
+                .pos(x + 1, y + 1)
                 .labelText(message)
                 .tint(1f, 1f, 1f, 0f)
                 .labelAlign(Label.Align.RIGHT)
