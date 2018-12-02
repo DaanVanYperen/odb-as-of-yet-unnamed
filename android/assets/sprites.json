@@ -640,13 +640,15 @@
     {
       "id": "president",
       "comment": "Mr. President.",
-      "x": 0,
+      "x": 32,
       "y": 992,
-      "countX": 1,
+      "countX": 6,
       "countY": 1,
       "width": 32,
       "height": 16,
-    },
+      "milliseconds": 70,
+      "repeat": true
+ },
     {
       "id": "bullet",
       "comment": "Directional missile.",
