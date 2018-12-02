@@ -768,11 +768,31 @@
     {
       "id": "mouse",
       "comment": "UI mouse leftclick hint.",
+      "x": 32
+      "y": 80,
+      "countX": 1,
+      "countY": 1,
+      "width": 18,
+      "height": 36,
+    },
+    {
+      "id": "swipe",
+      "comment": "UI swipe hint.",
       "x": 16,
       "y": 80,
       "countX": 1,
       "countY": 1,
       "width": 11,
+      "height": 28,
+    },
+    {
+      "id": "spotlight",
+      "comment": "UI highlight for guards.",
+      "x": 56,
+      "y": 80,
+      "countX": 1,
+      "countY": 1,
+      "width": 28,
       "height": 28,
     },
   ]
