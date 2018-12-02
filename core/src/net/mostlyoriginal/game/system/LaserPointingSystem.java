@@ -23,8 +23,16 @@ import static net.mostlyoriginal.game.system.LevelSetupSystem.CAT_CAR;
 public class LaserPointingSystem extends FluidSystem {
 
     private static final int MAX_LASERS = 3;
-    private static final float CHARGEUP_DURATION = 3f;
-    private static final float FIRING_DURATION = 3f;
+
+    private static boolean DEBUG = true;
+
+    private static final float CHARGEUP_DURATION = DEBUG ? 1f : 3f;
+    private static final float FIRING_DURATION = DEBUG ? 1f : 3f;
+    private static final int MAX_ROCKETS = DEBUG ? 100 : 3;
+    private static final int ROCKET_DELAY_MIN = DEBUG ? 1 : 4;
+    private static final int ROCKET_DELAY_MAX = DEBUG ? 1 : 8;
+
+
     private E head;
     private BoxPhysicsSystem boxPhysicsSystem;
     private RayCastCallback callback = new RayCastCallback() {
@@ -65,14 +73,16 @@ public class LaserPointingSystem extends FluidSystem {
     protected void begin() {
         super.begin();
 
-        if (getEntityIds().size() < 3) {
+        if (getEntityIds().size() < MAX_ROCKETS) {
             cooldown -= world.delta;
             if (cooldown <= 0) {
-                cooldown = MathUtils.random(4, 8);
+                cooldown = MathUtils.random(ROCKET_DELAY_MIN, ROCKET_DELAY_MAX);
                 head = entityWithTag("presidenthead");
 
-                // aim a little bit ahead where the president will be in a couple of seconds.
-                spawnLaser((int) (head.posX() + 300 + MathUtils.random(-GameRules.SCREEN_WIDTH / 2, GameRules.SCREEN_WIDTH / 2)));
+                if (head != null) {
+                    // aim a little bit ahead where the president will be in a couple of seconds.
+                    spawnLaser((int) (head.posX() + 300 + MathUtils.random(-GameRules.SCREEN_WIDTH / 2, GameRules.SCREEN_WIDTH / 2)));
+                }
             }
         }
     }
@@ -80,6 +90,11 @@ public class LaserPointingSystem extends FluidSystem {
     @Override
     protected void process(E e) {
         head = entityWithTag("presidenthead");
+
+        if (head == null) {
+            e.deleteFromWorld();
+            return;
+        }
 
         Laser laser = e.getLaser();
         laser.targetX = head.posX() + 4;
@@ -94,9 +109,9 @@ public class LaserPointingSystem extends FluidSystem {
                 laser.blink += world.delta * 16f;
                 e.tint(1f, 1f, 1f, laser.blink % 2 < 1f ? 1f : 0);
                 intercept(e, laser);
-                if ( !laser.fired && laser.firing > FIRING_DURATION-1) {
+                if (!laser.fired && laser.firing > FIRING_DURATION - 1) {
                     killPresident(laser);
-                    laser.fired=true;
+                    laser.fired = true;
                 }
             } else {
                 e.deleteFromWorld();
@@ -113,19 +128,20 @@ public class LaserPointingSystem extends FluidSystem {
         E e = E.E()
                 .pos(laser.sourceX, laser.sourceY)
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 10)
-                .bounds(0,0,6,6)
+                .bounds(0, 0, 31, 24)
                 //.slowTimeCooldown(5f)
                 .bullet()
                 .anim("bullet");
 
-        v2.set(laser.targetX + 60f *2f,laser.targetY).sub(laser.sourceX,laser.sourceY).scl(0.05f);
+        v2.set(laser.targetX + 60f * 2f, laser.targetY).sub(laser.sourceX, laser.sourceY).scl(0.05f);
 
-        Body body = boxPhysicsSystem.addAsBox(e, 3, 3, 5f, CAT_BULLET, (short) (CAT_CAR | CAT_AGENT));
+        Body body = boxPhysicsSystem.addAsBox(e, 16, 12, 5f, CAT_BULLET, (short) (CAT_CAR | CAT_AGENT), v2.angleRad());
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setSensor(true);
         }
+
         body.setGravityScale(0f);
-        body.setLinearVelocity(v2.x,v2.y);
+        body.setLinearVelocity(v2.x, v2.y);
     }
 
     private E hitFixture;

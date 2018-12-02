@@ -5,7 +5,6 @@ import com.artemis.E;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import net.mostlyoriginal.api.component.graphics.TintWhenSlowdown;
@@ -195,7 +194,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .tag("presidentcar")
                 .bounds(0, 0, 72, 24)
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR);
-        Body car = boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 10f, CAT_CAR, (short) (CAT_BOUNDARY));
+        Body car = boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 10f, CAT_CAR, (short) (CAT_BOUNDARY), 0);
 
         E e2 = E()
                 .pos(x, y)
@@ -204,7 +203,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .locomotion()
                 .bounds(0, 0, 32, 16)
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR-10);
-        Body president = boxPhysicsSystem.addAsBox(e2, e2.getBounds().cx(), e2.getBounds().cy(), 1f, CAT_PRESIDENT, (short) (CAT_BULLET));
+        Body president = boxPhysicsSystem.addAsBox(e2, e2.getBounds().cx(), e2.getBounds().cy(), 1f, CAT_PRESIDENT, (short) (CAT_BULLET), 0);
 
         E e3 = E()
                 .pos(x, y)
@@ -212,7 +211,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .cameraFocus()
                 .locomotion()
                 .bounds(0, 0, 8, 8);
-        Body presidentHead = boxPhysicsSystem.addAsBox(e3,4,4, 1f, CAT_CAR, CAT_BOUNDARY);
+        Body presidentHead = boxPhysicsSystem.addAsBox(e3,4,4, 1f, CAT_CAR, CAT_BOUNDARY, 0);
 
         {
             final WeldJointDef def = new WeldJointDef();
@@ -249,7 +248,7 @@ public class LevelSetupSystem extends FluidSystem {
                 .locomotion()
                 .guard()
                 .renderLayer(layer);
-        boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short)(CAT_BOUNDARY|CAT_BULLET));
+        boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short)(CAT_BOUNDARY|CAT_BULLET), 0);
     }
 
     private int gx = 0;

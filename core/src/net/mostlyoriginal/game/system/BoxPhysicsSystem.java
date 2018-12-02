@@ -66,10 +66,11 @@ public class BoxPhysicsSystem extends FluidSystem {
         super.initialize();
     }
 
-    public Body addAsBox(E e, float cx, float cy, float density, short categoryBits, short maskBits) {
+    public Body addAsBox(E e, float cx, float cy, float density, short categoryBits, short maskBits, float radianAngle) {
         final BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.x = (e.getPos().xy.x - e.boundsCx()) / scaling;
+        bodyDef.angle = radianAngle;
         bodyDef.position.y = (e.getPos().xy.y - e.boundsCy()) / scaling;
 
         Body body = box2d.createBody(bodyDef);
@@ -164,14 +165,14 @@ public class BoxPhysicsSystem extends FluidSystem {
         e.pos(body.getPosition().x * scaling - e.boundsCx(), body.getPosition().y * scaling - e.boundsCy());
         e.angleRotation((float) Math.toDegrees(body.getAngle()));
 
-
-        if (cooldown2 <= 0) {
-            body.setTransform(body.getPosition(), 0);
-        }
-
         if ( e.hasLocomotion() ) {
 
             if (stepping && within(body.getAngle(), 0.1f) && within(body.getLinearVelocity().y, 0.1f) && !e.hasSlowTime()) {
+
+                if (cooldown2 <= 0) {
+                    body.setTransform(body.getPosition(), 0);
+                }
+
                 Vector2 vel = body.getLinearVelocity();
                 v3.x = e.posX() / scaling;
                 v3.y = e.posY() / scaling;
