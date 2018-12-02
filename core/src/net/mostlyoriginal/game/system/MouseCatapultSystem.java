@@ -39,6 +39,12 @@ public class MouseCatapultSystem extends FluidSystem {
     private E arrow;
     private E tutorial;
     private ParticleSystem particleSystem;
+    private E spotlight;
+    private E tutorialFocus;
+
+    public void setTutorialFocus(E tutorialFocus) {
+        this.tutorialFocus = tutorialFocus;
+    }
 
     public MouseCatapultSystem() {
         super(Aspect.all(MouseCursor.class, Pos.class));
@@ -54,6 +60,13 @@ public class MouseCatapultSystem extends FluidSystem {
                 .bounds(0,0,14,28)
                 .anim("arrow")
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 1000);
+        spotlight = E.E()
+                .pos(0, 0)
+                .invisible()
+                .tint(1f,1f,1f,0.4f)
+                .bounds(0,0,28,28)
+                .anim("spotlight")
+                .renderLayer( GameScreenAssetSystem.LAYER_CAR - 55);
     }
 
     @Override
@@ -127,6 +140,15 @@ public class MouseCatapultSystem extends FluidSystem {
 
         } else {
             arrow.invisible();
+        }
+
+        E spotlightTarget = (dragging != null && dragging.hasBoxed() ? dragging : tutorialFocus);
+        if ( spotlightTarget != null ) {
+            spotlight.removeInvisible();
+            spotlight.posX(spotlightTarget.posX() + spotlightTarget.boundsCx() - spotlight.boundsCx() );
+            spotlight.posY(spotlightTarget.posY() + spotlightTarget.boundsCy() - spotlight.boundsCy() - 4);
+        } else {
+            spotlight.invisible();
         }
     }
 

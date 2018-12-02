@@ -9,6 +9,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import net.mostlyoriginal.api.component.graphics.Tint;
+import net.mostlyoriginal.api.component.ui.Label;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.screen.GameScreen;
@@ -125,8 +126,9 @@ public class LogoScreenSetupSystem extends BaseSystem {
 
     private void addPressbutton(String text, int width) {
         message = E.E()
-                .pos((Gdx.graphics.getWidth() / 2) - width, 32)
+                .pos((Gdx.graphics.getWidth() / 2), 32)
                 .labelText(text)
+                .labelAlign(Label.Align.RIGHT)
                 .tint(COLOR_PRESS_KEY_MESSAGE)
                 .fontFontName("5x5")
                 .renderLayer(10)

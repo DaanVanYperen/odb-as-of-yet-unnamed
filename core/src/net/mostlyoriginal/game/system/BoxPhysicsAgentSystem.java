@@ -17,6 +17,8 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
     private StagepieceSystem stagePieceSystem;
     private E tutorial;
     private boolean removeTutorials;
+    private MouseCatapultSystem mouseCatapultSystem;
+
 
     public BoxPhysicsAgentSystem() {
         super(Aspect.all(Guard.class));
@@ -35,6 +37,12 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
     }
 
     @Override
+    protected void begin() {
+        super.begin();
+        mouseCatapultSystem.setTutorialFocus(null);
+    }
+
+    @Override
     protected void process(E e) {
 
         Guard guard = e.getGuard();
@@ -47,10 +55,12 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         E tutorial = guard.tutorial != -1 ? E.E(guard.tutorial) : null;
         if (tutorial != null) {
             tutorial.posX(e.posX() + e.boundsCx() - tutorial.boundsCx());
-            tutorial.posY(e.posY() + e.boundsMaxy() + 5);
+            tutorial.posY(e.posY() + e.boundsMaxy() - 55);
+            mouseCatapultSystem.setTutorialFocus(e);
             if (removeTutorials) {
                 tutorial.deleteFromWorld();
                 e.guardTutorial(-1);
+                mouseCatapultSystem.setTutorialFocus(null);
             }
         }
 

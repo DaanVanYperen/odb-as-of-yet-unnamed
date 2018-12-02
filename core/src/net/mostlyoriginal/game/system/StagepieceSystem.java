@@ -107,14 +107,17 @@ public class StagepieceSystem extends FluidSystem {
         {
             int carHalf = 72/2;
 
+            int tutorialIndex = 0;
+            int targetTutorialIndex = MathUtils.random(0,5);
+
             for (int i = 0; i < 3; i++) {
                 addAgent(50+carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
-                        50+carHalf + i * 80 - 24, false);
+                        50+carHalf + i * 80 - 24, false, tutorialIndex++ == targetTutorialIndex);
             }
 
             for (int i = 0; i < 3; i++) {
                 addAgent(380+carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
-                        380+carHalf + i * 80 - 24, false);
+                        380+carHalf + i * 80 - 24, false, tutorialIndex++ == targetTutorialIndex);
             }
 
             addPresident(GameRules.SCREEN_WIDTH / 4 + carHalf, ACTOR_SPAWN_Y + 2);
@@ -182,10 +185,10 @@ public class StagepieceSystem extends FluidSystem {
     }
 
     public void replaceAgent(int layer, float targetX, boolean bandaged) {
-        addAgent(-700, ACTOR_SPAWN_Y, layer, targetX, bandaged);
+        addAgent(-700, ACTOR_SPAWN_Y, layer, targetX, bandaged, false);
     }
 
-    private void addAgent(int x, int y, int layer, float targetX, boolean bandaged) {
+    private void addAgent(int x, int y, int layer, float targetX, boolean bandaged, boolean tutorial) {
         E e = E()
                 .pos(x, y)
                 .animId("bodyguard_01")
@@ -198,13 +201,15 @@ public class StagepieceSystem extends FluidSystem {
             e.guardBandaged(true);
         }
 
-        e.guardTutorial(
-                E.E()
-                        .pos(0, 0)
-                        .tint(1f, 1f, 1f, 0.8f)
-                        .bounds(0, 0, 11, 28)
-                        .anim("mouse")
-                        .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 1000).id());
+        if (tutorial) {
+            e.guardTutorial(
+                    E.E()
+                            .pos(0, 0)
+                            .tint(1f, 1f, 1f, 0.8f)
+                            .bounds(0, 0, 18, 42)
+                            .anim("swipe")
+                            .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 1000).id());
+        }
 
         boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short) (CAT_BOUNDARY | CAT_BULLET), 0);
     }
