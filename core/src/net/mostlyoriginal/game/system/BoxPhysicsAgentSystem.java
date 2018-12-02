@@ -65,6 +65,12 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
             }
         }
 
+        if ( e.guardState() == Guard.State.JUMPING ) {
+            if ( e.hasSlowTime() && body.getLinearVelocity().y < -4 ) {
+                e.removeSlowTime();
+            }
+        }
+
         if ( e.guardState() == Guard.State.WALKING ) {
             if ( !within(e.guardTargetX() - e.posX(), 4f)) {
                 run(e,body, MathUtils.clamp(e.guardTargetX() - e.posX(), -16,16));
