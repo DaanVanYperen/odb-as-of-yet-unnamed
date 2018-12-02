@@ -40,6 +40,11 @@ public class StruckSystem extends FluidSystem {
 
         E president = entityWithTag("president");
         if ( president != null && e.id() == president.id()) {
+            E head = entityWithTag("presidenthead");
+            if ( head != null ) {
+                head.deleteFromWorld();
+            }
+
             if ( e.hasBoxed() ) {
                 e.slowTime();
                 Body body = e.boxedBody();
