@@ -29,8 +29,9 @@ public class LaserPointingSystem extends FluidSystem {
     private float laserChargingDuration = DEBUG ? 2f : 2f;
     private float laserBlinkingDuration = DEBUG ? 0.5f : 0.5f;
     private int maximumLasersAtOnce = DEBUG ? 100 : 1;
-    private int laserSpawnDelayMin = DEBUG ? 1 : 1;
-    private int laserSpawnDelayMax = DEBUG ? 1 : 12;
+    private int laserSpawnDelayMin = DEBUG ? 1 : 6;
+    private int laserSpawnDelayMax = DEBUG ? 1 : 8;
+    private int rocketVelocity = 20;
 
 
     private E head;
@@ -49,6 +50,7 @@ public class LaserPointingSystem extends FluidSystem {
             return -1;
         }
     };
+    private SlowTimeSystem slowTimeSystem;
 
     public LaserPointingSystem() {
         super(Aspect.all(Laser.class));
@@ -62,16 +64,21 @@ public class LaserPointingSystem extends FluidSystem {
     }
 
     private void spawnLaser(int i) {
-        E.E()
+        E e = E.E()
                 .laser(i, GameRules.SCREEN_HEIGHT / 2 + 200)
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 5000);
+
+        process(e);
     }
 
-    private float cooldown = 0;
+    private float cooldown = 5;
+    private float difficultyCooldown = 0;
 
     @Override
     protected void begin() {
         super.begin();
+
+        scaleDifficulty();
 
         if (getEntityIds().size() < maximumLasersAtOnce) {
             cooldown -= world.delta;
@@ -84,6 +91,46 @@ public class LaserPointingSystem extends FluidSystem {
                     spawnLaser((int) (head.posX() + 300 + MathUtils.random(-GameRules.SCREEN_WIDTH / 1.5f, GameRules.SCREEN_WIDTH / 1.5f)));
                 }
             }
+        }
+    }
+
+
+    public int difficultyScore = 1;
+
+    private void scaleDifficulty() {
+        difficultyCooldown -= world.delta * slowTimeSystem.slowdownFactor();
+        if ( difficultyCooldown <= 0 ) {
+            difficultyCooldown += 1;
+            difficultyScore++;
+
+
+
+            if ( difficultyScore == 30 ) {
+                maximumLasersAtOnce= 2;
+                laserSpawnDelayMin = 4;
+                laserSpawnDelayMax = 6;
+            }
+
+            if ( difficultyScore == 60 ) {
+                rocketVelocity += 10;
+            }
+
+            if ( difficultyScore == 90 ) {
+                maximumLasersAtOnce=3;
+                laserSpawnDelayMin = 4;
+                laserSpawnDelayMax = 5;
+            }
+            if ( difficultyScore == 120 ) {
+                rocketVelocity += 10;
+            }
+
+            if ( difficultyScore == 160 ) {
+                maximumLasersAtOnce=5;
+                laserSpawnDelayMin = 2;
+                laserSpawnDelayMax = 4;
+            }
+
+            System.out.println(difficultyScore + " " + rocketVelocity);
         }
     }
 
@@ -133,7 +180,7 @@ public class LaserPointingSystem extends FluidSystem {
                 .bullet()
                 .anim("bullet");
 
-        v2.set(laser.targetX, laser.targetY).sub(laser.sourceX, laser.sourceY).scl(0.05f);
+        v2.set(laser.targetX, laser.targetY).sub(laser.sourceX, laser.sourceY).nor().scl(rocketVelocity);
 
         Body body = boxPhysicsSystem.addAsBox(e, 16, 12, 5f, CAT_BULLET, (short) (CAT_CAR | CAT_AGENT), v2.angleRad());
         for (Fixture fixture : body.getFixtureList()) {

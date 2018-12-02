@@ -26,6 +26,7 @@ public class StagepieceSystem extends FluidSystem {
     public GameScreenAssetSystem gameScreenAssetSystem;
     private float scrollOffset=0;
     private SlowTimeSystem slowtimeSystem;
+    private LaserPointingSystem laserPointingSystem;
 
     public StagepieceSystem() {
         super(Aspect.all(Stagepiece.class));
@@ -34,7 +35,7 @@ public class StagepieceSystem extends FluidSystem {
     @Override
     protected void begin() {
         super.begin();
-        scrollOffset = world.delta * slowtimeSystem.slowdownFactor() * 100f;
+        scrollOffset = world.delta * slowtimeSystem.slowdownFactor() * (40 + laserPointingSystem.difficultyScore);
         gx -= scrollOffset;
     }
 
