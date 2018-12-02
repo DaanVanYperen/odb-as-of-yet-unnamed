@@ -10,6 +10,7 @@ import static net.mostlyoriginal.game.component.Guard.State.WALKING;
 public class Guard extends Component {
     public float slideCooldown=0;
     public State state = WALKING;
+    public int tutorial;
 
     public float targetX = 0;
 

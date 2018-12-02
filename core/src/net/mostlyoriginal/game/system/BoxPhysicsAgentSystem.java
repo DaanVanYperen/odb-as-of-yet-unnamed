@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import net.mostlyoriginal.game.component.Guard;
 import net.mostlyoriginal.game.system.common.FluidSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -15,6 +16,8 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
 
     private BoxPhysicsSystem boxPhysicsSystem;
     private StagepieceSystem stagePieceSystem;
+    private E tutorial;
+    private boolean removeTutorials;
 
     public BoxPhysicsAgentSystem() {
         super(Aspect.all(Guard.class));
@@ -28,6 +31,11 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
     Vector2 vel = new Vector2();
 
     @Override
+    protected void initialize() {
+        super.initialize();
+    }
+
+    @Override
     protected void process(E e) {
 
         Guard guard = e.getGuard();
@@ -37,6 +45,16 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         e.pos(body.getPosition().x * BoxPhysicsSystem.SCALING - e.boundsCx(), body.getPosition().y * BoxPhysicsSystem.SCALING - e.boundsCy());
         e.angleRotation((float) Math.toDegrees(body.getAngle()));
 
+        E tutorial = guard.tutorial != -1 ? E.E(guard.tutorial) : null;
+        if (tutorial != null) {
+            tutorial.posX(e.posX() + e.boundsCx() - tutorial.boundsCx());
+            tutorial.posY(e.posY() + e.boundsMaxy() + 5);
+            if ( removeTutorials ) {
+                tutorial.deleteFromWorld();
+                e.guardTutorial(-1);
+            }
+        }
+
         if (e.posY() < -50) {
             stagePieceSystem.replaceAgent(e.renderLayer(), e.guardTargetX());
             e.deleteFromWorld();
@@ -45,9 +63,9 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
 
         if (boxPhysicsSystem.updating) {
 
-            if ( e.isTouchingFloor() ) {
+            if (e.isTouchingFloor()) {
                 boolean notMovingUp = body.getLinearVelocity().y <= 0;
-                if ( e.guardState() == Guard.State.JUMPING && notMovingUp) {
+                if (e.guardState() == Guard.State.JUMPING && notMovingUp) {
                     body.setTransform(body.getPosition(), 0);
                     guard.slideCooldown = 1f;
                     e.guardState(Guard.State.SLIDING);
@@ -65,15 +83,15 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
             }
         }
 
-        if ( e.guardState() == Guard.State.JUMPING ) {
-            if ( e.hasSlowTime() && body.getLinearVelocity().y < -4 ) {
+        if (e.guardState() == Guard.State.JUMPING) {
+            if (e.hasSlowTime() && body.getLinearVelocity().y < -4) {
                 e.removeSlowTime();
             }
         }
 
-        if ( e.guardState() == Guard.State.WALKING ) {
-            if ( !within(e.guardTargetX() - e.posX(), 4f)) {
-                run(e,body, MathUtils.clamp(e.guardTargetX() - e.posX(), -16,16));
+        if (e.guardState() == Guard.State.WALKING) {
+            if (!within(e.guardTargetX() - e.posX(), 4f)) {
+                run(e, body, MathUtils.clamp(e.guardTargetX() - e.posX(), -16, 16));
             }
         }
 
@@ -85,6 +103,7 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
                 break;
             case CROUCHING:
                 e.anim("bodyguard_01_crouch");
+                removeTutorials =true;
                 break;
             case JUMPING:
                 e.anim(facingLeft ? "bodyguard_01_jump_left" : "bodyguard_01_jump");

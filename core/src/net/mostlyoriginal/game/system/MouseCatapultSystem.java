@@ -37,6 +37,7 @@ public class MouseCatapultSystem extends FluidSystem {
     private float posY;
     private MouseJoint mouseJoint;
     private E arrow;
+    private E tutorial;
 
     public MouseCatapultSystem() {
         super(Aspect.all(MouseCursor.class, Pos.class));

@@ -152,6 +152,15 @@ public class StagepieceSystem extends FluidSystem {
                 .guard()
                 .renderLayer(layer)
                 .guardTargetX(targetX);
+
+        e.guardTutorial(
+                E.E()
+                .pos(0, 0)
+                .tint(1f, 1f, 1f, 0.8f)
+                .bounds(0, 0, 11, 28)
+                .anim("mouse")
+                .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 1000).id());
+
         boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short) (CAT_BOUNDARY | CAT_BULLET), 0);
     }
 
