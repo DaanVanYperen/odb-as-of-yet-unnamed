@@ -13,9 +13,9 @@ import net.mostlyoriginal.game.component.Laser;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
-import static net.mostlyoriginal.game.system.LevelSetupSystem.CAT_AGENT;
-import static net.mostlyoriginal.game.system.LevelSetupSystem.CAT_BULLET;
-import static net.mostlyoriginal.game.system.LevelSetupSystem.CAT_CAR;
+import static net.mostlyoriginal.game.system.StagepieceSystem.CAT_AGENT;
+import static net.mostlyoriginal.game.system.StagepieceSystem.CAT_BULLET;
+import static net.mostlyoriginal.game.system.StagepieceSystem.CAT_CAR;
 
 /**
  * @author Daan van Yperen
@@ -133,7 +133,7 @@ public class LaserPointingSystem extends FluidSystem {
                 .bullet()
                 .anim("bullet");
 
-        v2.set(laser.targetX + 60f * 3f, laser.targetY).sub(laser.sourceX, laser.sourceY).scl(0.05f);
+        v2.set(laser.targetX, laser.targetY).sub(laser.sourceX, laser.sourceY).scl(0.05f);
 
         Body body = boxPhysicsSystem.addAsBox(e, 16, 12, 5f, CAT_BULLET, (short) (CAT_CAR | CAT_AGENT), v2.angleRad());
         for (Fixture fixture : body.getFixtureList()) {
