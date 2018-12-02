@@ -11,6 +11,7 @@ public class Guard extends Component {
     public float slideCooldown=0;
     public State state = WALKING;
     public int tutorial;
+    public boolean bandaged = false;
 
     public float targetX = 0;
 

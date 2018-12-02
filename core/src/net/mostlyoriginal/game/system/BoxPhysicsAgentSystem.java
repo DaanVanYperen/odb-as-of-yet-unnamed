@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import net.mostlyoriginal.game.component.Guard;
 import net.mostlyoriginal.game.system.common.FluidSystem;
-import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -49,14 +48,14 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         if (tutorial != null) {
             tutorial.posX(e.posX() + e.boundsCx() - tutorial.boundsCx());
             tutorial.posY(e.posY() + e.boundsMaxy() + 5);
-            if ( removeTutorials ) {
+            if (removeTutorials) {
                 tutorial.deleteFromWorld();
                 e.guardTutorial(-1);
             }
         }
 
         if (e.posY() < -50) {
-            stagePieceSystem.replaceAgent(e.renderLayer(), e.guardTargetX());
+            stagePieceSystem.replaceAgent(e.renderLayer(), e.guardTargetX(), e.guardBandaged() || MathUtils.random(0,100) < 50);
             e.deleteFromWorld();
             return;
         }
@@ -96,20 +95,29 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         }
 
         boolean facingLeft = body.getLinearVelocity().x < 0;
+        boolean bandaged = e.guardBandaged();
         body.setLinearDamping(0f);
         switch (e.guardState()) {
             case WALKING:
-                e.anim("bodyguard_01");
+                e.anim(bandaged ? "bodyguard_bandaged_01" : "bodyguard_01");
                 break;
             case CROUCHING:
-                e.anim("bodyguard_01_crouch");
-                removeTutorials =true;
+                e.anim(bandaged ? "bodyguard_bandaged_01_crouch" : "bodyguard_01_crouch");
+                removeTutorials = true;
                 break;
             case JUMPING:
-                e.anim(facingLeft ? "bodyguard_01_jump_left" : "bodyguard_01_jump");
+                e.anim(
+                        bandaged ?
+                                (facingLeft ? "bodyguard_bandaged_01_jump_left" : "bodyguard_bandaged_01_jump") :
+                                (facingLeft ? "bodyguard_01_jump_left" : "bodyguard_01_jump")
+                );
                 break;
             case SLIDING:
-                e.anim(facingLeft ? "bodyguard_01_slide_left" : "bodyguard_01_slide");
+                e.anim(
+                        bandaged ?
+                                (facingLeft ? "bodyguard_bandaged_01_slide_left" : "bodyguard_bandaged_01_slide") :
+                                (facingLeft ? "bodyguard_01_slide_left" : "bodyguard_01_slide")
+                );
                 body.setLinearDamping(5f);
                 break;
         }
