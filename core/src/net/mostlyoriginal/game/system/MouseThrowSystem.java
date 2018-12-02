@@ -76,9 +76,9 @@ public class MouseThrowSystem extends FluidSystem {
     @Override
     protected void process(E e) {
         Vector3 pos = e.getPos().xy;
-        posX = pos.x / boxPhysicsSystem.scaling;
-        posY = pos.y / boxPhysicsSystem.scaling;
-        boxPhysicsSystem.box2d.QueryAABB(callback, (pos.x - 5) / boxPhysicsSystem.scaling, (pos.y - 5) / boxPhysicsSystem.scaling, (pos.x + 5) / boxPhysicsSystem.scaling, (pos.y + 5) / boxPhysicsSystem.scaling);
+        posX = pos.x / boxPhysicsSystem.SCALING;
+        posY = pos.y / boxPhysicsSystem.SCALING;
+        boxPhysicsSystem.box2d.QueryAABB(callback, (pos.x - 5) / boxPhysicsSystem.SCALING, (pos.y - 5) / boxPhysicsSystem.SCALING, (pos.x + 5) / boxPhysicsSystem.SCALING, (pos.y + 5) / boxPhysicsSystem.SCALING);
     }
 
     public void forgetJoint(JointEdge jointEdge) {

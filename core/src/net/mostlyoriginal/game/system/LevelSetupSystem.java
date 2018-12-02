@@ -219,10 +219,10 @@ public class LevelSetupSystem extends FluidSystem {
             def.bodyB = president;
             def.collideConnected = false;
             def.type = JointDef.JointType.WeldJoint;
-            def.localAnchorA.x = -16/ boxPhysicsSystem.scaling;
-            def.localAnchorA.y = 5 / boxPhysicsSystem.scaling;
-            def.localAnchorB.x = 0 / boxPhysicsSystem.scaling;
-            def.localAnchorB.y = 0 / boxPhysicsSystem.scaling;
+            def.localAnchorA.x = -16/ boxPhysicsSystem.SCALING;
+            def.localAnchorA.y = 5 / boxPhysicsSystem.SCALING;
+            def.localAnchorB.x = 0 / boxPhysicsSystem.SCALING;
+            def.localAnchorB.y = 0 / boxPhysicsSystem.SCALING;
             boxPhysicsSystem.box2d.createJoint(def);
         }
 
@@ -232,10 +232,10 @@ public class LevelSetupSystem extends FluidSystem {
             def.bodyB = presidentHead;
             def.collideConnected = false;
             def.type = JointDef.JointType.WeldJoint;
-            def.localAnchorA.x = 0 / boxPhysicsSystem.scaling;
-            def.localAnchorA.y = 2 / boxPhysicsSystem.scaling;
-            def.localAnchorB.x = 0 / boxPhysicsSystem.scaling;
-            def.localAnchorB.y = 0 / boxPhysicsSystem.scaling;
+            def.localAnchorA.x = 0 / boxPhysicsSystem.SCALING;
+            def.localAnchorA.y = 2 / boxPhysicsSystem.SCALING;
+            def.localAnchorB.x = 0 / boxPhysicsSystem.SCALING;
+            def.localAnchorB.y = 0 / boxPhysicsSystem.SCALING;
             boxPhysicsSystem.box2d.createJoint(def);
         }
     }
@@ -245,7 +245,6 @@ public class LevelSetupSystem extends FluidSystem {
                 .pos(x, y)
                 .animId("bodyguard_01")
                 .bounds(8, 0, 16, 24)
-                .locomotion()
                 .guard()
                 .renderLayer(layer);
         boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short)(CAT_BOUNDARY|CAT_BULLET), 0);

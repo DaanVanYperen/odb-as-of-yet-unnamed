@@ -22,7 +22,7 @@ public class StruckSystem extends FluidSystem {
         e.removeStruck();
         e.removeSlowTime();
 
-        if ( e.isGuard()) {
+        if ( e.hasGuard()) {
             Body body = e.boxedBody();
             body.setTransform(body.getPosition(), MathUtils.random(-10f,10f));
             for (Fixture fixture : body.getFixtureList()) {
@@ -51,7 +51,7 @@ public class StruckSystem extends FluidSystem {
                 for (JointEdge jointEdge : body.getJointList()) {
                     boxPhysicsSystem.box2d.destroyJoint(jointEdge.joint);
                 }
-                body.applyLinearImpulse(0,500f,e.posX() / boxPhysicsSystem.scaling,e.posY() / boxPhysicsSystem.scaling, true);
+                body.applyLinearImpulse(0,500f,e.posX() / boxPhysicsSystem.SCALING,e.posY() / boxPhysicsSystem.SCALING, true);
             }
         }
     }

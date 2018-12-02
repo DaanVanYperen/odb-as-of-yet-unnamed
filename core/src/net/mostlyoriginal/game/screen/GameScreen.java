@@ -11,10 +11,7 @@ import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
 import net.mostlyoriginal.api.system.physics.PhysicsSystem;
-import net.mostlyoriginal.api.system.render.AnimRenderSystem;
-import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.system.*;
-import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.render.CameraFollowSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.MyClearScreenSystem;
@@ -66,6 +63,7 @@ public class GameScreen extends TransitionableWorldScreen {
                         new MouseCursorSystem(),
                         new PhysicsSystem(),
                         new BoxPhysicsSystem(),
+                        new BoxPhysicsAgentSystem(),
                         new StruckSystem(),
                         new CameraFollowSystem(),
                         new LaserPointingSystem(),

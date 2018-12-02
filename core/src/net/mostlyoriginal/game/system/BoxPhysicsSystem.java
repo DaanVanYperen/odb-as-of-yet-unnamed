@@ -15,7 +15,7 @@ import net.mostlyoriginal.game.system.common.FluidSystem;
 public class BoxPhysicsSystem extends FluidSystem {
 
     public static final int FLOOR_LEVEL_Y = 50;
-    public float scaling = 8f;
+    public static float SCALING = 8f;
     public Body groundBody;
     private SlowTimeSystem slowdownSystem;
 
@@ -29,6 +29,17 @@ public class BoxPhysicsSystem extends FluidSystem {
             public void beginContact(Contact contact) {
                 bulletHit(contact.getFixtureA(), contact.getFixtureB());
                 bulletHit(contact.getFixtureB(), contact.getFixtureA());
+                touchingFloor(contact.getFixtureB(), contact.getFixtureA(),true);
+                touchingFloor(contact.getFixtureA(), contact.getFixtureB(),true);
+            }
+
+            private void touchingFloor(Fixture fixtureA, Fixture fixtureB, boolean state) {
+                if (fixtureA.getFilterData().categoryBits == LevelSetupSystem.CAT_BOUNDARY) {
+                    short cat = fixtureB.getFilterData().categoryBits;
+                    if (  cat == LevelSetupSystem.CAT_AGENT ) {
+                        ((E) fixtureB.getBody().getUserData()).touchingFloor(state);
+                    }
+                }
             }
 
             private void bulletHit(Fixture fixtureA, Fixture fixtureB) {
@@ -43,7 +54,8 @@ public class BoxPhysicsSystem extends FluidSystem {
 
             @Override
             public void endContact(Contact contact) {
-
+                touchingFloor(contact.getFixtureB(), contact.getFixtureA(),false);
+                touchingFloor(contact.getFixtureA(), contact.getFixtureB(),false);
             }
 
             @Override
@@ -69,14 +81,14 @@ public class BoxPhysicsSystem extends FluidSystem {
     public Body addAsBox(E e, float cx, float cy, float density, short categoryBits, short maskBits, float radianAngle) {
         final BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.x = (e.getPos().xy.x - e.boundsCx()) / scaling;
+        bodyDef.position.x = (e.getPos().xy.x - e.boundsCx()) / SCALING;
         bodyDef.angle = radianAngle;
-        bodyDef.position.y = (e.getPos().xy.y - e.boundsCy()) / scaling;
+        bodyDef.position.y = (e.getPos().xy.y - e.boundsCy()) / SCALING;
 
         Body body = box2d.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(cx / scaling, cy / scaling);
+        shape.setAsBox(cx / SCALING, cy / SCALING);
 
         final FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -98,12 +110,12 @@ public class BoxPhysicsSystem extends FluidSystem {
         final BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.x = 0;
-        bodyDef.position.y = 0 / scaling;
+        bodyDef.position.y = 0 / SCALING;
 
         groundBody = box2d.createBody(bodyDef);
 
         EdgeShape shape = new EdgeShape();
-        shape.set(0, FLOOR_LEVEL_Y / scaling, 99999 / scaling, FLOOR_LEVEL_Y / scaling);
+        shape.set(0, FLOOR_LEVEL_Y / SCALING, 99999 / SCALING, FLOOR_LEVEL_Y / SCALING);
 //        PolygonShape shape = new PolygonShape();
 //        shape.setAsBox(20 / scaling, 1000 / scaling);
 
@@ -116,7 +128,7 @@ public class BoxPhysicsSystem extends FluidSystem {
     float cooldown = 0;
 
     float timeStep = (1.0f / 60.0f);
-    boolean stepping = false;
+    boolean updating = false;
 
     @Override
     protected void begin() {
@@ -127,9 +139,9 @@ public class BoxPhysicsSystem extends FluidSystem {
         if (cooldown <= 0) {
             cooldown += timeStep;
             box2d.step(timeStep * slowdownSystem.slowdownFactor(), 6, 2);
-            stepping = true;
+            updating = true;
         } else
-            stepping = false;
+            updating = false;
     }
 
     @Override
@@ -161,27 +173,25 @@ public class BoxPhysicsSystem extends FluidSystem {
     @Override
     protected void process(E e) {
 
+        if ( e.hasGuard()) return;
+
         Body body = e.boxedBody();
-        e.pos(body.getPosition().x * scaling - e.boundsCx(), body.getPosition().y * scaling - e.boundsCy());
+        e.pos(body.getPosition().x * SCALING - e.boundsCx(), body.getPosition().y * SCALING - e.boundsCy());
         e.angleRotation((float) Math.toDegrees(body.getAngle()));
 
         if ( e.hasLocomotion() ) {
 
-            if (stepping && within(body.getAngle(), 0.1f) && within(body.getLinearVelocity().y, 0.1f) && !e.hasSlowTime()) {
+            if (updating && within(body.getAngle(), 0.1f) && within(body.getLinearVelocity().y, 0.1f) && !e.hasSlowTime()) {
 
                 if (cooldown2 <= 0) {
                     body.setTransform(body.getPosition(), 0);
                 }
 
                 Vector2 vel = body.getLinearVelocity();
-                v3.x = e.posX() / scaling;
-                v3.y = e.posY() / scaling;
+                v3.x = e.posX() / SCALING;
+                v3.y = e.posY() / SCALING;
                 v4.x = (8f - vel.x) * body.getMass();
                 body.applyLinearImpulse(v4, v3, true);
-
-                if ( e.isGuard() && !e.hasSlowTime() ) {
-                    e.anim("bodyguard_01");
-                }
             }
 
         }

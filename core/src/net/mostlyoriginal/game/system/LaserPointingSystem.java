@@ -41,7 +41,7 @@ public class LaserPointingSystem extends FluidSystem {
         public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
             if (fixture.getBody() != null
                     && fixture.getBody().getUserData() != null
-                    && ((E) fixture.getBody().getUserData()).isGuard()) {
+                    && ((E) fixture.getBody().getUserData()).hasGuard()) {
                 hitFixture = ((E) fixture.getBody().getUserData());
                 return 0;
             }

@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.joints.MouseJoint;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.mouse.MouseCursor;
+import net.mostlyoriginal.game.component.Guard;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
 /**
@@ -54,8 +55,8 @@ public class MouseCatapultSystem extends FluidSystem {
     @Override
     protected void process(E e) {
         Vector3 pos = e.getPos().xy;
-        posX = pos.x / boxPhysicsSystem.scaling;
-        posY = pos.y / boxPhysicsSystem.scaling;
+        posX = pos.x / boxPhysicsSystem.SCALING;
+        posY = pos.y / boxPhysicsSystem.SCALING;
 
         focusFixture = null;
         scanFor(pos, 5);
@@ -67,10 +68,10 @@ public class MouseCatapultSystem extends FluidSystem {
             if (focusFixture != null && focusFixture.getBody() != boxPhysicsSystem.groundBody && focusFixture.getBody().getUserData() != null && dragging == null) {
                 dragging = (E) focusFixture.getBody().getUserData();
                 origin.set(e.posX(), e.posY());
-                if (!dragging.isGuard()) {
+                if (!dragging.hasGuard()) {
                     dragging = null;
                 } else {
-                    dragging.anim("bodyguard_01_crouch");
+                    dragging.guardState(Guard.State.CROUCHING);
                 }
             }
 
@@ -81,12 +82,12 @@ public class MouseCatapultSystem extends FluidSystem {
             if (dragging != null) {
                 if (dragging.hasBoxed()) {
                     Body body = dragging.boxedBody();
-                    dragging.anim("bodyguard_01_jump");
+                    dragging.guardState(Guard.State.JUMPING);
                     dragging.slowTimeCooldown(3f);
                     v2.set(dragging.posX(), dragging.posY()).sub(e.posX() - 12, e.posY()).scl(2f).clamp(20f,60f).scl(body.getMass());
                     body.applyLinearImpulse(v2.x, v2.y,
-                            (dragging.posX() + dragging.boundsCx()) / boxPhysicsSystem.scaling,
-                            (dragging.posY() + dragging.boundsCy()) / boxPhysicsSystem.scaling, true);
+                            (dragging.posX() + dragging.boundsCx()) / boxPhysicsSystem.SCALING,
+                            (dragging.posY() + dragging.boundsCy()) / boxPhysicsSystem.SCALING, true);
                 }
                 dragging = null;
             }
@@ -94,7 +95,7 @@ public class MouseCatapultSystem extends FluidSystem {
     }
 
     private void scanFor(Vector3 pos, int pixeldistance) {
-        boxPhysicsSystem.box2d.QueryAABB(callback, (pos.x - pixeldistance) / boxPhysicsSystem.scaling, (pos.y - pixeldistance) / boxPhysicsSystem.scaling, (pos.x + pixeldistance) / boxPhysicsSystem.scaling, (pos.y + pixeldistance) / boxPhysicsSystem.scaling);
+        boxPhysicsSystem.box2d.QueryAABB(callback, (pos.x - pixeldistance) / boxPhysicsSystem.SCALING, (pos.y - pixeldistance) / boxPhysicsSystem.SCALING, (pos.x + pixeldistance) / boxPhysicsSystem.SCALING, (pos.y + pixeldistance) / boxPhysicsSystem.SCALING);
     }
 
     public void forgetJoint(JointEdge jointEdge) {
