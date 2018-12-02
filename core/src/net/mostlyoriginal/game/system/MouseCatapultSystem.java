@@ -97,9 +97,11 @@ public class MouseCatapultSystem extends FluidSystem {
         } else {
             if (dragging != null) {
                 if (dragging.hasBoxed()) {
+                    // start jump.
                     Body body = dragging.boxedBody();
                     dragging.guardState(Guard.State.JUMPING);
                     dragging.slowTimeCooldown(3f);
+                    dragging.animAge(0);
                     v2.set(dragging.posX(), dragging.posY()).sub(e.posX() - 12, e.posY() - 12).clamp(20f,60f).scl(1.2f).scl(body.getMass());
                     body.applyLinearImpulse(v2.x, v2.y,
                             (dragging.posX() + dragging.boundsCx()) / boxPhysicsSystem.SCALING,
