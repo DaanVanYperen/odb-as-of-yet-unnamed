@@ -156,7 +156,7 @@ public class LaserPointingSystem extends FluidSystem {
                 intercept(e, laser);
             } else {
                 if (!laser.fired) {
-                    killPresident(laser);
+                    spawnRocket(laser);
                     laser.fired = true;
                 }
                 e.deleteFromWorld();
@@ -168,19 +168,19 @@ public class LaserPointingSystem extends FluidSystem {
 
     Vector2 v2 = new Vector2();
 
-    private void killPresident(Laser laser) {
+    private void spawnRocket(Laser laser) {
 
         E e = E.E()
                 .pos(laser.sourceX, laser.sourceY)
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 10)
-                .bounds(0, 0, 31, 24)
+                .bounds(0, 0, 48, 9)
                 //.slowTimeCooldown(5f)
                 .bullet()
                 .anim("bullet");
 
         v2.set(laser.targetX, laser.targetY).sub(laser.sourceX, laser.sourceY).nor().scl(rocketVelocity);
 
-        Body body = boxPhysicsSystem.addAsBox(e, 16, 12, 5f, CAT_BULLET, (short) (CAT_CAR | CAT_AGENT), v2.angleRad());
+        Body body = boxPhysicsSystem.addAsBox(e, 24, 4, 5f, CAT_BULLET, (short) (CAT_CAR | CAT_AGENT), v2.angleRad());
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setSensor(true);
         }
