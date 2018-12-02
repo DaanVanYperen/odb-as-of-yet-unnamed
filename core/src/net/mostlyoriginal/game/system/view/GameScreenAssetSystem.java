@@ -42,6 +42,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final int LAYER_ACTORS = 2000;
     public static final int LAYER_PLAYER = 1000;
     public static final int LAYER_ICONS = 2100;
+    public static final int LAYER_PARTICLES = 3000;
     public static final int LAYER_ACTORS_BUSY = 90;
 
     public static final int DEFAULT_MODULE_HEIGHT = UNIT * 5 + 16;
@@ -54,6 +55,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public static final float PLAYER_WALK_FRAME_DURATION = 0.06f;
     public static final int BUILDING_WIDTH = 128;
     public static final int BUILDING_HEIGHT = 360;
+
     private static final float WASH_FRAME_DURATION = 0.6f;
     public static final float LOW_VOLUME = 0.01f;
     private Music music;

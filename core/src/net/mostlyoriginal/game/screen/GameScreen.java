@@ -10,6 +10,7 @@ import net.mostlyoriginal.api.manager.FontManager;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
+import net.mostlyoriginal.api.system.physics.GravitySystem;
 import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.system.*;
@@ -63,7 +64,8 @@ public class GameScreen extends TransitionableWorldScreen {
                         //new ClockSystem(),
                         //new CoinSystem(),
                         new MouseCursorSystem(),
-                        new PhysicsSystem(),
+                        new GravitySystem(),
+                        new MyPhysicsSystem(),
                         new BoxPhysicsSystem(),
                         new BoxPhysicsAgentSystem(),
                         new StruckSystem(),
@@ -75,6 +77,7 @@ public class GameScreen extends TransitionableWorldScreen {
                         new MouseCatapultSystem(),
                         new InteractableCooldownSystem(),
                         new ScoreSystem(),
+                        new ParticleSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
                         new MyLabelRenderSystem(renderBatchingSystem),

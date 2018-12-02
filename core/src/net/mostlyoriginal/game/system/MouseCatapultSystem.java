@@ -38,6 +38,7 @@ public class MouseCatapultSystem extends FluidSystem {
     private MouseJoint mouseJoint;
     private E arrow;
     private E tutorial;
+    private ParticleSystem particleSystem;
 
     public MouseCatapultSystem() {
         super(Aspect.all(MouseCursor.class, Pos.class));
@@ -107,6 +108,8 @@ public class MouseCatapultSystem extends FluidSystem {
                     body.applyLinearImpulse(v2.x, v2.y,
                             (dragging.posX() + dragging.boundsCx()) / boxPhysicsSystem.SCALING,
                             (dragging.posY() + dragging.boundsCy()) / boxPhysicsSystem.SCALING, true);
+//                    particleSystem.confettiBomb(dragging.posX() + dragging.boundsCx(), dragging.posY() + dragging.boundsCy());
+
                 }
                 dragging = null;
             }
