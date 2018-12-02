@@ -68,6 +68,9 @@ public class ParticleSystem extends BaseSystem {
         confetti(x,y, "confetti_white", 15, 20);
         confetti(x,y, "confetti_red", 15, 20);
         confetti(x,y, "confetti_blue", 15, 20);
+        balloons(x,y, "balloon_white", 2,5);
+        balloons(x,y, "balloon_red", 2,5);
+        balloons(x,y, "balloon_blue", 2,5);
 
 
         if ( MathUtils.random(1,100) < 30 ) {
@@ -111,6 +114,22 @@ public class ParticleSystem extends BaseSystem {
                 .friction(1f)
                 .size(1, 2)
                 .angularMomentum(40)
+                .create(minCount, maxCount);
+    }
+
+
+    public void balloons(float x, float y, String art, int minCount, int maxCount) {
+        bakery
+                .at((int) x - 5, (int) y - 5, (int) x + 5, (int) y + 5)
+                .angle(0, 360)
+                .speed(5, 20)
+                .anim(art)
+                .fadeAfter(8f)
+                .rotateRandomly()
+                .slowlyFloatUp()
+                .friction(0f)
+                .size(1, 1)
+                .angularMomentum(0)
                 .create(minCount, maxCount);
     }
 
@@ -216,6 +235,12 @@ public class ParticleSystem extends BaseSystem {
         Builder slowlySplatDown() {
             this.withGravity = true;
             this.gravityY = -0.5f;
+            return this;
+        }
+
+        Builder slowlyFloatUp() {
+            this.withGravity = true;
+            this.gravityY = 0.5f;
             return this;
         }
 
