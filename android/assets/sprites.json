@@ -511,7 +511,7 @@
     },
     {
       "id": "bodyguard_01_jump_left",
-      "comment": "A generic bodyguard in midair.",
+      "comment": "A generic bodyguard in midair, facing left.",
       "x": 0,
       "y": 440,
       "countX": 5,
@@ -519,6 +519,30 @@
       "width": 24,
       "height": 24,
       "milliseconds": 40,
+      "repeat": false
+    },
+    {
+      "id": "bodyguard_01_slide",
+      "comment": "A generic bodyguard sliding and recovering to a standing position.",
+      "x": 0,
+      "y": 464,
+      "countX": 7,
+      "countY": 1,
+      "width": 24,
+      "height": 24,
+      "milliseconds": 60,
+      "repeat": false
+    },
+    {
+      "id": "bodyguard_01_slide_left",
+      "comment": "A generic bodyguard sliding and recovering to a standing position, facing left.",
+      "x": 0,
+      "y": 488,
+      "countX": 7,
+      "countY": 1,
+      "width": 24,
+      "height": 24,
+      "milliseconds": 60,
       "repeat": false
     },
     {
