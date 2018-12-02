@@ -115,7 +115,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         groundBody = box2d.createBody(bodyDef);
 
         EdgeShape shape = new EdgeShape();
-        shape.set(0, FLOOR_LEVEL_Y / SCALING, 99999 / SCALING, FLOOR_LEVEL_Y / SCALING);
+        shape.set(-9999, FLOOR_LEVEL_Y / SCALING, 9999 / SCALING, FLOOR_LEVEL_Y / SCALING);
 //        PolygonShape shape = new PolygonShape();
 //        shape.setAsBox(20 / scaling, 1000 / scaling);
 

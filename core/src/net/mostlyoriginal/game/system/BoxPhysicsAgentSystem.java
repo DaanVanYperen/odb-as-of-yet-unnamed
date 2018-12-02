@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import net.mostlyoriginal.game.component.Guard;
@@ -13,6 +14,7 @@ import net.mostlyoriginal.game.system.common.FluidSystem;
 public class BoxPhysicsAgentSystem extends FluidSystem {
 
     private BoxPhysicsSystem boxPhysicsSystem;
+    private StagepieceSystem stagePieceSystem;
 
     public BoxPhysicsAgentSystem() {
         super(Aspect.all(Guard.class));
@@ -22,8 +24,8 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         return val >= -deviation && val <= deviation;
     }
 
-    Vector2 v3 = new Vector2();
-    Vector2 v4 = new Vector2();
+    Vector2 worldOrigin = new Vector2();
+    Vector2 vel = new Vector2();
 
     @Override
     protected void process(E e) {
@@ -36,15 +38,12 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         e.angleRotation((float) Math.toDegrees(body.getAngle()));
 
         if (e.posY() < -50) {
+            stagePieceSystem.replaceAgent(e.renderLayer(), e.guardTargetX());
             e.deleteFromWorld();
             return;
         }
 
         if (boxPhysicsSystem.updating) {
-
-            if (e.guardState() == Guard.State.WALKING) {
-                runRight(e, body);
-            }
 
             if ( e.isTouchingFloor() ) {
                 boolean notMovingUp = body.getLinearVelocity().y <= 0;
@@ -63,6 +62,12 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
                 if (guard.slideCooldown <= 0) {
                     e.guardState(Guard.State.WALKING);
                 }
+            }
+        }
+
+        if ( e.guardState() == Guard.State.WALKING ) {
+            if ( !within(e.guardTargetX() - e.posX(), 4f)) {
+                run(e,body, MathUtils.clamp(e.guardTargetX() - e.posX(), -16,16));
             }
         }
 
@@ -86,12 +91,12 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
 
     }
 
-    private void runRight(E e, Body body) {
+    private void run(E e, Body body, float xMove) {
         final Vector2 vel = body.getLinearVelocity();
-        v3.x = e.posX() / BoxPhysicsSystem.SCALING;
-        v3.y = e.posY() / BoxPhysicsSystem.SCALING;
-        v4.x = (8f - vel.x) * body.getMass();
-        v4.y = 0;
-        //body.applyLinearImpulse(v4, v3, true);
+        worldOrigin.x = (e.posX() + e.boundsCx()) / BoxPhysicsSystem.SCALING;
+        worldOrigin.y = (e.posY() + e.boundsCy()) / BoxPhysicsSystem.SCALING;
+        this.vel.x = (xMove - vel.x) * body.getMass();
+        this.vel.y = 0;
+        body.applyLinearImpulse(this.vel, worldOrigin, true);
     }
 }

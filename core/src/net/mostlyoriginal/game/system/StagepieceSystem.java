@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import net.mostlyoriginal.api.component.graphics.TintWhenSlowdown;
 import net.mostlyoriginal.game.GameRules;
-import net.mostlyoriginal.game.component.BathroomLevel;
 import net.mostlyoriginal.game.component.Stagepiece;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -70,11 +69,11 @@ public class StagepieceSystem extends FluidSystem {
     private void loadLevel() {
         {
             for (int i = 0; i < 5; i++) {
-                addAgent(100 + i * 30, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50);
+                addAgent(100 + i * 30, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50, 100 + i * 30 - 24);
             }
 
             for (int i = 0; i < 5; i++) {
-                addAgent(380 + i * 30, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50);
+                addAgent(380 + i * 30, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50, 380 + i * 30 - 24);
             }
 
             addPresident(GameRules.SCREEN_WIDTH / 4, ACTOR_SPAWN_Y+ 2);
@@ -141,13 +140,18 @@ public class StagepieceSystem extends FluidSystem {
         }
     }
 
-    private void addAgent(int x, int y, int layer) {
+    public void replaceAgent(int layer, float targetX) {
+        addAgent(-100, ACTOR_SPAWN_Y, layer, targetX);
+    }
+
+    private void addAgent(int x, int y, int layer, float targetX) {
         E e = E()
                 .pos(x, y)
                 .animId("bodyguard_01")
                 .bounds(8, 0, 16, 24)
                 .guard()
-                .renderLayer(layer);
+                .renderLayer(layer)
+                .guardTargetX(targetX);
         boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short) (CAT_BOUNDARY | CAT_BULLET), 0);
     }
 
