@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.graphics.TintWhenSlowdown;
+import net.mostlyoriginal.api.component.ui.Label;
 import net.mostlyoriginal.api.utils.Duration;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.GdxArtemisGame;
@@ -71,10 +72,11 @@ public class StagepieceSystem extends FluidSystem {
             spawnBuilding(gx, BUILDING_Y);
         }
         E()
-                .pos(70, 200)
+                .pos(GameRules.SCREEN_WIDTH / 4, 200)
                 .labelText("Intercept the rockets! Save the president!")
                 .tint(0f, 0f, 0f, 0.8f)
                 .fontFontName("5x5")
+                .labelAlign(Label.Align.RIGHT)
                 .slowTime()
                 .script(
                         sequence(
@@ -86,8 +88,9 @@ public class StagepieceSystem extends FluidSystem {
                 .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
 
         E()
-                .pos(72, 202)
+                .pos(GameRules.SCREEN_WIDTH / 4+2, 202)
                 .labelText("Intercept the rockets! Save the president!")
+                .labelAlign(Label.Align.RIGHT)
                 .tint(1f, 1f, 1f, 0.8f)
                 .script(
                         sequence(
@@ -102,15 +105,19 @@ public class StagepieceSystem extends FluidSystem {
 
     private void loadLevel() {
         {
-            for (int i = 0; i < 5; i++) {
-                addAgent(100 + i * 30, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50, 100 + i * 30 - 24, false);
+            int carHalf = 72/2;
+
+            for (int i = 0; i < 3; i++) {
+                addAgent(50+carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
+                        50+carHalf + i * 80 - 24, false);
             }
 
-            for (int i = 0; i < 5; i++) {
-                addAgent(380 + i * 30, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50, 380 + i * 30 - 24, false);
+            for (int i = 0; i < 3; i++) {
+                addAgent(380+carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
+                        380+carHalf + i * 80 - 24, false);
             }
 
-            addPresident(GameRules.SCREEN_WIDTH / 4, ACTOR_SPAWN_Y + 2);
+            addPresident(GameRules.SCREEN_WIDTH / 4 + carHalf, ACTOR_SPAWN_Y + 2);
         }
     }
 
@@ -142,7 +149,7 @@ public class StagepieceSystem extends FluidSystem {
         E e3 = E()
                 .pos(x, y)
                 .tag("presidenthead")
-                .cameraFocus()
+                //.cameraFocus()
                 .locomotion()
                 .bounds(0, 0, 8, 8);
         Body presidentHead = boxPhysicsSystem.addAsBox(e3, 4, 4, 1f, CAT_CAR, CAT_BOUNDARY, 0);
