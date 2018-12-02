@@ -14,6 +14,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.mouse.MouseCursor;
 import net.mostlyoriginal.game.component.Guard;
 import net.mostlyoriginal.game.system.common.FluidSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -26,16 +27,31 @@ public class MouseCatapultSystem extends FluidSystem {
     private QueryCallback callback = new QueryCallback() {
         @Override
         public boolean reportFixture(Fixture fixture) {
-            focusFixture = fixture;
-            return true;
+            if ( fixture.getFilterData().categoryBits == StagepieceSystem.CAT_AGENT) {
+                focusFixture = fixture;
+                return true;
+            } else return false;
         }
     };
     private float posX;
     private float posY;
     private MouseJoint mouseJoint;
+    private E arrow;
 
     public MouseCatapultSystem() {
         super(Aspect.all(MouseCursor.class, Pos.class));
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        arrow = E.E()
+                .pos(0, 0)
+                .invisible()
+                .tint(1f,1f,1f,0.6f)
+                .bounds(0,0,14,28)
+                .anim("arrow")
+                .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 1000);
     }
 
     @Override
@@ -84,13 +100,27 @@ public class MouseCatapultSystem extends FluidSystem {
                     Body body = dragging.boxedBody();
                     dragging.guardState(Guard.State.JUMPING);
                     dragging.slowTimeCooldown(3f);
-                    v2.set(dragging.posX(), dragging.posY()).sub(e.posX() - 12, e.posY()).scl(2f).clamp(20f,60f).scl(body.getMass());
+                    v2.set(dragging.posX(), dragging.posY()).sub(e.posX() - 12, e.posY() - 12).scl(2f).clamp(20f,60f).scl(body.getMass());
                     body.applyLinearImpulse(v2.x, v2.y,
                             (dragging.posX() + dragging.boundsCx()) / boxPhysicsSystem.SCALING,
                             (dragging.posY() + dragging.boundsCy()) / boxPhysicsSystem.SCALING, true);
                 }
                 dragging = null;
             }
+        }
+
+        if  ( dragging != null && dragging.hasBoxed() ) {
+
+            Body body = dragging.boxedBody();
+            v2.set(dragging.posX(), dragging.posY()).sub(e.posX() - 12, e.posY() - 12).scl(2f).clamp(20f,60f).scl(body.getMass()).scl(0.2f);
+
+            arrow.removeInvisible();
+            arrow.posX(dragging.posX() + dragging.boundsCx()+ v2.x - arrow.boundsCx());
+            arrow.posY(dragging.posY() + dragging.boundsCy()+ v2.y - arrow.boundsCy());
+            arrow.angleRotation(v2.angle()-90);
+
+        } else {
+            arrow.invisible();
         }
     }
 
