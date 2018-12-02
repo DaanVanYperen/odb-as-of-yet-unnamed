@@ -51,6 +51,7 @@ public class LaserPointingSystem extends FluidSystem {
         }
     };
     private SlowTimeSystem slowTimeSystem;
+    private ScoreSystem scoreSystem;
 
     public LaserPointingSystem() {
         super(Aspect.all(Laser.class));
@@ -102,8 +103,7 @@ public class LaserPointingSystem extends FluidSystem {
         if ( difficultyCooldown <= 0 ) {
             difficultyCooldown += 1;
             difficultyScore++;
-
-
+            scoreSystem.distance++;
 
             if ( difficultyScore == 30 ) {
                 maximumLasersAtOnce= 2;

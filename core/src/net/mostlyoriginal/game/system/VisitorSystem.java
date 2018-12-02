@@ -4,7 +4,9 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Desire;
+import net.mostlyoriginal.game.screen.LogoScreen;
 import net.mostlyoriginal.game.system.common.FluidSystem;
+import net.mostlyoriginal.game.system.logic.TransitionSystem;
 
 import static com.artemis.E.*;
 
@@ -25,6 +27,7 @@ public class VisitorSystem extends FluidSystem {
                     (device.hasToilet() ? getAnimPoop(e) : getAnimPee(e))) + e.desireIndex());
         } else {
             applyAnim(e, getAnimNormal(e)+ e.desireIndex());
+            world.getSystem(TransitionSystem.class).transition(LogoScreen.class, 5);
         }
     }
 
