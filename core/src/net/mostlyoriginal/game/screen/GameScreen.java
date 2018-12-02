@@ -70,6 +70,7 @@ public class GameScreen extends TransitionableWorldScreen {
                         new CameraFollowSystem(),
                         new LaserPointingSystem(),
                         new SlowTimeSystem(),
+                        new TintWhenSlowdownSystem(),
                         //new MouseThrowSystem(),
                         new MouseCatapultSystem(),
                         new InteractableCooldownSystem(),

@@ -70,7 +70,9 @@ public class LaserPointingSystem extends FluidSystem {
             if (cooldown <= 0) {
                 cooldown = MathUtils.random(4, 8);
                 head = entityWithTag("presidenthead");
-                spawnLaser((int) (head.posX() + MathUtils.random(-GameRules.SCREEN_WIDTH / 2, GameRules.SCREEN_WIDTH / 2)));
+
+                // aim a little bit ahead where the president will be in a couple of seconds.
+                spawnLaser((int) (head.posX() + 300 + MathUtils.random(-GameRules.SCREEN_WIDTH / 2, GameRules.SCREEN_WIDTH / 2)));
             }
         }
     }

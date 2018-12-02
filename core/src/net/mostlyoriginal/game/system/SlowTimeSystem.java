@@ -19,7 +19,7 @@ public class SlowTimeSystem extends FluidSystem {
         super(Aspect.all(SlowTime.class));
     }
 
-    float slowdownAge = 0;
+    public float slowdownAge = 0;
 
     @Override
     protected void begin() {

@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
+import net.mostlyoriginal.api.component.graphics.TintWhenSlowdown;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.BathroomLevel;
 import net.mostlyoriginal.game.system.common.FluidSystem;
@@ -292,9 +293,15 @@ public class LevelSetupSystem extends FluidSystem {
         E e = E()
                 .pos(x, y)
                 .render(GameScreenAssetSystem.LAYER_BACKGROUND + 1)
-                .tint(1f, 1f, 1f, 0.6f)
+                .tintWhenSlowdown()
+                .tint(1f, 1f, 1f, 1f)
                 .bounds(0, 0, GameScreenAssetSystem.BUILDING_WIDTH, GameScreenAssetSystem.BUILDING_HEIGHT)
                 .anim(sprite);
+
+        TintWhenSlowdown t = e.getTintWhenSlowdown();
+        t.normal.set(1f,1f,1f,8f);
+        t.slow.set(1f,1f,1f,0.4f);
+
         gx = gx + ((TextureRegion)gameScreenAssetSystem.get(sprite).getKeyFrame(0,false)).getRegionWidth();
         return e.id();
 
