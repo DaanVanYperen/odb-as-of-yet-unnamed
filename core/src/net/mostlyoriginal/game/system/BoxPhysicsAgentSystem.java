@@ -46,12 +46,13 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
                 runRight(e, body);
             }
 
-            body.setLinearDamping(0f);
             if ( e.isTouchingFloor() ) {
-                if ( e.guardState() != Guard.State.WALKING) {
-                    body.setLinearDamping(5f);
+                boolean notMovingUp = body.getLinearVelocity().y <= 0;
+                if ( e.guardState() == Guard.State.JUMPING && notMovingUp) {
                     body.setTransform(body.getPosition(), 0);
                     guard.slideCooldown = 1f;
+                    e.guardState(Guard.State.SLIDING);
+                    e.animAge(0);
                 }
             } else {
                 guard.slideCooldown = 1f;
@@ -65,6 +66,8 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
             }
         }
 
+        boolean facingLeft = body.getLinearVelocity().x < 0;
+        body.setLinearDamping(0f);
         switch (e.guardState()) {
             case WALKING:
                 e.anim("bodyguard_01");
@@ -73,14 +76,12 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
                 e.anim("bodyguard_01_crouch");
                 break;
             case JUMPING:
-                e.anim("bodyguard_01_jump");
+                e.anim(facingLeft ? "bodyguard_01_jump_left" : "bodyguard_01_jump");
                 break;
-        }
-
-        if (e.isTouchingFloor()) {
-            e.anim("bodyguard_01");
-        } else {
-            e.anim("bodyguard_01_jump");
+            case SLIDING:
+                e.anim(facingLeft ? "bodyguard_01_slide_left" : "bodyguard_01_slide");
+                body.setLinearDamping(5f);
+                break;
         }
 
     }

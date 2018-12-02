@@ -428,7 +428,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         spriteLibrary = json.fromJson(SpriteLibrary.class, Gdx.files.internal("sprites.json"));
         for (SpriteData sprite : spriteLibrary.sprites) {
             Animation animation = add(sprite.id, sprite.x, sprite.y, sprite.width, sprite.height, sprite.countX, sprite.countY, this.tileset, sprite.milliseconds * 0.001f);
-            if (!sprite.repeat) animation.setPlayMode(Animation.PlayMode.NORMAL);
+            if (!sprite.repeat) {
+                animation.setPlayMode(Animation.PlayMode.NORMAL);
+            } else animation.setPlayMode(Animation.PlayMode.LOOP);
         }
     }
 
