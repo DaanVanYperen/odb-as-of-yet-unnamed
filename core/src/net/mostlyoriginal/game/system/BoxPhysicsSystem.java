@@ -14,7 +14,7 @@ import net.mostlyoriginal.game.system.common.FluidSystem;
  */
 public class BoxPhysicsSystem extends FluidSystem {
 
-    public static final int FLOOR_LEVEL_Y = 50;
+    public static final int FLOOR_LEVEL_Y = 80;
     public static float SCALING = 8f;
     public Body groundBody;
     private SlowTimeSystem slowdownSystem;

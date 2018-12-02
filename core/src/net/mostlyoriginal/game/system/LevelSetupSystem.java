@@ -20,7 +20,6 @@ import static com.artemis.E.E;
  */
 public class LevelSetupSystem extends FluidSystem {
 
-    public static final int Y_OFFSET = 25;
     public Level activeLevel;
 
     public BoxPhysicsSystem boxPhysicsSystem;
