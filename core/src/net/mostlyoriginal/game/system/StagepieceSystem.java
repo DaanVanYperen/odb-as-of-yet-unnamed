@@ -12,6 +12,7 @@ import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.graphics.TintWhenSlowdown;
 import net.mostlyoriginal.api.utils.Duration;
 import net.mostlyoriginal.game.GameRules;
+import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.Stagepiece;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -131,7 +132,7 @@ public class StagepieceSystem extends FluidSystem {
 
         E e2 = E()
                 .pos(x, y)
-                .animId("president")
+                .animId(GdxArtemisGame.president++ % 2 == 0 ? "president" : "president_02")
                 .tag("president")
                 .locomotion()
                 .bounds(0, 0, 32, 16)

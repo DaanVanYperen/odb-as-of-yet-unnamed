@@ -10,10 +10,10 @@
     <inherits name='net.mostlyoriginal.ContribEventBus'/>
     <inherits name='net.mostlyoriginal.ContribJam'/>
     <inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
+    <inherits name='com.badlogic.gdx.physics.box2d.box2d-gwt' />
 
     <!-- Optional modules. -->
     <!--
-    <inherits name='com.badlogic.gdx.physics.box2d.box2d-gwt' />
     <inherits name='Box2DLights' />
     <inherits name='com.badlogic.gdx.ai' />
     <inherits name='com.badlogic.gdx.controllers.controllers-gwt' />
@@ -30,10 +30,13 @@
     <extend-configuration-property name="artemis.reflect.include" value="com.badlogic.gdx.maps.tiled.TiledMap"/>
     <extend-configuration-property name="artemis.reflect.include" value="com.badlogic.gdx.maps.MapRenderer"/>
 
+    <extend-configuration-property name="artemis.reflect.include" value="com.badlogic.gdx.physics.box2d.Body"/>
+
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.component"/>
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.system"/>
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.screen"/>
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.api"/>
+    <extend-configuration-property name="gdx.reflect.include" value="com.badlogic.gdx.physics.box2d.Body"/>
 
     <inherits name='GdxArtemisComponents'/>
     <inherits name='GdxArtemisGame'/>

@@ -7,6 +7,7 @@ import net.mostlyoriginal.game.screen.LogoScreen;
 public class GdxArtemisGame extends Game {
 
 	private static GdxArtemisGame instance;
+	public static int president=0;
 
 	@Override
 	public void create() {
@@ -15,7 +16,7 @@ public class GdxArtemisGame extends Game {
 	}
 
 	public void restart() {
-		setScreen(new GameScreen());
+		setScreen(new LogoScreen());
 	}
 
 	public static GdxArtemisGame getInstance()

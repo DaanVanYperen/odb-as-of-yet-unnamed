@@ -48,7 +48,7 @@ public class LogoScreenSetupSystem extends BaseSystem {
     @Override
     protected void processSystem() {
         cooldown -= world.delta;
-        if (cooldown<= 0 && !finished && Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
+        if (cooldown<= 0 && !finished &&(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched()) ) {
             finished=true;
             fadeLogoAndMessage();
             world.getSystem(TransitionSystem.class).transition(GameScreen.class, 3);
@@ -82,7 +82,7 @@ public class LogoScreenSetupSystem extends BaseSystem {
         boolean hasScore = GameRules.lastScore != NO_SCORE;
         addLogo(hasScore ? 0.6f : 0.8f);
         if ( hasScore ) addScore(GameRules.lastScore);
-        addPressbutton(hasScore ? "Press any key to try again" : "Press any key to start",
+        addPressbutton(hasScore ? "Press any key to try again" : "Tap or press any key to start",
                 hasScore ? 280 : 220);
         //scheduleTransitionToGameScreen();
         GameRules.lastScore = NO_SCORE;
