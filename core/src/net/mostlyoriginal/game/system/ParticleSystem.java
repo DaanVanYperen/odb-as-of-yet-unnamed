@@ -71,23 +71,23 @@ public class ParticleSystem extends BaseSystem {
         balloons(x,y, "balloon_white", 2,5);
         balloons(x,y, "balloon_red", 2,5);
         balloons(x,y, "balloon_blue", 2,5);
-
-
-        if ( MathUtils.random(1,100) < 30 ) {
-            bakery
-                    .at((int) x, (int) y, (int) x , (int) y )
-                    .angle(0, 360)
-                    .speed(5, 10)
-                    .anim("hamburger")
-                    .fadeAfter(8f)
-                    .rotateRandomly()
-                    .slowlySplatDown()
-                    .friction(0)
-                    .size(2, 2)
-                    .angularMomentum(5)
-                    .create(1, 3);
-        }
-        if ( MathUtils.random(1,100) < 30 ) {
+//
+//
+//        if ( MathUtils.random(1,100) < 30 ) {
+//            bakery
+//                    .at((int) x, (int) y, (int) x , (int) y )
+//                    .angle(0, 360)
+//                    .speed(5, 10)
+//                    .anim("hamburger")
+//                    .fadeAfter(8f)
+//                    .rotateRandomly()
+//                    .slowlySplatDown()
+//                    .friction(0)
+//                    .size(2, 2)
+//                    .angularMomentum(5)
+//                    .create(1, 3);
+//        }
+        if ( MathUtils.random(1,100) < 50 ) {
             bakery
                     .at((int) x, (int) y, (int) x , (int) y )
                     .angle(45, 75)
