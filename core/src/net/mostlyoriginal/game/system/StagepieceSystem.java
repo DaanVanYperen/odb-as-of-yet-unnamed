@@ -20,7 +20,7 @@ import static com.artemis.E.E;
  */
 public class StagepieceSystem extends FluidSystem {
 
-    private static final int BUILDING_Y = BoxPhysicsSystem.FLOOR_LEVEL_Y - 8;
+    private static final int BUILDING_Y = 0;
     private static final int ACTOR_SPAWN_Y = BoxPhysicsSystem.FLOOR_LEVEL_Y + 20;
     public BoxPhysicsSystem boxPhysicsSystem;
     public GameScreenAssetSystem gameScreenAssetSystem;
@@ -141,7 +141,7 @@ public class StagepieceSystem extends FluidSystem {
     }
 
     public void replaceAgent(int layer, float targetX) {
-        addAgent(-100, ACTOR_SPAWN_Y, layer, targetX);
+        addAgent(-700, ACTOR_SPAWN_Y, layer, targetX);
     }
 
     private void addAgent(int x, int y, int layer, float targetX) {
