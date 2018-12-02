@@ -523,13 +523,25 @@
     },
     {
       "id": "bullet",
-      "comment": "Directional bullet.",
-      "x": 8,
+      "comment": "Directional missile.",
+      "x": 31,
       "y": 24,
       "countX": 1,
       "countY": 1,
-      "width": 21,
-      "height": 6,
+      "width": 33,
+      "height": 9,
+    },
+    {
+      "id": "bullet_flame",
+      "comment": "Exhaust flame for the missile.",
+      "x": 0,
+      "y": 96,
+      "countX": 5,
+      "countY": 1,
+      "width": 16,
+      "height": 9,
+      "milliseconds": 50,
+      "repeat": true
     },
   ]
 }
