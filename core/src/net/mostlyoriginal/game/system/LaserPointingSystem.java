@@ -60,8 +60,6 @@ public class LaserPointingSystem extends FluidSystem {
     @Override
     protected void initialize() {
         super.initialize();
-
-        spawnLaser(MathUtils.random(-500, GameRules.SCREEN_WIDTH / 2 + 500));
     }
 
     private void spawnLaser(int i) {
@@ -81,7 +79,7 @@ public class LaserPointingSystem extends FluidSystem {
 
         scaleDifficulty();
 
-        if (getEntityIds().size() < maximumLasersAtOnce) {
+        if (getEntityIds().size() < maximumLasersAtOnce && world.delta < 1f) {
             cooldown -= world.delta;
             if (cooldown <= 0) {
                 cooldown = MathUtils.random(laserSpawnDelayMin, laserSpawnDelayMax);
