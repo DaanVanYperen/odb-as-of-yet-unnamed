@@ -129,8 +129,6 @@ public class LaserPointingSystem extends FluidSystem {
                 laserSpawnDelayMin = 2;
                 laserSpawnDelayMax = 4;
             }
-
-            System.out.println(difficultyScore + " " + rocketVelocity);
         }
     }
 

@@ -22,6 +22,7 @@ import static com.artemis.E.E;
 public class StagepieceSystem extends FluidSystem {
 
     private static final int BUILDING_Y = BoxPhysicsSystem.FLOOR_LEVEL_Y - 8;
+    private static final int ACTOR_SPAWN_Y = BoxPhysicsSystem.FLOOR_LEVEL_Y + 20;
     public BoxPhysicsSystem boxPhysicsSystem;
     public GameScreenAssetSystem gameScreenAssetSystem;
     private float scrollOffset=0;
@@ -69,14 +70,14 @@ public class StagepieceSystem extends FluidSystem {
     private void loadLevel() {
         {
             for (int i = 0; i < 5; i++) {
-                addAgent(100 + i * 30, BoxPhysicsSystem.FLOOR_LEVEL_Y + 20, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50);
+                addAgent(100 + i * 30, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50);
             }
 
             for (int i = 0; i < 5; i++) {
-                addAgent(320 + i * 30, BoxPhysicsSystem.FLOOR_LEVEL_Y + 20, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50);
+                addAgent(380 + i * 30, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50);
             }
 
-            addPresident(GameRules.SCREEN_WIDTH / 4, 200);
+            addPresident(GameRules.SCREEN_WIDTH / 4, ACTOR_SPAWN_Y+ 2);
         }
     }
 
@@ -150,9 +151,9 @@ public class StagepieceSystem extends FluidSystem {
         boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short) (CAT_BOUNDARY | CAT_BULLET), 0);
     }
 
-    private int gx = 0;
+    private float gx = 0;
 
-    private int spawnBuilding(int x, int y) {
+    private int spawnBuilding(float x, int y) {
 
         String sprite = "building_0" + MathUtils.random(1, 7);
         int width = ((TextureRegion) gameScreenAssetSystem.get(sprite).getKeyFrame(0, false)).getRegionWidth();
