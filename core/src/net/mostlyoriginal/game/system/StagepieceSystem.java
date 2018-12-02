@@ -135,6 +135,7 @@ public class StagepieceSystem extends FluidSystem {
                 .pos(x, y)
                 .animId("limo")
                 .locomotion()
+                .haunted()
                 .tag("presidentcar")
                 .bounds(0, 0, 72, 24)
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR);
