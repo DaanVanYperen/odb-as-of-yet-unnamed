@@ -34,18 +34,18 @@ public class BoxPhysicsSystem extends FluidSystem {
             }
 
             private void touchingFloor(Fixture fixtureA, Fixture fixtureB, boolean state) {
-                if (fixtureA.getFilterData().categoryBits == LevelSetupSystem.CAT_BOUNDARY) {
+                if (fixtureA.getFilterData().categoryBits == StagepieceSystem.CAT_BOUNDARY) {
                     short cat = fixtureB.getFilterData().categoryBits;
-                    if (  cat == LevelSetupSystem.CAT_AGENT ) {
+                    if (  cat == StagepieceSystem.CAT_AGENT ) {
                         ((E) fixtureB.getBody().getUserData()).touchingFloor(state);
                     }
                 }
             }
 
             private void bulletHit(Fixture fixtureA, Fixture fixtureB) {
-                if (fixtureA.getFilterData().categoryBits == LevelSetupSystem.CAT_BULLET) {
+                if (fixtureA.getFilterData().categoryBits == StagepieceSystem.CAT_BULLET) {
                     short cat = fixtureB.getFilterData().categoryBits;
-                    if ( cat == LevelSetupSystem.CAT_CAR || cat == LevelSetupSystem.CAT_AGENT  || cat == LevelSetupSystem.CAT_PRESIDENT) {
+                    if ( cat == StagepieceSystem.CAT_CAR || cat == StagepieceSystem.CAT_AGENT  || cat == StagepieceSystem.CAT_PRESIDENT) {
                         ((E) fixtureB.getBody().getUserData()).struck();
                         ((E) fixtureA.getBody().getUserData()).struck();
                     }
@@ -191,7 +191,7 @@ public class BoxPhysicsSystem extends FluidSystem {
                 v3.x = e.posX() / SCALING;
                 v3.y = e.posY() / SCALING;
                 v4.x = (8f - vel.x) * body.getMass();
-                body.applyLinearImpulse(v4, v3, true);
+                //body.applyLinearImpulse(v4, v3, true);
             }
 
         }

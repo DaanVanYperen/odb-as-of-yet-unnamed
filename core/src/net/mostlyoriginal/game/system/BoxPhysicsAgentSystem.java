@@ -91,6 +91,6 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         v3.y = e.posY() / BoxPhysicsSystem.SCALING;
         v4.x = (8f - vel.x) * body.getMass();
         v4.y = 0;
-        body.applyLinearImpulse(v4, v3, true);
+        //body.applyLinearImpulse(v4, v3, true);
     }
 }

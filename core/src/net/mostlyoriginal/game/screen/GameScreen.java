@@ -47,7 +47,7 @@ public class GameScreen extends TransitionableWorldScreen {
                         new CameraSystem(2),
                         new MyClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
                         new GameScreenAssetSystem(),
-                        new LevelSetupSystem(),
+                        new StagepieceSystem(),
                         //new EntranceSystem(),
                         //new DesireSystem(),
                         //new HuntSystem(),
