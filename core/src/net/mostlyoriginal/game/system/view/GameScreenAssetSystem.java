@@ -392,7 +392,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
             GameRules.music.dispose();
         }
         GameRules.music = Gdx.audio.newMusic(Gdx.files.internal(
-                "sfx/theme-f.mp3"));
+                "sfx/betterparade.mp3"));
         GameRules.music.stop();
         GameRules.music.setLooping(true);
         GameRules.music.play();
