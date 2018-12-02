@@ -210,6 +210,7 @@ public class BoxPhysicsSystem extends FluidSystem {
         super.dispose();
         if (box2d != null) {
             box2d.dispose();
+            box2d = null;
         }
     }
 }

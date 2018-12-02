@@ -12,6 +12,7 @@ import net.mostlyoriginal.game.system.common.FluidSystem;
  */
 public class StruckSystem extends FluidSystem {
     private BoxPhysicsSystem boxPhysicsSystem;
+    private ScoreSystem scoreSystem;
 
     public StruckSystem() {
         super(Aspect.all(Struck.class));
@@ -34,6 +35,7 @@ public class StruckSystem extends FluidSystem {
         }
 
         if (e.isBullet()) {
+            scoreSystem.rockets++;
             e.deleteFromWorld();
             return;
         }
@@ -44,6 +46,8 @@ public class StruckSystem extends FluidSystem {
             if ( head != null ) {
                 head.deleteFromWorld();
             }
+
+            scoreSystem.gameOver=true;
 
             if ( e.hasBoxed() ) {
                 e.slowTime();

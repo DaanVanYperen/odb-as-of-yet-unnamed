@@ -3,17 +3,22 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
+import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.graphics.TintWhenSlowdown;
+import net.mostlyoriginal.api.utils.Duration;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.Stagepiece;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static com.artemis.E.E;
+import static net.mostlyoriginal.api.operation.JamOperationFactory.tintBetween;
+import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
 /**
  * @author Daan van Yperen
@@ -24,7 +29,7 @@ public class StagepieceSystem extends FluidSystem {
     private static final int ACTOR_SPAWN_Y = BoxPhysicsSystem.FLOOR_LEVEL_Y + 20;
     public BoxPhysicsSystem boxPhysicsSystem;
     public GameScreenAssetSystem gameScreenAssetSystem;
-    private float scrollOffset=0;
+    private float scrollOffset = 0;
     private SlowTimeSystem slowtimeSystem;
     private LaserPointingSystem laserPointingSystem;
 
@@ -64,6 +69,34 @@ public class StagepieceSystem extends FluidSystem {
         while (gx < GameRules.SCREEN_WIDTH) {
             spawnBuilding(gx, BUILDING_Y);
         }
+        E()
+                .pos(70, 200)
+                .labelText("Intercept the rockets! Save the president!")
+                .tint(0f, 0f, 0f, 0.8f)
+                .fontFontName("5x5")
+                .slowTime()
+                .script(
+                        sequence(
+                                delay(Duration.seconds(2)),
+                                tintBetween(new Tint("000000ff"), Tint.TRANSPARENT, 2f, Interpolation.pow2),
+                                deleteFromWorld()
+                        ))
+                .fontScale(2f)
+                .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
+
+        E()
+                .pos(72, 202)
+                .labelText("Intercept the rockets! Save the president!")
+                .tint(1f, 1f, 1f, 0.8f)
+                .script(
+                        sequence(
+                                delay(Duration.seconds(2)),
+                                tintBetween(Tint.WHITE, Tint.TRANSPARENT, 2f, Interpolation.pow2),
+                                deleteFromWorld()
+                        ))
+                .fontFontName("5x5")
+                .fontScale(2f)
+                .renderLayer(GameScreenAssetSystem.LAYER_ICONS + 1);
     }
 
     private void loadLevel() {
@@ -76,7 +109,7 @@ public class StagepieceSystem extends FluidSystem {
                 addAgent(380 + i * 30, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50, 380 + i * 30 - 24);
             }
 
-            addPresident(GameRules.SCREEN_WIDTH / 4, ACTOR_SPAWN_Y+ 2);
+            addPresident(GameRules.SCREEN_WIDTH / 4, ACTOR_SPAWN_Y + 2);
         }
     }
 
@@ -155,11 +188,11 @@ public class StagepieceSystem extends FluidSystem {
 
         e.guardTutorial(
                 E.E()
-                .pos(0, 0)
-                .tint(1f, 1f, 1f, 0.8f)
-                .bounds(0, 0, 11, 28)
-                .anim("mouse")
-                .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 1000).id());
+                        .pos(0, 0)
+                        .tint(1f, 1f, 1f, 0.8f)
+                        .bounds(0, 0, 11, 28)
+                        .anim("mouse")
+                        .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 1000).id());
 
         boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short) (CAT_BOUNDARY | CAT_BULLET), 0);
     }

@@ -19,8 +19,14 @@ public abstract class TransitionableWorldScreen extends WorldScreen {
         if (target != null) {
             try {
                 GdxArtemisGame.getInstance().setScreen(ClassReflection.newInstance(target));
+                dispose();
             } catch (ReflectionException e) {
             }
         }
+    }
+
+    @Override
+    public void dispose() {
+        world.dispose();
     }
 }
