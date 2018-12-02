@@ -566,7 +566,17 @@
       "height": 24,
       "milliseconds": 40,
       "repeat": true
-    },	
+    },
+    {
+      "id": "badge",
+      "comment": "Pickup for extra bodugyard.",
+      "x": 0,
+      "y": 112,
+      "countX": 1,
+      "countY": 1,
+      "width": 17,
+      "height": 21,
+    },		
     {
       "id": "bodyguard_01",
       "comment": "A bandaged bodyguard.",
