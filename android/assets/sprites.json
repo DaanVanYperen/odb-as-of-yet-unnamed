@@ -490,26 +490,36 @@
     {
       "id": "bodyguard_01_crouch",
       "comment": "A generic bodyguard crouching.",
-      "x": 0,
-      "y": 64,
+      "x": 120,
+      "y": 416,
       "countX": 1,
       "countY": 1,
       "width": 24,
       "height": 24,
-      "milliseconds": 80,
-      "repeat": true
     },
     {
       "id": "bodyguard_01_jump",
       "comment": "A generic bodyguard in midair.",
-      "x": 24,
-      "y": 64,
-      "countX": 1,
+      "x": 0,
+      "y": 416,
+      "countX": 5,
       "countY": 1,
       "width": 24,
       "height": 24,
-      "milliseconds": 80,
-      "repeat": true
+      "milliseconds": 40,
+      "repeat": false
+    },
+    {
+      "id": "bodyguard_01_jump_left",
+      "comment": "A generic bodyguard in midair.",
+      "x": 0,
+      "y": 440,
+      "countX": 5,
+      "countY": 1,
+      "width": 24,
+      "height": 24,
+      "milliseconds": 40,
+      "repeat": false
     },
     {
       "id": "president",
