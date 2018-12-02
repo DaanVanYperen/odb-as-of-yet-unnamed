@@ -569,13 +569,15 @@
     },
     {
       "id": "badge",
-      "comment": "Pickup for extra bodugyard.",
+      "comment": "Pickup for extra bodyguard.",
       "x": 0,
-      "y": 112,
-      "countX": 1,
+      "y": 544,
+      "countX": 14,
       "countY": 1,
       "width": 17,
       "height": 21,
+	  "milliseconds": 70,
+      "repeat": true
     },		
     {
       "id": "bodyguard_01",
@@ -719,7 +721,7 @@
     },
     {
       "id": "president",
-      "comment": "Mr. President.",
+      "comment": "Mr. President (Tangerine).",
       "x": 32,
       "y": 992,
       "countX": 6,
@@ -728,7 +730,19 @@
       "height": 16,
       "milliseconds": 70,
       "repeat": true
- },
+	},
+    {
+      "id": "president_02",
+      "comment": "Mr. President (Thanks).",
+      "x": 0,
+      "y": 960,
+      "countX": 20,
+      "countY": 1,
+      "width": 32,
+      "height": 16,
+      "milliseconds": 100,
+      "repeat": true
+	},
     {
       "id": "bullet",
       "comment": "Directional missile.",
