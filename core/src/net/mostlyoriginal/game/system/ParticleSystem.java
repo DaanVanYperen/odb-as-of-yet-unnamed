@@ -65,12 +65,41 @@ public class ParticleSystem extends BaseSystem {
     }
 
     public void confettiBomb(float x, float y) {
-        confetti(x,y, "confetti_white");
-        confetti(x,y, "confetti_red");
-        confetti(x,y, "confetti_blue");
+        confetti(x,y, "confetti_white", 15, 20);
+        confetti(x,y, "confetti_red", 15, 20);
+        confetti(x,y, "confetti_blue", 15, 20);
+
+
+        if ( MathUtils.random(1,100) < 30 ) {
+            bakery
+                    .at((int) x, (int) y, (int) x , (int) y )
+                    .angle(0, 360)
+                    .speed(5, 10)
+                    .anim("hamburger")
+                    .fadeAfter(8f)
+                    .rotateRandomly()
+                    .slowlySplatDown()
+                    .friction(0)
+                    .size(2, 2)
+                    .angularMomentum(5)
+                    .create(1, 3);
+        }
+        if ( MathUtils.random(1,100) < 30 ) {
+            bakery
+                    .at((int) x, (int) y, (int) x , (int) y )
+                    .angle(45, 75)
+                    .speed(100)
+                    .spriteAngle(0)
+                    .anim("eagle")
+                    .fadeAfter(8f)
+                    .friction(0f)
+                    .size(1, 1)
+                    .angularMomentum(0)
+                    .create(1,1);
+        }
     }
 
-    public void confetti(float x, float y, String art) {
+    public void confetti(float x, float y, String art, int minCount, int maxCount) {
         bakery
                 .at((int) x - 5, (int) y - 5, (int) x + 5, (int) y + 5)
                 .angle(0, 360)
@@ -82,12 +111,12 @@ public class ParticleSystem extends BaseSystem {
                 .friction(1f)
                 .size(1, 2)
                 .angularMomentum(40)
-                .create(15, 20);
+                .create(minCount, maxCount);
     }
 
     Vector2 v2 = new Vector2();
 
-    public E spawnVanillaParticle(String anim, float x, float y, float angle, float speed, float scale, float emitterVx, float emitterVy, float friction, float angularMomentum) {
+    public E spawnVanillaParticle(String anim, float x, float y, float angle, float speed, float scale, float emitterVx, float emitterVy, float friction, float angularMomentum, float spriteAngle) {
 
         v2.set(speed, 0).setAngle(angle);
 
@@ -97,7 +126,7 @@ public class ParticleSystem extends BaseSystem {
                 .pos(x - (scale * frame.getRegionWidth() * 0.5f), y - (scale * frame.getRegionHeight() * 0.5f))
                 .anim(anim != null ? anim : "particle")
                 .scale(scale)
-                .angleRotate(angle - 90)
+                .angleRotate(angle - spriteAngle)
                 .renderLayer(GameScreenAssetSystem.LAYER_PARTICLES)
                 .origin(scale / 2f, scale / 2f)
                 .bounds(0, 0, scale, scale)
@@ -139,6 +168,7 @@ public class ParticleSystem extends BaseSystem {
         private String anim;
         private float friction;
         private float angularMomentum;
+        private float spriteAngle = -90;
 
         public Builder() {
             reset();
@@ -155,7 +185,6 @@ public class ParticleSystem extends BaseSystem {
 
         void create(int minCount, int maxCount) {
             for (int i = 0, s = random(minCount, maxCount); i < s; i++) {
-                angularMomentum = 0;
                 final E e = spawnVanillaParticle(
                         anim,
                         random(minX, maxX),
@@ -163,7 +192,7 @@ public class ParticleSystem extends BaseSystem {
                         random(minAngle, maxAngle),
                         random(minSpeed, maxSpeed),
                         random(minScale, maxScale),
-                        emitterVx, emitterVy, friction, angularMomentum)
+                        emitterVx, emitterVy, friction, angularMomentum, spriteAngle)
                         .tint(color.r, color.g, color.b, color.a);
 
                 if (withGravity) {
@@ -279,6 +308,10 @@ public class ParticleSystem extends BaseSystem {
 
         public Builder angularMomentum(float angularMomentum) {
             this.angularMomentum = angularMomentum;
+            return this;
+        }
+        public Builder spriteAngle(float spriteAngle) {
+            this.spriteAngle = spriteAngle;
             return this;
         }
 
