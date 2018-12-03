@@ -850,6 +850,30 @@
       "repeat": true
 	},
     {
+      "id": "president_03",
+      "comment": "Mr. President (Hyuk hyuk).",
+      "x": 0,
+      "y": 928,
+      "countX": 18,
+      "countY": 1,
+      "width": 32,
+      "height": 16,
+      "milliseconds": 100,
+      "repeat": true
+	},
+    {
+      "id": "president_04",
+      "comment": "Mr. President (No sexual relations).",
+      "x": 0,
+      "y": 896,
+      "countX": 18,
+      "countY": 1,
+      "width": 32,
+      "height": 15,
+      "milliseconds": 100,
+      "repeat": true
+	},
+    {
       "id": "bullet",
       "comment": "Directional missile.",
       "x": 0,
@@ -1177,5 +1201,15 @@
       "width": 14,
       "height": 26,
     },
+    {
+      "id": "logo",
+      "comment": "A spectator facing away from the camera.",
+      "x": 363,
+      "y": 665,
+      "countX": 1,
+      "countY": 1,
+      "width": 344,
+      "height": 209,
+    },	
   ]
 }
