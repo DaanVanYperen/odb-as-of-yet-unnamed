@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import net.mostlyoriginal.api.component.graphics.Tint;
@@ -121,14 +122,32 @@ public class StagepieceSystem extends FluidSystem {
             }
 
             addPresident(GameRules.SCREEN_WIDTH / 4 + carHalf, ACTOR_SPAWN_Y + 2);
+
+            addHelicopter(GameRules.SCREEN_WIDTH / 8  + carHalf, 300);
         }
     }
 
-    public static short CAT_BOUNDARY = 0x1;
-    public static short CAT_AGENT = 0x2;
-    public static short CAT_CAR = 0x4;
-    public static short CAT_BULLET = 0x8;
-    public static short CAT_PRESIDENT = 0x16;
+    private void addHelicopter(int x, int y) {
+        E e = E()
+                .pos(x, y)
+                .animId("helicopter")
+                .theFloorIsLava()
+                .hoveringTargetY( y )
+                .scale(1f)
+                .bounds(0, 0, 82, 50)
+                .renderLayer(GameScreenAssetSystem.LAYER_CAR-100);
+        Body heli = boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 5f, CAT_HELI, (short) (CAT_BOUNDARY|CAT_AGENT), 0);
+        heli.setGravityScale(0.03f);
+        Fixture fixture1 = heli.getFixtureList().get(0);
+        fixture1.setSensor(true);
+    }
+
+    public static final short CAT_BOUNDARY = 1;
+    public static final short CAT_AGENT = 2;
+    public static final short CAT_CAR = 4;
+    public static final short CAT_BULLET = 8;
+    public static final short CAT_PRESIDENT = 16;
+    public static final short CAT_HELI = 32;
 
     private void addPresident(int x, int y) {
         E e = E()
@@ -194,6 +213,7 @@ public class StagepieceSystem extends FluidSystem {
                 .pos(x, y)
                 .animId("bodyguard_01")
                 .bounds(8, 0, 16, 24)
+                .catapultProjectile()
                 .guard()
                 .renderLayer(layer)
                 .guardTargetX(targetX);
@@ -212,7 +232,7 @@ public class StagepieceSystem extends FluidSystem {
                             .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 1000).id());
         }
 
-        boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short) (CAT_BOUNDARY | CAT_BULLET), 0);
+        boxPhysicsSystem.addAsBox(e, 8, e.getBounds().cy(), 1f, CAT_AGENT, (short) (CAT_BOUNDARY | CAT_BULLET | CAT_HELI), 0);
     }
 
     private float gx = 0;

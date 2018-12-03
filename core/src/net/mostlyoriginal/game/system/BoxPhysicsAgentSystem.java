@@ -5,6 +5,8 @@ import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import net.mostlyoriginal.game.component.Guard;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
@@ -65,7 +67,7 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         }
 
         if (e.posY() < -50) {
-            stagePieceSystem.replaceAgent(e.renderLayer(), e.guardTargetX(), e.guardBandaged() || MathUtils.random(0,100) < 50);
+            stagePieceSystem.replaceAgent(e.renderLayer(), e.guardTargetX(), e.guardBandaged() || MathUtils.random(0, 100) < 50);
             e.deleteFromWorld();
             return;
         }
@@ -141,5 +143,19 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         this.vel.x = (xMove - vel.x) * body.getMass();
         this.vel.y = 0;
         body.applyLinearImpulse(this.vel, worldOrigin, true);
+    }
+
+    public void disableCollisionAndInteraction(E e) {
+        if (e.hasGuard()) {
+            e.removeCatapultProjectile();
+            Body body = e.boxedBody();
+            body.setTransform(body.getPosition(), MathUtils.random(-10f, 10f));
+            for (Fixture fixture : body.getFixtureList()) {
+                Filter filterData = fixture.getFilterData();
+                filterData.maskBits = 0;
+                fixture.setFilterData(filterData);
+            }
+        }
+
     }
 }

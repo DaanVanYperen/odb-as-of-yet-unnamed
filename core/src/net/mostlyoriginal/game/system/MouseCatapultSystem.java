@@ -99,7 +99,7 @@ public class MouseCatapultSystem extends FluidSystem {
             if (focusFixture != null && focusFixture.getBody() != boxPhysicsSystem.groundBody && focusFixture.getBody().getUserData() != null && dragging == null) {
                 dragging = (E) focusFixture.getBody().getUserData();
                 origin.set(e.posX(), e.posY());
-                if (!dragging.hasGuard()) {
+                if (!dragging.hasCatapultProjectile()) {
                     dragging = null;
                 } else {
                     dragging.guardState(Guard.State.CROUCHING);
