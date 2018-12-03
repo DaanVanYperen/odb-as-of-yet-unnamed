@@ -22,9 +22,7 @@ public class TheFloorIsLavaSystem extends FluidSystem {
     @Override
     protected void process(E e) {
         if ( e.posY() < BoxPhysicsSystem.FLOOR_LEVEL_Y ) {
-
             explodeAgents(e);
-
             e.struck();
         }
     }
