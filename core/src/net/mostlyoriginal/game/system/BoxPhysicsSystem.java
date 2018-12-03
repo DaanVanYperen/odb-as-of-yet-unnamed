@@ -31,6 +31,19 @@ public class BoxPhysicsSystem extends FluidSystem {
                 bulletHit(contact.getFixtureB(), contact.getFixtureA());
                 touchingFloor(contact.getFixtureB(), contact.getFixtureA(),true);
                 touchingFloor(contact.getFixtureA(), contact.getFixtureB(),true);
+                grabHeli(contact.getFixtureA(), contact.getFixtureB());
+                grabHeli(contact.getFixtureB(), contact.getFixtureA());
+            }
+
+            private void grabHeli(Fixture fixtureA, Fixture fixtureB) {
+                if (fixtureA.getFilterData().categoryBits == StagepieceSystem.CAT_HELI) {
+                    short cat = fixtureB.getFilterData().categoryBits;
+                    if ( cat == StagepieceSystem.CAT_AGENT ) {
+                        E heli = (E) fixtureA.getBody().getUserData();
+                        E agent = (E) fixtureB.getBody().getUserData();
+                        agent.grabTargetId(heli.id());
+                    }
+                }
             }
 
             private void touchingFloor(Fixture fixtureA, Fixture fixtureB, boolean state) {
@@ -162,6 +175,9 @@ public class BoxPhysicsSystem extends FluidSystem {
             for (JointEdge jointEdge : body.getJointList()) {
                 // bit hacky but it should suffice.
                 //mouseThrowSystem.forgetJoint(jointEdge);
+            }
+            while ( body.getJointList().size > 0 ) {
+                box2d.destroyJoint(body.getJointList().first().joint);
             }
             box2d.destroyBody(body);
         }

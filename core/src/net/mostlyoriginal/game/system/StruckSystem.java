@@ -14,6 +14,7 @@ public class StruckSystem extends FluidSystem {
     private BoxPhysicsSystem boxPhysicsSystem;
     private ScoreSystem scoreSystem;
     private ParticleSystem particleSystem;
+    private BoxPhysicsAgentSystem boxPhysicsAgentSystem;
 
     public StruckSystem() {
         super(Aspect.all(Struck.class));
@@ -27,15 +28,11 @@ public class StruckSystem extends FluidSystem {
         if ( e.hasGuard()) {
             Body body = e.boxedBody();
             body.setTransform(body.getPosition(), MathUtils.random(-10f,10f));
-            for (Fixture fixture : body.getFixtureList()) {
-                Filter filterData = fixture.getFilterData();
-                filterData.maskBits = 0;
-                fixture.setFilterData(filterData);
-            }
+            boxPhysicsAgentSystem.disableCollisionAndInteraction(e);
             return;
         }
 
-        if (e.isBullet()) {
+        if (e.isBullet() || e.hasTheFloorIsLava()) {
             scoreSystem.rockets++;
             particleSystem.confettiBomb(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             e.deleteFromWorld();
