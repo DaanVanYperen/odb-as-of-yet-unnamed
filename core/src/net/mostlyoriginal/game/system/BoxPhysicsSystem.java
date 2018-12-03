@@ -140,7 +140,7 @@ public class BoxPhysicsSystem extends FluidSystem {
 
     float cooldown = 0;
 
-    float timeStep = (1.0f / 45.0f);
+    public static final float timeStep = (1.0f / 45.0f);
     boolean updating = false;
 
     @Override

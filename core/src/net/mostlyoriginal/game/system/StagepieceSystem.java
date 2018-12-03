@@ -43,7 +43,7 @@ public class StagepieceSystem extends FluidSystem {
     @Override
     protected void begin() {
         super.begin();
-        scrollOffset = world.delta * slowtimeSystem.slowdownFactor() * (40 + laserPointingSystem.difficultyScore);
+        scrollOffset = world.delta * slowtimeSystem.slowdownFactor() * (40 + laserPointingSystem.difficultyScore * 0.5f);
         gx -= scrollOffset;
     }
 
@@ -123,20 +123,22 @@ public class StagepieceSystem extends FluidSystem {
 
             addPresident(GameRules.SCREEN_WIDTH / 4 + carHalf, ACTOR_SPAWN_Y + 2);
 
-            addHelicopter(GameRules.SCREEN_WIDTH / 8  + carHalf, 250);
+            //addHelicopter(GameRules.SCREEN_WIDTH / 8  + carHalf, 250, 250);
         }
     }
 
-    private void addHelicopter(int x, int y) {
+    public void addHelicopter(int x, int y, int targetX) {
         E e = E()
                 .pos(x, y)
                 .animId("helicopter")
                 .theFloorIsLava()
+                .hoveringTargetX( targetX )
                 .hoveringTargetY( y )
+                .rocketLauncher()
                 .scale(1f)
-                .bounds(0, 0, 82, 50)
+                .bounds(31, 0, 62, 50)
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR-100);
-        Body heli = boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 5f, CAT_HELI, (short) (CAT_BOUNDARY|CAT_AGENT), 0);
+        Body heli = boxPhysicsSystem.addAsBox(e, e.getBounds().cx() * 0.5F, e.getBounds().cy(), 5f, CAT_HELI, (short) (CAT_BOUNDARY|CAT_AGENT), 0);
         heli.setGravityScale(0.03f);
         Fixture fixture1 = heli.getFixtureList().get(0);
         fixture1.setSensor(true);

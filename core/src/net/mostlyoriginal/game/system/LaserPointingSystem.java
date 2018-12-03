@@ -2,18 +2,18 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.artemis.Entity;
+import com.artemis.utils.Bag;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.Laser;
+import net.mostlyoriginal.game.component.RocketLauncher;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
-
-import static net.mostlyoriginal.game.system.StagepieceSystem.*;
 
 /**
  * @author Daan van Yperen
@@ -23,13 +23,14 @@ public class LaserPointingSystem extends FluidSystem {
     private static final int MAX_LASERS = 3;
 
     private static boolean DEBUG = false;
+    private RocketLauncherSystem rocketLauncherSystem;
 
     private float laserChargingDuration = DEBUG ? 2f : 2f;
     private float laserBlinkingDuration = DEBUG ? 0.5f : 0.5f;
     private int maximumLasersAtOnce = DEBUG ? 100 : 1;
     private int laserSpawnDelayMin = DEBUG ? 1 : 6;
     private int laserSpawnDelayMax = DEBUG ? 1 : 8;
-    private int rocketVelocity = 20;
+    public int rocketVelocity = 20;
 
 
     private E head;
@@ -50,6 +51,8 @@ public class LaserPointingSystem extends FluidSystem {
     };
     private SlowTimeSystem slowTimeSystem;
     private ScoreSystem scoreSystem;
+    private StagepieceSystem stagePieceSystem;
+    private LaserPointingSystem laserPointingSystem;
 
     public LaserPointingSystem() {
         super(Aspect.all(Laser.class));
@@ -92,7 +95,8 @@ public class LaserPointingSystem extends FluidSystem {
     }
 
 
-    public int difficultyScore = 1;
+    public boolean DEBUG2 = false;
+    public int difficultyScore = DEBUG2 ? 159 : 1;
 
     private void scaleDifficulty() {
         difficultyCooldown -= world.delta * slowTimeSystem.slowdownFactor();
@@ -102,29 +106,47 @@ public class LaserPointingSystem extends FluidSystem {
             scoreSystem.distance++;
 
             if ( difficultyScore == 30 ) {
+                maximumLasersAtOnce=0;
+                laserPointingSystem.cancelAllLasers();
+                stagePieceSystem.addHelicopter(-100, 300, 200);
+            }
+
+            if ( difficultyScore == 60 ) {
                 maximumLasersAtOnce= 2;
                 laserSpawnDelayMin = 4;
                 laserSpawnDelayMax = 6;
             }
 
-            if ( difficultyScore == 60 ) {
+            if ( difficultyScore == 90 ) {
                 rocketVelocity += 10;
             }
 
-            if ( difficultyScore == 90 ) {
+            if ( difficultyScore == 120 ) {
                 maximumLasersAtOnce=3;
                 laserSpawnDelayMin = 4;
                 laserSpawnDelayMax = 5;
             }
-            if ( difficultyScore == 120 ) {
+            if ( difficultyScore == 160 ) {
                 rocketVelocity += 10;
+                maximumLasersAtOnce=0;
+                laserPointingSystem.cancelAllLasers();
+                stagePieceSystem.addHelicopter(-100, 300, 200);
+                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 500) ;
             }
 
-            if ( difficultyScore == 160 ) {
+            if ( difficultyScore == 230 ) {
                 maximumLasersAtOnce=5;
                 laserSpawnDelayMin = 2;
                 laserSpawnDelayMax = 4;
             }
+        }
+    }
+
+    private void cancelAllLasers() {
+        Bag<Entity> entities = getEntities();
+        Object[] array = entities.getData();
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            E.E((Entity) array[i]).deleteFromWorld();
         }
     }
 
@@ -152,7 +174,7 @@ public class LaserPointingSystem extends FluidSystem {
                 intercept(e, laser);
             } else {
                 if (!laser.fired) {
-                    spawnRocket(laser);
+                    rocketLauncherSystem.spawnRocket(laser.sourceX, laser.sourceY, laser.targetX, laser.targetY,RocketLauncher.RocketType.BIG, rocketVelocity);
                     laser.fired = true;
                 }
                 e.deleteFromWorld();
@@ -163,27 +185,6 @@ public class LaserPointingSystem extends FluidSystem {
 
 
     Vector2 v2 = new Vector2();
-
-    private void spawnRocket(Laser laser) {
-
-        E e = E.E()
-                .pos(laser.sourceX, laser.sourceY)
-                .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 10)
-                .bounds(0, 0, 48, 9)
-                //.slowTimeCooldown(5f)
-                .bullet()
-                .anim("bullet");
-
-        v2.set(laser.targetX, laser.targetY).sub(laser.sourceX, laser.sourceY).nor().scl(rocketVelocity);
-
-        Body body = boxPhysicsSystem.addAsBox(e, 24, 4, 5f, CAT_BULLET, (short) (CAT_AGENT | CAT_PRESIDENT), v2.angleRad());
-        for (Fixture fixture : body.getFixtureList()) {
-            fixture.setSensor(true);
-        }
-
-        body.setGravityScale(0f);
-        body.setLinearVelocity(v2.x, v2.y);
-    }
 
     private E hitFixture;
 

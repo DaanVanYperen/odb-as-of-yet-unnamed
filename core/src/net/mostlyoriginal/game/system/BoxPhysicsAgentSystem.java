@@ -117,6 +117,9 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
                 e.anim(bandaged ? "bodyguard_bandaged_01_crouch" : "bodyguard_01_crouch");
                 removeTutorials = true;
                 break;
+            case GRABBING:
+                e.anim(bandaged ? "bodyguard_bandaged_01_dangle" : "bodyguard_01_dangle");
+                break;
             case JUMPING:
                 e.anim(
                         bandaged ?

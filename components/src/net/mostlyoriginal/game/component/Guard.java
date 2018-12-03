@@ -18,6 +18,8 @@ public class Guard extends Component {
     public enum State {
         WALKING,
         CROUCHING,
-        SLIDING, JUMPING
+        SLIDING,
+        JUMPING,
+        GRABBING
     }
 }

@@ -7,4 +7,5 @@ import com.artemis.Component;
  */
 public class Hovering extends Component {
     public float targetY;
+    public float targetX;
 }

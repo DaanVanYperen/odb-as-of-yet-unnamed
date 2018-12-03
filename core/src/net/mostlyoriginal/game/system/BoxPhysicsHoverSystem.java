@@ -14,6 +14,7 @@ import net.mostlyoriginal.game.system.common.FluidSystem;
  */
 public class BoxPhysicsHoverSystem extends FluidSystem {
     private BoxPhysicsSystem boxPhysicsSystem;
+    private SlowTimeSystem slowTimeSystem;
 
     public BoxPhysicsHoverSystem() {
         super(Aspect.all(Hovering.class));
@@ -21,11 +22,20 @@ public class BoxPhysicsHoverSystem extends FluidSystem {
 
     @Override
     protected void process(E e) {
-        if ( boxPhysicsSystem.updating && e.hasBoxed()) {
+        if (boxPhysicsSystem.updating && e.hasBoxed()) {
             Body body = e.boxedBody();
             Vector2 vel = body.getLinearVelocity();
-            if ( e.hoveringTargetY() > e.posY() ) {
-                body.applyForceToCenter(0,5f*body.getMass(), true);
+            if (e.posY() < e.hoveringTargetY()) {
+                body.applyForceToCenter(0, 5f * body.getMass()* slowTimeSystem.slowdownFactor(), true);
+            }
+            // move left.
+            if (e.posX() + e.boundsCx() > e.hoveringTargetX() + 64 && vel.x > -5) {
+                body.applyForceToCenter(-1f * body.getMass()* slowTimeSystem.slowdownFactor(), 0, true);
+            }
+
+            // move right.
+            if (e.posX() + e.boundsCx() < e.hoveringTargetX() - 64 && vel.x <5) {
+                body.applyForceToCenter(1f * body.getMass() * slowTimeSystem.slowdownFactor(), 0, true);
             }
         }
     }

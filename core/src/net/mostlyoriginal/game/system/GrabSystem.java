@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import net.mostlyoriginal.game.component.Grab;
+import net.mostlyoriginal.game.component.Guard;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
 import static com.artemis.E.*;
@@ -30,9 +31,12 @@ public class GrabSystem extends FluidSystem {
 
         if (heli.hasBoxed() && agent.hasBoxed()) {
 
+            agent.guardState(Guard.State.GRABBING);
+
             boxPhysicsAgentSystem.disableCollisionAndInteraction(agent);
 
             if ( numberOfAgentsAttached(heli) >= 1 ) {
+                heli.removeRocketLauncher(); // no more shooting!
                 weighDown(agent);
             }
 

@@ -317,6 +317,17 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
 
         loadSounds(new String[]{
+//                "car",
+//                "fanfare1",
+//                "heli1",
+//                "hitsound1",
+//                "hurt1",
+//                "hurt2",
+//                "preshurt1",
+//                "preshurt2",
+//                "slide",
+//                "jump1"
+
 //                "coin_drop_01",
 //                "coin_drop_02",
 //                "coin_drop_03",
@@ -388,6 +399,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 //                "defeat"
 
         });
+
+        sfxVolume = 0.1f;
 
         if (GameRules.music != null) {
             GameRules.music.stop();

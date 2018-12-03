@@ -6,6 +6,7 @@ import com.artemis.E;
 import com.artemis.Entity;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.JointEdge;
+import net.mostlyoriginal.game.component.Guard;
 import net.mostlyoriginal.game.component.TheFloorIsLava;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 
@@ -21,9 +22,7 @@ public class TheFloorIsLavaSystem extends FluidSystem {
     @Override
     protected void process(E e) {
         if ( e.posY() < BoxPhysicsSystem.FLOOR_LEVEL_Y ) {
-
-            //explodeAgents(e);
-
+            explodeAgents(e);
             e.struck();
         }
     }
@@ -34,7 +33,7 @@ public class TheFloorIsLavaSystem extends FluidSystem {
             for (JointEdge jointEdge : body.getJointList()) {
                 E other = (E)jointEdge.other.getUserData();
                 if ( other != null) {
-                    other.struck();
+                    if ( other.hasGuard() ) other.guardState(Guard.State.JUMPING);
                 }
             }
         }
