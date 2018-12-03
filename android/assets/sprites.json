@@ -797,5 +797,17 @@
       "width": 28,
       "height": 28,
     },
+    {
+      "id": "helicopter",
+      "comment": "Helicopter enemy.",
+      "x": 0,
+      "y": 576,
+      "countX": 1,
+      "countY": 3,
+      "width": 133,
+      "height": 56,
+      "milliseconds": 70,
+      "repeat": true
+    },
   ]
 }
