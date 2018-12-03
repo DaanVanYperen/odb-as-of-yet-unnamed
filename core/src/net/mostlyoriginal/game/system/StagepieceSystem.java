@@ -135,9 +135,9 @@ public class StagepieceSystem extends FluidSystem {
                 .hoveringTargetY( y )
                 .rocketLauncher()
                 .scale(1f)
-                .bounds(0, 0, 82, 50)
+                .bounds(31, 0, 62, 50)
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR-100);
-        Body heli = boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 5f, CAT_HELI, (short) (CAT_BOUNDARY|CAT_AGENT), 0);
+        Body heli = boxPhysicsSystem.addAsBox(e, e.getBounds().cx() * 0.5F, e.getBounds().cy(), 5f, CAT_HELI, (short) (CAT_BOUNDARY|CAT_AGENT), 0);
         heli.setGravityScale(0.03f);
         Fixture fixture1 = heli.getFixtureList().get(0);
         fixture1.setSensor(true);
