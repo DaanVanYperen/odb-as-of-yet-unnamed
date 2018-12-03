@@ -11,7 +11,10 @@ import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
+import net.mostlyoriginal.game.system.BoxPhysicsSystem;
+import net.mostlyoriginal.game.system.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.MyLabelRenderSystem;
+import net.mostlyoriginal.game.system.SlowTimeSystem;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.view.LogoScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.LogoScreenSetupSystem;
@@ -40,9 +43,11 @@ public class LogoScreen extends TransitionableWorldScreen {
                 ).with(WorldConfigurationBuilder.Priority.LOW,
                         // processing
                         // animation
+                        new BoxPhysicsSystem(),
+                        new SlowTimeSystem(),
                         new ClearScreenSystem(Color.valueOf("969291")),
                         renderBatchingSystem = new RenderBatchingSystem(),
-                        new AnimRenderSystem(renderBatchingSystem),
+                        new MyAnimRenderSystem(renderBatchingSystem),
                         new MyLabelRenderSystem(renderBatchingSystem),
                         new LogoScreenSetupSystem(),
                         new TransitionSystem(GdxArtemisGame.getInstance(), this)

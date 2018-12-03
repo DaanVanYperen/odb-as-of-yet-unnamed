@@ -10,8 +10,8 @@ import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 @Wire
 public class LogoScreenAssetSystem extends AbstractAssetSystem {
 
-	public static final int LOGO_WIDTH = 350;
-	public static final int LOGO_HEIGHT = 180;
+	public static final int LOGO_WIDTH = 344;
+	public static final int LOGO_HEIGHT = 209;
 
 	public LogoScreenAssetSystem() {
 		super("tileset.png");
@@ -20,7 +20,7 @@ public class LogoScreenAssetSystem extends AbstractAssetSystem {
 	@Override
 	protected void initialize() {
 		super.initialize();
-		add("logo", 640,32, LOGO_WIDTH, LOGO_HEIGHT, 1);
+		add("logo", 359,665, LOGO_WIDTH, LOGO_HEIGHT, 1);
 	}
 
 	@Override

@@ -81,7 +81,7 @@ public class LogoScreenSetupSystem extends BaseSystem {
         super.initialize();
 
         boolean hasScore = GameRules.lastScore != NO_SCORE;
-        addLogo(hasScore ? 0.6f : 0.8f);
+        addLogo(0.8f);
         if ( hasScore ) addScore(GameRules.lastScore);
         addPressbutton(hasScore ? "Press any key to try again" : "Tap or press any key to start",
                 hasScore ? 280 : 220);
