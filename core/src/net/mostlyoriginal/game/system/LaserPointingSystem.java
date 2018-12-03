@@ -154,6 +154,13 @@ public class LaserPointingSystem extends FluidSystem {
                 stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 300) ;
             }
 
+            if ( difficultyScore == 300 ) {
+                rocketVelocity += 10;
+                maximumLasersAtOnce=5;
+            }
+            if ( difficultyScore == 360 ) {
+                rocketVelocity += 10;
+            }
         }
     }
 

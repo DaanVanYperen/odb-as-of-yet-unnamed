@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.*;
 import net.mostlyoriginal.game.component.Struck;
 import net.mostlyoriginal.game.system.common.FluidSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -15,6 +16,7 @@ public class StruckSystem extends FluidSystem {
     private ScoreSystem scoreSystem;
     private ParticleSystem particleSystem;
     private BoxPhysicsAgentSystem boxPhysicsAgentSystem;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
     public StruckSystem() {
         super(Aspect.all(Struck.class));
@@ -29,6 +31,7 @@ public class StruckSystem extends FluidSystem {
             Body body = e.boxedBody();
             body.setTransform(body.getPosition(), MathUtils.random(-10f,10f));
             boxPhysicsAgentSystem.disableCollisionAndInteraction(e);
+            gameScreenAssetSystem.playSfx("hitsound1");
             return;
         }
 
@@ -36,6 +39,7 @@ public class StruckSystem extends FluidSystem {
             scoreSystem.rockets++;
             particleSystem.confettiBomb(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             e.deleteFromWorld();
+            gameScreenAssetSystem.playSfx("hitsound1");
             return;
         }
 
@@ -45,6 +49,8 @@ public class StruckSystem extends FluidSystem {
             if ( head != null ) {
                 head.deleteFromWorld();
             }
+
+            gameScreenAssetSystem.playSfx("preshurt1","preshurt2");
 
             scoreSystem.gameOver=true;
 

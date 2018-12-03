@@ -322,10 +322,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                 "hitsound1",
                 "hurt1",
                 "hurt2",
-                "preshurt1",
-                "preshurt2",
-                "slide",
-                "jump1",
+                "preshurt1", //
+                "preshurt2", //
+                "slide", //
+                "jump1", //
                 "jump2",
                 "jump3",
                 "jump4"
