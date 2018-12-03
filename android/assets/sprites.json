@@ -756,6 +756,18 @@
       "repeat": true
     },
     {
+      "id": "bullet_small",
+      "comment": "Small directional missile.",
+      "x": 48,
+      "y": 32,
+      "countX": 1,
+      "countY": 5,
+      "width": 24,
+      "height": 6,
+      "milliseconds": 50,
+      "repeat": true
+    },
+    {
       "id": "arrow",
       "comment": "UI arrow to aim guards with.",
       "x": 0,
