@@ -650,6 +650,18 @@
       "repeat": false
     },
     {
+      "id": "bodyguard_01_dangle",
+      "comment": "A generic bodyguard dangling from a helicopter.",
+      "x": 0,
+      "y": 368,
+      "countX": 6,
+      "countY": 1,
+      "width": 24,
+      "height": 24,
+      "milliseconds": 100,
+      "repeat": true
+    },
+    {
       "id": "bodyguard_bandaged_01",
       "comment": "A bandaged bodyguard.",
       "x": 192,
@@ -718,6 +730,18 @@
       "height": 24,
       "milliseconds": 60,
       "repeat": false
+    },
+    {
+      "id": "bodyguard_bandaged_01_dangle",
+      "comment": "A bandaged bodyguard dangling from a helicopter.",
+      "x": 192,
+      "y": 368,
+      "countX": 6,
+      "countY": 1,
+      "width": 24,
+      "height": 24,
+      "milliseconds": 100,
+      "repeat": true
     },
     {
       "id": "president",
