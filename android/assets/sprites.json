@@ -866,10 +866,10 @@
       "comment": "Mr. President (No sexual relations).",
       "x": 0,
       "y": 896,
-      "countX": 18,
+      "countX": 15,
       "countY": 1,
       "width": 32,
-      "height": 15,
+      "height": 16,
       "milliseconds": 100,
       "repeat": true
 	},
@@ -896,6 +896,16 @@
       "height": 6,
       "milliseconds": 50,
       "repeat": true
+    },
+    {
+      "id": "bullet_bomb",
+      "comment": "A  big bomb!.",
+      "x": 80,
+      "y": 32,
+      "countX": 1,
+      "countY": 1,
+      "width": 24,
+      "height": 14,
     },
     {
       "id": "arrow",
