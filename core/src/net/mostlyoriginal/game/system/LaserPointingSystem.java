@@ -96,7 +96,7 @@ public class LaserPointingSystem extends FluidSystem {
     }
 
 
-    public boolean DEBUG2 = true;
+    public boolean DEBUG2 = false;
     public int difficultyScore = DEBUG2 ? 59 : 1;
 
     private void scaleDifficulty() {
