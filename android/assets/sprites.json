@@ -815,9 +815,9 @@
       "x": 0,
       "y": 576,
       "countX": 1,
-      "countY": 3,
-      "width": 133,
-      "height": 56,
+      "countY": 1,
+      "width": 85,
+      "height": 50,
       "milliseconds": 70,
       "repeat": true
     },
