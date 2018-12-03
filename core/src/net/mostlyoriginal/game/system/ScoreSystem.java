@@ -35,64 +35,79 @@ public class ScoreSystem extends BaseSystem {
     private ParticleSystem particleSystem;
 
     private float cooldown = 0;
+    private float showCooldown = 2;
 
 
     @Override
     protected void processSystem() {
         keyCooldown -= world.delta;
         if (gameOver && !scoreDisplayed) {
-            scoreDisplayed = true;
+            showCooldown -= world.delta;
             keyCooldown = 4f;
+            if (showCooldown <= 0) {
+                scoreDisplayed = true;
 
-
-            E.E()
-                    .anim("score_background")
-                    .renderLayer(9000)
-                    .pos(GameRules.SCREEN_WIDTH / 4 - 160, 0);
-
-            int stars =
-                    MathUtils.clamp(distance / 100, 0, 2) +
-                    MathUtils.clamp(rockets / 10, 0, 1) +
-                    MathUtils.clamp(choppers / 2, 0, 2);
-
-            for (int i = 0; i < 5; i++) {
                 E.E()
-                        .anim("score_star_empty")
-                        .renderLayer(9010)
-                        .pos(GameRules.SCREEN_WIDTH / 4 - 85 + i * 34, TEXT - 80);
-                if ( stars > i ) {
+                        .anim("score_background")
+                        .renderLayer(9000)
+                        .pos(GameRules.SCREEN_WIDTH / 4 - 160, 0);
+
+                int stars =
+                        MathUtils.clamp(distance / 100, 0, 2) +
+                                MathUtils.clamp(rockets / 10, 0, 1) +
+                                MathUtils.clamp(choppers / 2, 0, 2);
+
+                for (int i = 0; i < 5; i++) {
                     E.E()
-                            .anim("score_star_filled")
-                            .invisible()
-                            .renderLayer(9012)
-                            .script(
-                                    sequence(
-                                            delay(Duration.seconds(i*0.5f)),
-                                            remove(Invisible.class)
-                                    )
-                            )
+                            .anim("score_star_empty")
+                            .renderLayer(9010)
                             .pos(GameRules.SCREEN_WIDTH / 4 - 85 + i * 34, TEXT - 80);
+                    if (stars > i) {
+                        E.E()
+                                .anim("score_star_filled")
+                                .invisible()
+                                .renderLayer(9012)
+                                .script(
+                                        sequence(
+                                                delay(Duration.seconds(i * 0.5f)),
+                                                remove(Invisible.class)
+                                        )
+                                )
+                                .pos(GameRules.SCREEN_WIDTH / 4 - 85 + i * 34, TEXT - 80);
+                    }
                 }
-            }
 
-            String s;
-            switch (stars) {
-                case 0 : s = "Rank: Sad!"; break;
-                case 1 : s = "Rank: Newbie!"; break;
-                case 2 : s = "Rank: Agent!"; break;
-                case 3 : s = "Rank: Special Agent!"; break;
-                case 4 : s = "Rank: Bodyguard!"; break;
-                default: s = "Rank: Bald Eagle!"; break;
-            }
+                String s;
+                switch (stars) {
+                    case 0:
+                        s = "Rank: Sad!";
+                        break;
+                    case 1:
+                        s = "Rank: Newbie!";
+                        break;
+                    case 2:
+                        s = "Rank: Agent!";
+                        break;
+                    case 3:
+                        s = "Rank: Special Agent!";
+                        break;
+                    case 4:
+                        s = "Rank: Bodyguard!";
+                        break;
+                    default:
+                        s = "Rank: Bald Eagle!";
+                        break;
+                }
 
-            showInfo(s, TEXT + 20, 1.5f, GameRules.SCREEN_WIDTH / 4, YELLOW);
-            showInfo(distance + "0 feet travelled.", TEXT, 1.5f, GameRules.SCREEN_WIDTH / 4, new Tint("AAAAAA"));
-            showInfo(rockets + " rockets blocked.", TEXT - 16, 1.5f, GameRules.SCREEN_WIDTH / 4, new Tint("AAAAAA"));
-            showInfo(choppers + " choppers downed.", TEXT - 32, 1.5f, GameRules.SCREEN_WIDTH / 4, new Tint("AAAAAA"));
-            showInfo("Tap to play again!", TEXT - 100, 1.5f, GameRules.SCREEN_WIDTH / 4, Tint.WHITE);
+                showInfo(s, TEXT + 20, 1.5f, GameRules.SCREEN_WIDTH / 4, YELLOW);
+                showInfo(distance + "0 feet travelled.", TEXT, 1.5f, GameRules.SCREEN_WIDTH / 4, new Tint("AAAAAA"));
+                showInfo(rockets + " rockets blocked.", TEXT - 16, 1.5f, GameRules.SCREEN_WIDTH / 4, new Tint("AAAAAA"));
+                showInfo(choppers + " choppers downed.", TEXT - 32, 1.5f, GameRules.SCREEN_WIDTH / 4, new Tint("AAAAAA"));
+                showInfo("Tap to play again!", TEXT - 100, 1.5f, GameRules.SCREEN_WIDTH / 4, Tint.WHITE);
+            }
         }
 
-        if (gameOver) {
+        if (gameOver && showCooldown <= 0) {
             cooldown -= world.delta;
             if (cooldown <= 0) {
                 cooldown += 0.2f;

@@ -30,14 +30,17 @@ public class RocketLauncherSystem extends FluidSystem {
     protected void process(E e) {
         RocketLauncher launcher = e.getRocketLauncher();
         launcher.cooldown -= world.delta * slowTimeSystem.slowdownFactor();
-        if ( launcher.cooldown <= 0 ) {
+        if ( launcher.cooldown <= 0 && e.posY() > 150 ) { // don't fire too close to the ground.
             launcher.cooldown = launcher.interval;
             E head = entityWithTag("presidenthead");
             if ( head != null) {
                 float x = e.posX() + launcher.offsetX;
                 float y = e.posY() + launcher.offsetY;
                 spawnRocket(x, y,
-                        x + 100, y, launcher.type, laserPointingSystem.rocketVelocity * 0.2f)
+                        x + 100, y+50, launcher.type, laserPointingSystem.rocketVelocity * 0.2f)
+                        .homingTarget(head.id());
+                spawnRocket(x, y,
+                        x + 100, y-50, launcher.type, laserPointingSystem.rocketVelocity * 0.2f)
                         .homingTarget(head.id());
             }
         }

@@ -206,8 +206,8 @@ public class StagepieceSystem extends FluidSystem {
         }
     }
 
-    public void replaceAgent(int layer, float targetX, int bandaged) {
-        addAgent(-700, ACTOR_SPAWN_Y, layer, targetX, bandaged, false);
+    public void replaceAgent(int layer, float targetX, int bandaged, int startX) {
+        addAgent(startX, ACTOR_SPAWN_Y, layer, targetX, bandaged, false);
     }
 
     private void addAgent(int x, int y, int layer, float targetX, int bandaged, boolean tutorial) {

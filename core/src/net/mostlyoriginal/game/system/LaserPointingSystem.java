@@ -27,10 +27,10 @@ public class LaserPointingSystem extends FluidSystem {
 
     private float laserChargingDuration = DEBUG ? 2f : 2f;
     private float laserBlinkingDuration = DEBUG ? 0.5f : 0.5f;
-    private int maximumLasersAtOnce = DEBUG ? 100 : 1;
-    private int laserSpawnDelayMin = DEBUG ? 1 : 6;
-    private int laserSpawnDelayMax = DEBUG ? 1 : 8;
-    public int rocketVelocity = 20;
+    private int maximumLasersAtOnce = 3;
+    private int laserSpawnDelayMin = DEBUG ? 1 : 4;
+    private int laserSpawnDelayMax = DEBUG ? 1 : 6;
+    public int rocketVelocity = 10;
 
 
     private E head;
@@ -61,6 +61,7 @@ public class LaserPointingSystem extends FluidSystem {
     @Override
     protected void initialize() {
         super.initialize();
+        //stagePieceSystem.addHelicopter(-100, 300, 200);
     }
 
     private void spawnLaser(int i) {
@@ -96,70 +97,80 @@ public class LaserPointingSystem extends FluidSystem {
 
 
     public boolean DEBUG2 = false;
-    public int difficultyScore = DEBUG2 ? 359 : 1;
+    public int difficultyScore = DEBUG2 ? 119 : 1;
 
     private void scaleDifficulty() {
         difficultyCooldown -= world.delta * slowTimeSystem.slowdownFactor();
-        if ( difficultyCooldown <= 0 ) {
+        if (difficultyCooldown <= 0) {
             difficultyCooldown += 1;
             difficultyScore++;
             scoreSystem.distance++;
 
-            if ( difficultyScore == 30 ) {
-                maximumLasersAtOnce=0;
+            if (difficultyScore == 30) {
+                maximumLasersAtOnce = 0;
                 laserPointingSystem.cancelAllLasers();
                 stagePieceSystem.addHelicopter(-100, 300, 200);
             }
-            if ( difficultyScore == 50 ) {
-                maximumLasersAtOnce= 1;
+            if (difficultyScore == 40) {
+                maximumLasersAtOnce = 1;
             }
 
-            if ( difficultyScore == 60 ) {
-                maximumLasersAtOnce= 2;
-                laserSpawnDelayMin = 4;
-                laserSpawnDelayMax = 6;
-            }
-
-            if ( difficultyScore == 120 ) {
-                maximumLasersAtOnce=3;
-                laserSpawnDelayMin = 4;
+            if (difficultyScore == 50) {
+                maximumLasersAtOnce = 4;
+                laserSpawnDelayMin = 3;
                 laserSpawnDelayMax = 5;
             }
-            if ( difficultyScore == 160 ) {
-                maximumLasersAtOnce=0;
+
+            if (difficultyScore == 60) {
+
+
+                int i = 2;
+                stagePieceSystem.replaceAgent(GameScreenAssetSystem.LAYER_CAR - 51, 50 + 20 + 72 / 2 + i * 80 - 24, 0, -700 + i * 80);
+                i = 0;
+                stagePieceSystem.replaceAgent(GameScreenAssetSystem.LAYER_CAR - 51, 380 + 20 + 72 / 2 + i * 80 - 24, 0, -700 + i * 80);
+
+                maximumLasersAtOnce = 0;
                 laserPointingSystem.cancelAllLasers();
                 stagePieceSystem.addHelicopter(-100, 300, 200);
-                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 500) ;
+                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH / 2 + 100, 250, 500);
             }
 
-            if ( difficultyScore == 190 ) {
-                maximumLasersAtOnce= 1;
+            if (difficultyScore == 80) {
+                maximumLasersAtOnce = 1;
             }
 
-            if ( difficultyScore == 230 ) {
-                rocketVelocity += 10;
-                maximumLasersAtOnce=5;
+            if (difficultyScore == 90) {
+                rocketVelocity += 5;
+                maximumLasersAtOnce = 5;
                 laserSpawnDelayMin = 2;
-                laserSpawnDelayMax = 4;
+                laserSpawnDelayMax = 3;
             }
 
-            if ( difficultyScore == 250 ) {
-                maximumLasersAtOnce=0;
+            if (difficultyScore == 120) {
+                maximumLasersAtOnce = 0;
+
+                for (int i = 0; i < 2; i++) {
+                    stagePieceSystem.replaceAgent(GameScreenAssetSystem.LAYER_CAR - 51, 50 + 20 + 72 / 2 + i * 80 - 24, 0, -700 + i * 80);
+                }
+                for (int i = 1; i < 3; i++) {
+                    stagePieceSystem.replaceAgent(GameScreenAssetSystem.LAYER_CAR - 51, 380 + 20 + 72 / 2 + i * 80 - 24, 0, -700 + i * 80);
+                }
+
                 laserPointingSystem.cancelAllLasers();
                 stagePieceSystem.addHelicopter(-100, 300, 200);
-                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 500) ;
-                stagePieceSystem.addHelicopter(-100, 200, 400);
-                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 400) ;
-                stagePieceSystem.addHelicopter(-100, 200, 600);
-                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 300) ;
+                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH / 2 + 100, 250, 500);
             }
 
-            if ( difficultyScore == 300 ) {
-                rocketVelocity += 10;
-                maximumLasersAtOnce=5;
+            if (difficultyScore == 130) {
+                maximumLasersAtOnce = 5;
             }
-            if ( difficultyScore == 360 ) {
-                rocketVelocity += 10;
+
+            if (difficultyScore >= 130 && difficultyScore % 10 == 9) {
+                rocketVelocity += 5;
+                maximumLasersAtOnce++;
+                laserSpawnDelayMin = 1;
+                laserSpawnDelayMax = 2;
+                stagePieceSystem.addHelicopter(-100, 250, MathUtils.random(0, GameRules.SCREEN_WIDTH / 2));
             }
         }
     }
@@ -196,7 +207,7 @@ public class LaserPointingSystem extends FluidSystem {
                 intercept(e, laser);
             } else {
                 if (!laser.fired) {
-                    rocketLauncherSystem.spawnRocket(laser.sourceX, laser.sourceY, laser.targetX, laser.targetY,RocketLauncher.RocketType.BIG, rocketVelocity);
+                    rocketLauncherSystem.spawnRocket(laser.sourceX, laser.sourceY, laser.targetX, laser.targetY, RocketLauncher.RocketType.BIG, rocketVelocity);
                     laser.fired = true;
                 }
                 e.deleteFromWorld();
