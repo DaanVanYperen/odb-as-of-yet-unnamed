@@ -42,6 +42,8 @@ public class MouseCatapultSystem extends FluidSystem {
     private E spotlight;
     private E tutorialFocus;
     private GameScreenAssetSystem gameScreenAssetSystem;
+    private float lastPosX;
+    private float lastPosY;
 
     public void setTutorialFocus(E tutorialFocus) {
         this.tutorialFocus = tutorialFocus;
@@ -109,6 +111,12 @@ public class MouseCatapultSystem extends FluidSystem {
 
             if ( dragging != null ) {
                 dragging.slowTimeCooldown(0.2f);
+
+                if ( lastPosX != pos.x && lastPosY != pos.y && v2.set(lastPosX,lastPosY).dst2(pos.x, pos.y) > 8 ) {
+                    lastPosX = pos.x;
+                    lastPosY = pos.y;
+                    gameScreenAssetSystem.playSfx("tick1");
+                }
             }
         } else {
             if (dragging != null) {

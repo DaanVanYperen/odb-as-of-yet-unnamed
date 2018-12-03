@@ -43,7 +43,7 @@ public class StruckSystem extends FluidSystem {
             }
             particleSystem.confettiBomb(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             e.deleteFromWorld();
-            gameScreenAssetSystem.playSfx("hitsound1");
+            gameScreenAssetSystem.playSfx("explosion3");
             return;
         }
 

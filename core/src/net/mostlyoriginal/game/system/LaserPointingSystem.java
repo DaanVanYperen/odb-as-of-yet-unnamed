@@ -96,8 +96,8 @@ public class LaserPointingSystem extends FluidSystem {
     }
 
 
-    public boolean DEBUG2 = false;
-    public int difficultyScore = DEBUG2 ? 119 : 1;
+    public boolean DEBUG2 = true;
+    public int difficultyScore = DEBUG2 ? 59 : 1;
 
     private void scaleDifficulty() {
         difficultyCooldown -= world.delta * slowTimeSystem.slowdownFactor();

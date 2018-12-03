@@ -21,6 +21,7 @@ public class RocketLauncherSystem extends FluidSystem {
     private BoxPhysicsSystem boxPhysicsSystem;
     private LaserPointingSystem laserPointingSystem;
     private SlowTimeSystem slowTimeSystem;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
     public RocketLauncherSystem() {
         super(Aspect.all(RocketLauncher.class, Boxed.class));
@@ -52,6 +53,10 @@ public class RocketLauncherSystem extends FluidSystem {
     }
 
     public E spawnRocket(float originX, float originY, float targetX, float targetY, RocketLauncher.RocketType type, float baseVelocity) {
+
+        if ( type == RocketLauncher.RocketType.BIG) {
+            gameScreenAssetSystem.playSfx("woosh1", "woosh2");
+        }
 
         int width = 48;
         int height = 9;

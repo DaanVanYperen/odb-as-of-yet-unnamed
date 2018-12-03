@@ -328,7 +328,11 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                 "jump1", //
                 "jump2",
                 "jump3",
-                "jump4"
+                "jump4",
+                "explosion3",
+                "tick1",
+                "woosh1",
+                "woosh2"
 
 
 //                "coin_drop_01",
@@ -403,7 +407,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         });
 
-        sfxVolume = 0.1f;
+        sfxVolume = 0.15f;
 
         playMusic("sfx/betterparade.mp3");
 

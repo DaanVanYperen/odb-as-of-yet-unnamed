@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.JointEdge;
 import net.mostlyoriginal.game.component.Hovering;
 import net.mostlyoriginal.game.component.TheFloorIsLava;
 import net.mostlyoriginal.game.system.common.FluidSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -15,9 +16,25 @@ import net.mostlyoriginal.game.system.common.FluidSystem;
 public class BoxPhysicsHoverSystem extends FluidSystem {
     private BoxPhysicsSystem boxPhysicsSystem;
     private SlowTimeSystem slowTimeSystem;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
     public BoxPhysicsHoverSystem() {
         super(Aspect.all(Hovering.class));
+    }
+
+    public float chopCooldown=0;
+
+    @Override
+    protected void begin() {
+        super.begin();
+
+        if ( getEntityIds().size() > 0 ) {
+            chopCooldown -= world.delta;
+            if (chopCooldown <= 0) {
+                chopCooldown += 0.25f;
+                gameScreenAssetSystem.playSfx("heli1",0.05f);
+            }
+        }
     }
 
     @Override
