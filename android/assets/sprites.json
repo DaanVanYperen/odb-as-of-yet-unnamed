@@ -676,7 +676,7 @@
     {
       "id": "bodyguard_bandaged_01_crouch",
       "comment": "A bandaged bodyguard crouching.",
-      "x": 312,
+      "x": 504,
       "y": 416,
       "countX": 1,
       "countY": 1,
@@ -686,7 +686,7 @@
     {
       "id": "bodyguard_bandaged_01_jump",
       "comment": "A bandaged bodyguard in midair.",
-      "x":504,
+      "x":384,
       "y": 416,
       "countX": 5,
       "countY": 1,
