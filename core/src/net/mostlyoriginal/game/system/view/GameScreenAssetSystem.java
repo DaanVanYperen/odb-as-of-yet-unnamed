@@ -405,16 +405,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         sfxVolume = 0.1f;
 
-        if (GameRules.music != null) {
-            GameRules.music.stop();
-            GameRules.music.dispose();
-        }
-        GameRules.music = Gdx.audio.newMusic(Gdx.files.internal(
-                "sfx/betterparade.mp3"));
-        GameRules.music.stop();
-        GameRules.music.setLooping(true);
-        GameRules.music.play();
-        GameRules.music.setPan(0, 0.1f);
+        playMusic("sfx/betterparade.mp3");
 
         E e = E()
                 .mouseCursor()
@@ -438,6 +429,20 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 //        512,32,32,64
 //        Sink GROSS:
 //        544,32,32,64
+    }
+
+    public void playMusic(String mp3) {
+        if (GameRules.music != null) {
+            GameRules.music.stop();
+            GameRules.music.dispose();
+        }
+
+        GameRules.music = Gdx.audio.newMusic(Gdx.files.internal(
+                mp3));
+        GameRules.music.stop();
+        GameRules.music.setLooping(true);
+        GameRules.music.play();
+        GameRules.music.setPan(0, 0.1f);
     }
 
 

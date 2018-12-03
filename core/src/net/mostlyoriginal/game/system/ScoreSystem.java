@@ -13,6 +13,7 @@ import net.mostlyoriginal.api.utils.Duration;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static net.mostlyoriginal.api.operation.JamOperationFactory.tintBetween;
 import static net.mostlyoriginal.api.operation.OperationFactory.delay;
@@ -36,6 +37,7 @@ public class ScoreSystem extends BaseSystem {
 
     private float cooldown = 0;
     private float showCooldown = 2;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
 
     @Override
@@ -46,6 +48,8 @@ public class ScoreSystem extends BaseSystem {
             keyCooldown = 4f;
             if (showCooldown <= 0) {
                 scoreDisplayed = true;
+
+                gameScreenAssetSystem.playMusic("sfx/bestparade.mp3");
 
                 E.E()
                         .anim("score_background")
