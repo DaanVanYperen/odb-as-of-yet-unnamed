@@ -9,8 +9,8 @@ public class RocketLauncher extends Component {
     public RocketType type = RocketType.SMALL;
     public float offsetX = 25;
     public float offsetY = 15;
-    public float cooldown = 2;
-    public float interval = 4;
+    public float cooldown = 7;
+    public float interval = 7;
 
     public enum RocketType {
         SMALL,
