@@ -41,6 +41,7 @@ public class MouseCatapultSystem extends FluidSystem {
     private ParticleSystem particleSystem;
     private E spotlight;
     private E tutorialFocus;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
     public void setTutorialFocus(E tutorialFocus) {
         this.tutorialFocus = tutorialFocus;
@@ -121,6 +122,7 @@ public class MouseCatapultSystem extends FluidSystem {
                     body.applyLinearImpulse(v2.x, v2.y,
                             (dragging.posX() + dragging.boundsCx()) / boxPhysicsSystem.SCALING,
                             (dragging.posY() + dragging.boundsCy()) / boxPhysicsSystem.SCALING, true);
+                    gameScreenAssetSystem.playSfx("jump1");
 //                    particleSystem.confettiBomb(dragging.posX() + dragging.boundsCx(), dragging.posY() + dragging.boundsCy());
 
                 }

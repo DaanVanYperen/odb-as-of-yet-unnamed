@@ -96,7 +96,7 @@ public class LaserPointingSystem extends FluidSystem {
 
 
     public boolean DEBUG2 = false;
-    public int difficultyScore = DEBUG2 ? 159 : 1;
+    public int difficultyScore = DEBUG2 ? 359 : 1;
 
     private void scaleDifficulty() {
         difficultyCooldown -= world.delta * slowTimeSystem.slowdownFactor();
@@ -110,15 +110,14 @@ public class LaserPointingSystem extends FluidSystem {
                 laserPointingSystem.cancelAllLasers();
                 stagePieceSystem.addHelicopter(-100, 300, 200);
             }
+            if ( difficultyScore == 50 ) {
+                maximumLasersAtOnce= 1;
+            }
 
             if ( difficultyScore == 60 ) {
                 maximumLasersAtOnce= 2;
                 laserSpawnDelayMin = 4;
                 laserSpawnDelayMax = 6;
-            }
-
-            if ( difficultyScore == 90 ) {
-                rocketVelocity += 10;
             }
 
             if ( difficultyScore == 120 ) {
@@ -127,18 +126,34 @@ public class LaserPointingSystem extends FluidSystem {
                 laserSpawnDelayMax = 5;
             }
             if ( difficultyScore == 160 ) {
-                rocketVelocity += 10;
                 maximumLasersAtOnce=0;
                 laserPointingSystem.cancelAllLasers();
                 stagePieceSystem.addHelicopter(-100, 300, 200);
                 stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 500) ;
             }
 
+            if ( difficultyScore == 190 ) {
+                maximumLasersAtOnce= 1;
+            }
+
             if ( difficultyScore == 230 ) {
+                rocketVelocity += 10;
                 maximumLasersAtOnce=5;
                 laserSpawnDelayMin = 2;
                 laserSpawnDelayMax = 4;
             }
+
+            if ( difficultyScore == 250 ) {
+                maximumLasersAtOnce=0;
+                laserPointingSystem.cancelAllLasers();
+                stagePieceSystem.addHelicopter(-100, 300, 200);
+                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 500) ;
+                stagePieceSystem.addHelicopter(-100, 200, 400);
+                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 400) ;
+                stagePieceSystem.addHelicopter(-100, 200, 600);
+                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 300) ;
+            }
+
         }
     }
 
