@@ -69,7 +69,9 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         }
 
         if (e.posY() < -50) {
-            stagePieceSystem.replaceAgent(e.renderLayer(), e.guardTargetX(), e.guardBandaged() || MathUtils.random(0, 100) < 50);
+            stagePieceSystem.replaceAgent(e.renderLayer(), e.guardTargetX(),
+                    MathUtils.clamp(
+                            e.guardBandaged() + (MathUtils.random(0, 100) < 20 ? 1 : 0), 0, 2));
             e.deleteFromWorld();
             return;
         }
@@ -110,29 +112,38 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         }
 
         boolean facingLeft = body.getLinearVelocity().x < 0;
-        boolean bandaged = e.guardBandaged();
+        int bandaged = e.guardBandaged();
         body.setLinearDamping(0f);
         switch (e.guardState()) {
             case WALKING:
-                e.anim(bandaged ? "bodyguard_bandaged_01" : "bodyguard_01");
+                e.anim(
+                        bandaged == 2 ? "bodyguard_very_bandaged_01" :
+                                bandaged == 1 ? "bodyguard_bandaged_01" : "bodyguard_01");
                 break;
             case CROUCHING:
-                e.anim(bandaged ? "bodyguard_bandaged_01_crouch" : "bodyguard_01_crouch");
+                e.anim(
+                        bandaged == 2 ? "bodyguard_very_bandaged_01_crouch" :
+                                bandaged == 1 ? "bodyguard_bandaged_01_crouch" : "bodyguard_01_crouch");
                 removeTutorials = true;
                 break;
             case GRABBING:
-                e.anim(bandaged ? "bodyguard_bandaged_01_dangle" : "bodyguard_01_dangle");
+                e.anim(bandaged == 2 ? "bodyguard_very_bandaged_01_dangle" :
+                        bandaged == 1 ? "bodyguard_bandaged_01_dangle" : "bodyguard_01_dangle");
                 break;
             case JUMPING:
                 e.anim(
-                        bandaged ?
+                        bandaged == 2 ?
+                                (facingLeft ? "bodyguard_very_bandaged_01_jump_left" : "bodyguard_very_bandaged_01_jump") :
+                        bandaged == 1 ?
                                 (facingLeft ? "bodyguard_bandaged_01_jump_left" : "bodyguard_bandaged_01_jump") :
                                 (facingLeft ? "bodyguard_01_jump_left" : "bodyguard_01_jump")
                 );
                 break;
             case SLIDING:
                 e.anim(
-                        bandaged ?
+                        bandaged == 2 ?
+                                (facingLeft ? "bodyguard_very_bandaged_01_slide_left" : "bodyguard_very_bandaged_01_slide") :
+                        bandaged == 1 ?
                                 (facingLeft ? "bodyguard_bandaged_01_slide_left" : "bodyguard_bandaged_01_slide") :
                                 (facingLeft ? "bodyguard_01_slide_left" : "bodyguard_01_slide")
                 );

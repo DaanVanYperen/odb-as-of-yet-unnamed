@@ -113,12 +113,12 @@ public class StagepieceSystem extends FluidSystem {
 
             for (int i = 0; i < 3; i++) {
                 addAgent(50+carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
-                        50+carHalf + i * 80 - 24, false, tutorialIndex++ == targetTutorialIndex);
+                        50+carHalf + i * 80 - 24, 0, tutorialIndex++ == targetTutorialIndex);
             }
 
             for (int i = 0; i < 3; i++) {
                 addAgent(380+carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
-                        380+carHalf + i * 80 - 24, false, tutorialIndex++ == targetTutorialIndex);
+                        380+carHalf + i * 80 - 24, 0, tutorialIndex++ == targetTutorialIndex);
             }
 
             addPresident(GameRules.SCREEN_WIDTH / 4 + carHalf, ACTOR_SPAWN_Y + 2);
@@ -206,11 +206,11 @@ public class StagepieceSystem extends FluidSystem {
         }
     }
 
-    public void replaceAgent(int layer, float targetX, boolean bandaged) {
+    public void replaceAgent(int layer, float targetX, int bandaged) {
         addAgent(-700, ACTOR_SPAWN_Y, layer, targetX, bandaged, false);
     }
 
-    private void addAgent(int x, int y, int layer, float targetX, boolean bandaged, boolean tutorial) {
+    private void addAgent(int x, int y, int layer, float targetX, int bandaged, boolean tutorial) {
         E e = E()
                 .pos(x, y)
                 .animId("bodyguard_01")
@@ -220,8 +220,8 @@ public class StagepieceSystem extends FluidSystem {
                 .renderLayer(layer)
                 .guardTargetX(targetX);
 
-        if (bandaged) {
-            e.guardBandaged(true);
+        if (bandaged>0) {
+            e.guardBandaged(bandaged);
         }
 
         if (tutorial) {
