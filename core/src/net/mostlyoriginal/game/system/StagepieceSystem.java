@@ -89,7 +89,7 @@ public class StagepieceSystem extends FluidSystem {
                 .renderLayer(GameScreenAssetSystem.LAYER_ICONS);
 
         E()
-                .pos(GameRules.SCREEN_WIDTH / 4+2, 202)
+                .pos(GameRules.SCREEN_WIDTH / 4 + 2, 202)
                 .labelText("Intercept the rockets! Save the president!")
                 .labelAlign(Label.Align.RIGHT)
                 .tint(1f, 1f, 1f, 0.8f)
@@ -106,19 +106,19 @@ public class StagepieceSystem extends FluidSystem {
 
     private void loadLevel() {
         {
-            int carHalf = 72/2;
+            int carHalf = 72 / 2;
 
             int tutorialIndex = 0;
-            int targetTutorialIndex = MathUtils.random(0,5);
+            int targetTutorialIndex = MathUtils.random(0, 5);
 
             for (int i = 0; i < 3; i++) {
-                addAgent(50+carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
-                        50+carHalf + i * 80 - 24, 0, tutorialIndex++ == targetTutorialIndex);
+                addAgent(50 + carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
+                        50 + carHalf + i * 80 - 24, 0, tutorialIndex++ == targetTutorialIndex);
             }
 
             for (int i = 0; i < 3; i++) {
-                addAgent(380+carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
-                        380+carHalf + i * 80 - 24, 0, tutorialIndex++ == targetTutorialIndex);
+                addAgent(380 + carHalf + i * 80, ACTOR_SPAWN_Y, i % 2 == 1 ? GameScreenAssetSystem.LAYER_CAR - 50 : GameScreenAssetSystem.LAYER_CAR + 50,
+                        380 + carHalf + i * 80 - 24, 0, tutorialIndex++ == targetTutorialIndex);
             }
 
             addPresident(GameRules.SCREEN_WIDTH / 4 + carHalf, ACTOR_SPAWN_Y + 2);
@@ -132,13 +132,13 @@ public class StagepieceSystem extends FluidSystem {
                 .pos(x, y)
                 .animId("helicopter")
                 .theFloorIsLava()
-                .hoveringTargetX( targetX )
-                .hoveringTargetY( y )
+                .hoveringTargetX(targetX)
+                .hoveringTargetY(y)
                 .rocketLauncher()
                 .scale(1f)
                 .bounds(31, 0, 62, 50)
-                .renderLayer(GameScreenAssetSystem.LAYER_CAR-100);
-        Body heli = boxPhysicsSystem.addAsBox(e, e.getBounds().cx() * 0.5F, e.getBounds().cy(), 5f, CAT_HELI, (short) (CAT_BOUNDARY|CAT_AGENT), 0);
+                .renderLayer(GameScreenAssetSystem.LAYER_CAR - 100);
+        Body heli = boxPhysicsSystem.addAsBox(e, e.getBounds().cx() * 0.5F, e.getBounds().cy(), 5f, CAT_HELI, (short) (CAT_BOUNDARY | CAT_AGENT), 0);
         heli.setGravityScale(0.03f);
         Fixture fixture1 = heli.getFixtureList().get(0);
         fixture1.setSensor(true);
@@ -162,9 +162,15 @@ public class StagepieceSystem extends FluidSystem {
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR);
         Body car = boxPhysicsSystem.addAsBox(e, e.getBounds().cx(), e.getBounds().cy(), 10f, CAT_CAR, (short) (CAT_BOUNDARY), 0);
 
+        int presidentIndex = GdxArtemisGame.president++ % 4;
+
         E e2 = E()
                 .pos(x, y)
-                .animId(GdxArtemisGame.president++ % 2 == 0 ? "president" : "president_02")
+                .animId(
+
+                        presidentIndex == 3 ? "president_04" :
+                                presidentIndex == 2 ? "president_03" :
+                                        presidentIndex == 1 ? "president_02" : "president")
                 .tag("president")
                 .locomotion()
                 .bounds(0, 0, 32, 16)
@@ -220,7 +226,7 @@ public class StagepieceSystem extends FluidSystem {
                 .renderLayer(layer)
                 .guardTargetX(targetX);
 
-        if (bandaged>0) {
+        if (bandaged > 0) {
             e.guardBandaged(bandaged);
         }
 
