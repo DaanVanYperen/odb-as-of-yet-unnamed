@@ -43,7 +43,7 @@ public class StagepieceSystem extends FluidSystem {
     @Override
     protected void begin() {
         super.begin();
-        scrollOffset = world.delta * slowtimeSystem.slowdownFactor() * (40 + laserPointingSystem.difficultyScore);
+        scrollOffset = world.delta * slowtimeSystem.slowdownFactor() * (40 + laserPointingSystem.difficultyScore * 0.5f);
         gx -= scrollOffset;
     }
 
@@ -123,15 +123,16 @@ public class StagepieceSystem extends FluidSystem {
 
             addPresident(GameRules.SCREEN_WIDTH / 4 + carHalf, ACTOR_SPAWN_Y + 2);
 
-            addHelicopter(GameRules.SCREEN_WIDTH / 8  + carHalf, 250);
+            //addHelicopter(GameRules.SCREEN_WIDTH / 8  + carHalf, 250, 250);
         }
     }
 
-    private void addHelicopter(int x, int y) {
+    public void addHelicopter(int x, int y, int targetX) {
         E e = E()
                 .pos(x, y)
                 .animId("helicopter")
                 .theFloorIsLava()
+                .hoveringTargetX( targetX )
                 .hoveringTargetY( y )
                 .rocketLauncher()
                 .scale(1f)

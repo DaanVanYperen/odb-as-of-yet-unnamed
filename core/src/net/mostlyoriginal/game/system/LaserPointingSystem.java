@@ -2,6 +2,8 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.artemis.Entity;
+import com.artemis.utils.Bag;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -49,6 +51,8 @@ public class LaserPointingSystem extends FluidSystem {
     };
     private SlowTimeSystem slowTimeSystem;
     private ScoreSystem scoreSystem;
+    private StagepieceSystem stagePieceSystem;
+    private LaserPointingSystem laserPointingSystem;
 
     public LaserPointingSystem() {
         super(Aspect.all(Laser.class));
@@ -91,7 +95,8 @@ public class LaserPointingSystem extends FluidSystem {
     }
 
 
-    public int difficultyScore = 1;
+    public boolean DEBUG2 = false;
+    public int difficultyScore = DEBUG2 ? 159 : 1;
 
     private void scaleDifficulty() {
         difficultyCooldown -= world.delta * slowTimeSystem.slowdownFactor();
@@ -101,29 +106,47 @@ public class LaserPointingSystem extends FluidSystem {
             scoreSystem.distance++;
 
             if ( difficultyScore == 30 ) {
+                maximumLasersAtOnce=0;
+                laserPointingSystem.cancelAllLasers();
+                stagePieceSystem.addHelicopter(-100, 300, 200);
+            }
+
+            if ( difficultyScore == 60 ) {
                 maximumLasersAtOnce= 2;
                 laserSpawnDelayMin = 4;
                 laserSpawnDelayMax = 6;
             }
 
-            if ( difficultyScore == 60 ) {
+            if ( difficultyScore == 90 ) {
                 rocketVelocity += 10;
             }
 
-            if ( difficultyScore == 90 ) {
+            if ( difficultyScore == 120 ) {
                 maximumLasersAtOnce=3;
                 laserSpawnDelayMin = 4;
                 laserSpawnDelayMax = 5;
             }
-            if ( difficultyScore == 120 ) {
+            if ( difficultyScore == 160 ) {
                 rocketVelocity += 10;
+                maximumLasersAtOnce=0;
+                laserPointingSystem.cancelAllLasers();
+                stagePieceSystem.addHelicopter(-100, 300, 200);
+                stagePieceSystem.addHelicopter(GameRules.SCREEN_WIDTH/2 + 100 , 250, 500) ;
             }
 
-            if ( difficultyScore == 160 ) {
+            if ( difficultyScore == 230 ) {
                 maximumLasersAtOnce=5;
                 laserSpawnDelayMin = 2;
                 laserSpawnDelayMax = 4;
             }
+        }
+    }
+
+    private void cancelAllLasers() {
+        Bag<Entity> entities = getEntities();
+        Object[] array = entities.getData();
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            E.E((Entity) array[i]).deleteFromWorld();
         }
     }
 

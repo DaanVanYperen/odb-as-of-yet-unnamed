@@ -71,6 +71,7 @@ public class RocketLauncherSystem extends FluidSystem {
         E e = E.E()
                 .pos(originX, originY)
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 10)
+                .theFloorIsLava()
                 .bullet()
                 .bounds(0, 0, width, height)
                 //.slowTimeCooldown(5f)
