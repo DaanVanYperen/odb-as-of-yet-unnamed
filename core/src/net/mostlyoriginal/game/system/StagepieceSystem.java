@@ -123,7 +123,7 @@ public class StagepieceSystem extends FluidSystem {
 
             addPresident(GameRules.SCREEN_WIDTH / 4 + carHalf, ACTOR_SPAWN_Y + 2);
 
-            addHelicopter(GameRules.SCREEN_WIDTH / 8  + carHalf, 300);
+            addHelicopter(GameRules.SCREEN_WIDTH / 8  + carHalf, 250);
         }
     }
 
