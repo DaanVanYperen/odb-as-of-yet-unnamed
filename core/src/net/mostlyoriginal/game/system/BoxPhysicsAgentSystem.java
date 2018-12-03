@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import net.mostlyoriginal.game.component.Guard;
 import net.mostlyoriginal.game.system.common.FluidSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -20,6 +21,7 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
     private E tutorial;
     private boolean removeTutorials;
     private MouseCatapultSystem mouseCatapultSystem;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
 
     public BoxPhysicsAgentSystem() {
@@ -79,6 +81,7 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
                 if (e.guardState() == Guard.State.JUMPING && notMovingUp) {
                     body.setTransform(body.getPosition(), 0);
                     guard.slideCooldown = 1f;
+                    gameScreenAssetSystem.playSfx("hurt1", "hurt2");
                     e.guardState(Guard.State.SLIDING);
                     e.animAge(0);
                 }

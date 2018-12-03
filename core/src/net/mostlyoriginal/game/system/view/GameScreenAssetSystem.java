@@ -317,16 +317,19 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
 
         loadSounds(new String[]{
-//                "car",
-//                "fanfare1",
-//                "heli1",
-//                "hitsound1",
-//                "hurt1",
-//                "hurt2",
-//                "preshurt1",
-//                "preshurt2",
-//                "slide",
-//                "jump1"
+                "car",
+                "heli1",
+                "hitsound1",
+                "hurt1",
+                "hurt2",
+                "preshurt1", //
+                "preshurt2", //
+                "slide", //
+                "jump1", //
+                "jump2",
+                "jump3",
+                "jump4"
+
 
 //                "coin_drop_01",
 //                "coin_drop_02",
