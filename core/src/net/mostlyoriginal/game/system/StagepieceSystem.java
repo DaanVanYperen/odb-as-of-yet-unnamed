@@ -133,6 +133,7 @@ public class StagepieceSystem extends FluidSystem {
                 .animId("helicopter")
                 .theFloorIsLava()
                 .hoveringTargetY( y )
+                .rocketLauncher()
                 .scale(1f)
                 .bounds(0, 0, 82, 50)
                 .renderLayer(GameScreenAssetSystem.LAYER_CAR-100);

@@ -33,6 +33,7 @@ public class GrabSystem extends FluidSystem {
             boxPhysicsAgentSystem.disableCollisionAndInteraction(agent);
 
             if ( numberOfAgentsAttached(heli) >= 1 ) {
+                heli.removeRocketLauncher(); // no more shooting!
                 weighDown(agent);
             }
 

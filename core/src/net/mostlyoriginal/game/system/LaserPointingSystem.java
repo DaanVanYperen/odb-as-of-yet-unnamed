@@ -5,15 +5,13 @@ import com.artemis.E;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import net.mostlyoriginal.game.GameRules;
 import net.mostlyoriginal.game.component.Laser;
+import net.mostlyoriginal.game.component.RocketLauncher;
 import net.mostlyoriginal.game.system.common.FluidSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
-
-import static net.mostlyoriginal.game.system.StagepieceSystem.*;
 
 /**
  * @author Daan van Yperen
@@ -23,13 +21,14 @@ public class LaserPointingSystem extends FluidSystem {
     private static final int MAX_LASERS = 3;
 
     private static boolean DEBUG = false;
+    private RocketLauncherSystem rocketLauncherSystem;
 
     private float laserChargingDuration = DEBUG ? 2f : 2f;
     private float laserBlinkingDuration = DEBUG ? 0.5f : 0.5f;
     private int maximumLasersAtOnce = DEBUG ? 100 : 1;
     private int laserSpawnDelayMin = DEBUG ? 1 : 6;
     private int laserSpawnDelayMax = DEBUG ? 1 : 8;
-    private int rocketVelocity = 20;
+    public int rocketVelocity = 20;
 
 
     private E head;
@@ -152,7 +151,7 @@ public class LaserPointingSystem extends FluidSystem {
                 intercept(e, laser);
             } else {
                 if (!laser.fired) {
-                    spawnRocket(laser);
+                    rocketLauncherSystem.spawnRocket(laser.sourceX, laser.sourceY, laser.targetX, laser.targetY,RocketLauncher.RocketType.BIG, rocketVelocity);
                     laser.fired = true;
                 }
                 e.deleteFromWorld();
@@ -163,27 +162,6 @@ public class LaserPointingSystem extends FluidSystem {
 
 
     Vector2 v2 = new Vector2();
-
-    private void spawnRocket(Laser laser) {
-
-        E e = E.E()
-                .pos(laser.sourceX, laser.sourceY)
-                .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 10)
-                .bounds(0, 0, 48, 9)
-                //.slowTimeCooldown(5f)
-                .bullet()
-                .anim("bullet");
-
-        v2.set(laser.targetX, laser.targetY).sub(laser.sourceX, laser.sourceY).nor().scl(rocketVelocity);
-
-        Body body = boxPhysicsSystem.addAsBox(e, 24, 4, 5f, CAT_BULLET, (short) (CAT_AGENT | CAT_PRESIDENT), v2.angleRad());
-        for (Fixture fixture : body.getFixtureList()) {
-            fixture.setSensor(true);
-        }
-
-        body.setGravityScale(0f);
-        body.setLinearVelocity(v2.x, v2.y);
-    }
 
     private E hitFixture;
 
