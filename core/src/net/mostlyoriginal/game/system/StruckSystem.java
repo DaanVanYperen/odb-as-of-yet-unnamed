@@ -36,7 +36,11 @@ public class StruckSystem extends FluidSystem {
         }
 
         if (e.isBullet() || e.hasTheFloorIsLava()) {
-            scoreSystem.rockets++;
+            if ( e.hasHovering() ) {
+                scoreSystem.choppers++;
+            } else {
+                scoreSystem.rockets++;
+            }
             particleSystem.confettiBomb(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             e.deleteFromWorld();
             gameScreenAssetSystem.playSfx("hitsound1");
