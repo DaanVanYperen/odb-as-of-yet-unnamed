@@ -167,9 +167,10 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
             e.removeCatapultProjectile();
             Body body = e.boxedBody();
             body.setTransform(body.getPosition(), MathUtils.random(-10f, 10f));
+            e.tint(1f,1f,1f,0.8f);
             for (Fixture fixture : body.getFixtureList()) {
                 Filter filterData = fixture.getFilterData();
-                filterData.maskBits = 0;
+                filterData.maskBits = StagepieceSystem.CAT_BULLET;
                 fixture.setFilterData(filterData);
             }
         }
