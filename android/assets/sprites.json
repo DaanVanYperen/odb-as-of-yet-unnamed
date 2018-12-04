@@ -1261,5 +1261,25 @@
       "width": 40,
       "height": 40,
     },	
+    {
+      "id": "transition_red",
+      "comment": "Red dots for transition.",
+      "x": 0,
+      "y": 312,
+      "countX": 1,
+      "countY": 1,
+      "width": 1,
+      "height": 13,
+    },	
+    {
+      "id": "transition_white",
+      "comment": "White dots for transition.",
+      "x": 1,
+      "y": 312,
+      "countX": 1,
+      "countY": 1,
+      "width": 1,
+      "height": 13,
+    },	
   ]
 }
