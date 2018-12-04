@@ -21,6 +21,8 @@ public class LogoScreenAssetSystem extends AbstractAssetSystem {
 	protected void initialize() {
 		super.initialize();
 		add("logo", 359,665, LOGO_WIDTH, LOGO_HEIGHT, 1);
+		add("transition_red", 0,312, 1, 13, 1);
+		add("transition_white", 1,312, 1, 13, 1);
 	}
 
 	@Override
