@@ -71,7 +71,7 @@ public class BoxPhysicsAgentSystem extends FluidSystem {
         if (e.posY() < -50) {
             stagePieceSystem.replaceAgent(e.renderLayer(), e.guardTargetX(),
                     MathUtils.clamp(
-                            e.guardBandaged() + (MathUtils.random(0, 100) < 20 ? 1 : 0), 0, 2), -700);
+                            e.guardBandaged() + (MathUtils.random(0, 100) < 20 ? 1 : 0), 0, 2), -400);
             e.deleteFromWorld();
             return;
         }
