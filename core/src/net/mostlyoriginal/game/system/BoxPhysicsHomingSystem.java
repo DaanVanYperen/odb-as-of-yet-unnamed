@@ -48,7 +48,7 @@ public class BoxPhysicsHomingSystem extends FluidSystem {
 
             body.setTransform(body.getPosition(), adjustedAngle);
 
-            reference.set(1, 0).rotateRad(adjustedAngle).scl(body.getMass());
+            reference.set(0.5f, 0).rotateRad(adjustedAngle).scl(body.getMass());
             body.setLinearVelocity(reference.x,reference.y);
         }
     }
