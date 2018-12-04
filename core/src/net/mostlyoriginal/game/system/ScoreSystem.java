@@ -57,8 +57,8 @@ public class ScoreSystem extends BaseSystem {
                         .pos(GameRules.SCREEN_WIDTH / 4 - 160, 0);
 
                 int stars =
-                        MathUtils.clamp(distance / 100, 0, 2) +
-                                MathUtils.clamp(rockets / 10, 0, 1) +
+                        MathUtils.clamp(distance / 25, 0, 2) +
+                                MathUtils.clamp(rockets / 10, 0, 2) +
                                 MathUtils.clamp(choppers / 2, 0, 2);
 
                 for (int i = 0; i < 5; i++) {

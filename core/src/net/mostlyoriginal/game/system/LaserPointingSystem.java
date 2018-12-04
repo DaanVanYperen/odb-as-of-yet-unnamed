@@ -66,7 +66,7 @@ public class LaserPointingSystem extends FluidSystem {
 
     private void spawnLaser(int i) {
         E e = E.E()
-                .laser(i, GameRules.SCREEN_HEIGHT / 2 + 200)
+                .laser(i, GameRules.SCREEN_HEIGHT / 2)
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 5000);
 
         process(e);
@@ -207,7 +207,8 @@ public class LaserPointingSystem extends FluidSystem {
                 intercept(e, laser);
             } else {
                 if (!laser.fired) {
-                    rocketLauncherSystem.spawnRocket(laser.sourceX, laser.sourceY, laser.targetX, laser.targetY, RocketLauncher.RocketType.BIG, rocketVelocity);
+                    rocketLauncherSystem
+                            .spawnRocket(laser.sourceX, laser.sourceY, laser.targetX, laser.targetY, RocketLauncher.RocketType.BIG, rocketVelocity);
                     laser.fired = true;
                 }
                 e.deleteFromWorld();
