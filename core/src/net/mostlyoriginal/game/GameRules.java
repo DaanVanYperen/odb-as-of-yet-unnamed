@@ -20,4 +20,6 @@ public abstract class GameRules {
     public static int lastScore = -1;
     public static int level = -1;
     public static Music music;
+    public static boolean sfxOn=true;
+    public static boolean musicOn=true;
 }

@@ -124,7 +124,7 @@ public class ScoreSystem extends BaseSystem {
 
         if (gameOver && keyCooldown <= 0) {
             if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-                world.getSystem(TransitionSystem.class).transition(GameScreen.class, 3);
+                world.getSystem(TransitionSystem.class).transition(GameScreen.class, 0.55f);
             }
         }
     }

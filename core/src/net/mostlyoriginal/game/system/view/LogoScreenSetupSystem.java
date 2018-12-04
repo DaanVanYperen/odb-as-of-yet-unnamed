@@ -52,7 +52,7 @@ public class LogoScreenSetupSystem extends BaseSystem {
         if (cooldown<= 0 && !finished &&(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched()) ) {
             finished=true;
             fadeLogoAndMessage();
-            world.getSystem(TransitionSystem.class).transition(GameScreen.class, 3);
+            world.getSystem(TransitionSystem.class).transition(GameScreen.class, 0.55f);
         }
     }
 

@@ -472,12 +472,19 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
 
     public void playSfx(String name, float volume) {
-        if (volume > 0) {
+        if (volume > 0 && GameRules.sfxOn) {
             Sound sfx = getSfx(name);
             if (sfx != null) {
                 sfx.stop();
                 sfx.play(volume, MathUtils.random(1f, 1.04f), 0);
             }
+        }
+    }
+
+
+    public void playSfx(String name) {
+        if ( GameRules.sfxOn) {
+            super.playSfx(name);
         }
     }
 
