@@ -885,7 +885,7 @@
       "countY": 6,
       "width": 48,
       "height": 9,
-      "milliseconds": 50,
+      "milliseconds": 70,
       "repeat": true
     },
     {
@@ -897,7 +897,7 @@
       "countY": 6,
       "width": 24,
       "height": 6,
-      "milliseconds": 50,
+      "milliseconds": 70,
       "repeat": true
     },
     {
@@ -909,7 +909,7 @@
       "countY": 2,
       "width": 24,
       "height": 14,
-      "milliseconds": 50,
+      "milliseconds": 70,
       "repeat": true	  
     },
     {
@@ -1225,6 +1225,16 @@
       "countY": 1,
       "width": 344,
       "height": 209,
+    },	
+    {
+      "id": "genuine_earthmen",
+      "comment": "Logo of Genuine Earthmen.",
+      "x": 512,
+      "y": 576,
+      "countX": 1,
+      "countY": 1,
+      "width": 308,
+      "height": 71,
     },	
     {
       "id": "icon_sound",
