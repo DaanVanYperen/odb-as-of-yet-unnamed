@@ -384,6 +384,8 @@
       "countY": 6,
       "width": 72,
       "height": 24,
+      "milliseconds": 70,
+      "repeat": true
     },	
     {
       "id": "road",
@@ -393,6 +395,7 @@
       "countX": 1,
       "countY": 1,
       "width": 32,
+      "height": 16,
       "height": 16,
     },	
     {
@@ -876,10 +879,10 @@
     {
       "id": "bullet",
       "comment": "Directional missile.",
-      "x": 0,
-      "y": 32,
+      "x": 80,
+      "y": 152,
       "countX": 1,
-      "countY": 5,
+      "countY": 6,
       "width": 48,
       "height": 9,
       "milliseconds": 50,
@@ -891,7 +894,7 @@
       "x": 48,
       "y": 32,
       "countX": 1,
-      "countY": 5,
+      "countY": 6,
       "width": 24,
       "height": 6,
       "milliseconds": 50,
@@ -903,9 +906,11 @@
       "x": 80,
       "y": 32,
       "countX": 1,
-      "countY": 1,
+      "countY": 2,
       "width": 24,
       "height": 14,
+      "milliseconds": 50,
+      "repeat": true	  
     },
     {
       "id": "arrow",
