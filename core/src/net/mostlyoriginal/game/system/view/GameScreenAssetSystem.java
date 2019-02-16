@@ -445,7 +445,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                 mp3));
         GameRules.music.stop();
         GameRules.music.setLooping(true);
-        GameRules.music.play();
+        if (GameRules.musicOn ) {
+            GameRules.music.play();
+        }
         GameRules.music.setPan(0, 0.1f);
     }
 
