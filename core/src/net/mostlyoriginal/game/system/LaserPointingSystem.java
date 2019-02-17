@@ -64,11 +64,11 @@ public class LaserPointingSystem extends FluidSystem {
         //stagePieceSystem.addHelicopter(-100, 300, 200);
     }
 
-    private void spawnLaser(int i) {
+    private void spawnLaser(int x) {
+        int y = GameRules.SCREEN_HEIGHT / 2;
         E e = E.E()
-                .laser(i, GameRules.SCREEN_HEIGHT / 2)
+                .laser(x, y)
                 .renderLayer(GameScreenAssetSystem.LAYER_ACTORS + 5000);
-
         process(e);
     }
 

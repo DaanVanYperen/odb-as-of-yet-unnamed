@@ -55,6 +55,7 @@ public class RocketLauncherSystem extends FluidSystem {
 
     public E spawnRocket(float originX, float originY, float targetX, float targetY, RocketLauncher.RocketType type, float baseVelocity) {
 
+
         if (type == RocketLauncher.RocketType.BIG) {
             gameScreenAssetSystem.playSfx("woosh1", "woosh2");
         }
@@ -101,16 +102,16 @@ public class RocketLauncherSystem extends FluidSystem {
             E head = entityWithTag("presidenthead");
             if ( head != null ) {
                 e.homingTarget(head.id());
-                if ( originX < GameRules.SCREEN_WIDTH / 4 ) {
-                    originX  = -100;
-                    originY  = GameRules.SCREEN_HEIGHT / 4;
-                    targetY  = GameRules.SCREEN_HEIGHT / 2;
-                } else {
-                    originX  = GameRules.SCREEN_WIDTH;
-                    originY  = GameRules.SCREEN_HEIGHT / 4;
-                    targetY  = GameRules.SCREEN_HEIGHT / 2;
-                }
-                e.pos(originX, originY);
+//                if ( originX < GameRules.SCREEN_WIDTH / 4 ) {
+//                    originX  = -100;
+//                    originY  = GameRules.SCREEN_HEIGHT / 4;
+//                    targetY  = GameRules.SCREEN_HEIGHT / 2;
+//                } else {
+//                    originX  = GameRules.SCREEN_WIDTH;
+//                    originY  = GameRules.SCREEN_HEIGHT / 4;
+//                    targetY  = GameRules.SCREEN_HEIGHT / 2;
+//                }
+//                e.pos(originX, originY);
             }
         }
 
